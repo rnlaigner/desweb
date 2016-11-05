@@ -1,6 +1,7 @@
 airlinesystem\model\exception\CardPaymentException.class
 airlinesystem\model\entity\payment\BankTransferPayment.class
 airlinesystem\model\entity\payment\CardPayment.class
+airlinesystem\view\Log4jHelloWorld.class
 airlinesystem\model\entity\seat\Seat.class
 airlinesystem\model\exception\BankTransferException.class
 airlinesystem\model\exception\PaymentException.class
@@ -27,6 +28,7 @@ airlinesystem\persistence\SimulateDB.class
 airlinesystem\model\entity\airline\Ticket.class
 airlinesystem\model\exception\InvalidFlightOptionException.class
 airlinesystem\model\exception\InvalidSeatOptionException.class
+airlinesystem\servlets\LoginServlet.class
 airlinesystem\controller\AirlineSystemController.class
 airlinesystem\model\operations\UserOperations.class
 airlinesystem\model\entity\airline\Route.class

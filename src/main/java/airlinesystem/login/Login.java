@@ -9,6 +9,8 @@ import airlinesystem.model.entity.user.User;
 import airlinesystem.model.exception.WrongPasswordException;
 import airlinesystem.model.exception.WrongUsernameException;
 import airlinesystem.persistence.SimulateDB;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,11 +21,13 @@ public class Login
 {
     private String username;
     private String password;
+    private Date date;
     
     public Login(String username, String password)
     {
         this.username = username;
         this.password = password;
+        this.setDate(new Date());
     }
     
     public User authenticate(SimulateDB database)
@@ -46,4 +50,12 @@ public class Login
         }
         throw new WrongUsernameException();
     }
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }
