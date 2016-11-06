@@ -5,7 +5,6 @@ import airlinesystem.model.entity.airline.Airport;
 import airlinesystem.model.entity.airline.Route;
 import airlinesystem.model.entity.seat.Seat;
 import airlinesystem.model.entity.user.User;
-import airlinesystem.model.exception.ExistantUsernameException;
 import airlinesystem.model.valueobject.enums.SeatCategory;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -105,12 +104,13 @@ public class SimulateDB
     {   
         if(users.isEmpty())
         {
-            users.add(new User(1,"rodrigo","vasco"));
-            users.add(new User(2,"erick","marxista"));
+            //users.add(new User(1,"rodrigo","vasco"));
+            //users.add(new User(2,"erick","marxista"));
         }
         return users;
     }
     
+    /*
     public User createAccount(String username, String password)
     {
         //start list if not initiated
@@ -123,8 +123,9 @@ public class SimulateDB
                 
             }
         }
-        User newUser = new User(users.size(),username,password);
-        users.add(newUser);
-        return newUser;
+        //User newUser = new User(users.size(),username,password);
+        //users.add(newUser);
+        //return newUser;
     }
+    */
 }

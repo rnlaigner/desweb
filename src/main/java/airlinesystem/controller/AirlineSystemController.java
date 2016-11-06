@@ -51,9 +51,9 @@ public class AirlineSystemController
                 {
                     try
                     {
-                        User user = createAccount(scanner);
+                        //User user = createAccount(scanner);
                         System.out.println("Conta criada com sucesso");
-                        initMainScreen(scanner, user);
+                        initMainScreen(scanner, null);
                     }
                     catch (ExistantUsernameException e)
                     {
@@ -92,6 +92,7 @@ public class AirlineSystemController
         return login.authenticate(database);
     }
     
+    /*
     public User createAccount(Scanner scanner)
     {
         System.out.println("Entre com seu username");
@@ -101,6 +102,7 @@ public class AirlineSystemController
         
         return database.createAccount(username, password);
     }
+    */
     
     public static void showRoute(Route route)
     {
