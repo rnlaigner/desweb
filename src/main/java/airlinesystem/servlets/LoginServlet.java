@@ -1,11 +1,11 @@
 package airlinesystem.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,33 +36,10 @@ public class LoginServlet extends HttpServlet {
 		processRequest(request, response);
 	}
 
-	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
-		 response.setContentType("text/html;charset=UTF-8");
-	       try (PrintWriter out = response.getWriter()) 
-	       {
-	            /* TODO output your page here. You may use following sample code. */
-	            out.println("<!DOCTYPE html>");
-	            out.println("<html>");
-	            out.println("<head>");
-	            out.println("<title>Servlet LoginServlet</title>");            
-	            out.println("</head>");
-	            out.println("<body>");
-	            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-	            out.println("</body>");
-	            out.println("</html>");
-	       }
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException 
 	{
-		//doGet(request, response);
-		
-		 String email = request.getParameter("email");
-	     String password = request.getParameter("senha");
+		String email = request.getParameter("email");
+	    String password = request.getParameter("password");
 
     	EntityManagerFactory emf;
     	emf = Persistence.createEntityManagerFactory("web");
@@ -89,6 +66,17 @@ public class LoginServlet extends HttpServlet {
         }
          
         System.out.println("It is over");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		//doGet(request, response);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/home.html");      
+        rd.forward(request, response);
 		
 	}
 
