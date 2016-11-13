@@ -5,12 +5,20 @@
  */
 package airlinesystem.model.entity.payment;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author Rodrigo
  */
+@Entity
 public class PayPalPayment extends Payment
 {
+	
+	public PayPalPayment()
+	{
+    
+	}
 
     public PayPalPayment(int paymentNumber) {
         super(paymentNumber);

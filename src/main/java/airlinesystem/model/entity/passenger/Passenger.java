@@ -5,16 +5,48 @@ import airlinesystem.model.valueobject.enums.AgeCategory;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="passenger")
 public class Passenger
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique=true, nullable = false)
+	private Long id;
+	
+	@Column(nullable = false)
     private String name;
+	
+	@Column(nullable = false)
     private Date birth;
+	
+	@Column(nullable = false)
     private String address;
+	
+	@Column(nullable = false)
     private String cpf;
+	
+	@Column(nullable = false)
     private String telephone;
+	
+	
     private AgeCategory ageCategory;
     
+    @OneToMany(mappedBy = "passenger")
     private List<Ticket> tickets;
+    
+    public Passenger()
+    {
+    	
+    }
     
     public Passenger(String name, Date birth, String address, String cpf)
     {

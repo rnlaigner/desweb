@@ -1,16 +1,39 @@
 package airlinesystem.model.entity.airline;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import airlinesystem.model.entity.seat.Seat;
 
 /*
 Classe voo esta relacionada ao ticket que um passageiro compra
 */
+@Entity
+@Table(name="flight")
 public class Flight 
 {  
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique=true, nullable = false)
+    private Long id;
+	
+	@Transient
     private Route route;
+	
+	@Transient
     private int number;
+	
+	@Transient
     private Seat seat;
+    
+    public Flight()
+    {
+    }
     
     public Flight(Route route, int number)
     {
@@ -38,11 +61,11 @@ public class Flight
         this.number = number;
     }
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

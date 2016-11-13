@@ -21,8 +21,8 @@ public class Airplane
     {
         this.airplaneNumber = airplaneNumber;
         this.seats = seats;
-        this.setCompany(company);
-        this.setModel(model);
+        this.company = company;
+        this.model = model;
     }
 
     public int getAirplaneNumber() 
