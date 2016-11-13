@@ -6,12 +6,14 @@
 package airlinesystem.model.entity.payment;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author Rodrigo
  */
 @Entity
+@Table(name="banktransfer_payment")
 public class BankTransferPayment extends Payment
 {
 	

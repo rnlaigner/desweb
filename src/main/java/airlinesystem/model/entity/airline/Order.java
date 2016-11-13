@@ -17,8 +17,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+//Nome de tabela gerado `order` da problema no hibernate
+
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order 
 {
 	@Id
@@ -36,14 +38,12 @@ public class Order
 	@JoinColumn(name="user_id")
     private User user;
     
-//    @OneToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="payment_id")
-    @Transient
+    @OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="payment_id")
     private Payment payment;
     
-//    @Column(nullable = true)
-//    @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    @Transient
+    @Column(nullable = true)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long orderNumber;
     
     public Order()
