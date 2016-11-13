@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 //Nome de tabela gerado `order` da problema no hibernate
 
@@ -25,8 +24,8 @@ public class Order
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id",unique=true, nullable = false)
-	private Long order_id;
+    @Column(name = "id",unique=true, nullable = false)
+	private Long id;
 	
 	@OneToMany(mappedBy = "order")
     private List<Ticket> tickets;
@@ -43,7 +42,6 @@ public class Order
     private Payment payment;
     
     @Column(nullable = true)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long orderNumber;
     
     public Order()

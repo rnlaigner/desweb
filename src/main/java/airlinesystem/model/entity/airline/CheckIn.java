@@ -6,27 +6,45 @@
 package airlinesystem.model.entity.airline;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Rodrigo
  */
+@Entity
+@Table(name="checkin")
 public class CheckIn 
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id",unique=true, nullable = false)
+	private Long id;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="checkin_id")
     private Ticket ticket;
-    private GregorianCalendar checkinDate;
+    
+	@Column(nullable = false)
+    private Date date;
+    
+    public CheckIn()
+    {
+    }
     
     public CheckIn(Ticket ticket)
     {
         this.ticket = ticket;
-        
-        Date date = new Date();
-        GregorianCalendar cal;
-        cal = (GregorianCalendar) GregorianCalendar.getInstance();
-        cal.setTime(date);
-        
-        this.checkinDate = cal;
+        this.date = new Date();
     }
 
     public Ticket getTicket() {
@@ -37,12 +55,12 @@ public class CheckIn
         this.ticket = ticket;
     }
 
-    public GregorianCalendar getCheckinDate() {
-        return checkinDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCheckinDate(GregorianCalendar checkinDate) {
-        this.checkinDate = checkinDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
     
     

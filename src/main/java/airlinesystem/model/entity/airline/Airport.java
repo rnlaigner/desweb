@@ -5,14 +5,35 @@
  */
 package airlinesystem.model.entity.airline;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Rodrigo
  */
+@Entity
+@Table(name="airport")
 public class Airport 
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id",unique=true, nullable = false)
+	private Long id;
+	
+	@Column(nullable = true)
     private String name;
+	
+	@Column(nullable = true)
     private String city;
+	
+	public Airport() 
+	{
+    }
 
     public Airport(String name, String city) {
         this.name = name;

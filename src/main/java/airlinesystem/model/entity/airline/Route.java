@@ -1,20 +1,58 @@
 package airlinesystem.model.entity.airline;
 
 import java.time.Period;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="route")
 public class Route 
 {
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique=true, nullable = false)
+    private Float id;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="airplane_id")
     private Airplane airplane;
-    private Airport origin; //can become class airport
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="originairport_id")
+    private Airport origin;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="detinyairport_id")
     private Airport destiny;
-    private GregorianCalendar landTime;
-    private GregorianCalendar flightTime;
+	
+	@Column(nullable = false)
+    private Date landTime;
+    
+    @Column(nullable = false)
+    private Date flightTime;
+    
+    @Column(nullable = false)
     private double price;//Base-price. Should be multiplied by the weight of the Seat
+    
+    @Transient
     private Period duration;
     
-    public Route(int routeId, Airport origin, Airport destiny, GregorianCalendar flightTime, GregorianCalendar landTime, Airplane airplane)
+    public Route()
+    { 
+    	
+    }
+    
+    public Route(Float routeId, Airport origin, Airport destiny, Date flightTime, Date landTime, Airplane airplane)
     { 
       this.id = routeId;
       this.origin = origin;
@@ -54,22 +92,22 @@ public class Route
         this.destiny = destiny;
     }
 
-    public GregorianCalendar getLandTime() 
+    public Date getLandTime() 
     {
         return landTime;
     }
 
-    public void setLandTime(GregorianCalendar landTime) 
+    public void setLandTime(Date landTime) 
     {
         this.landTime = landTime;
     }
 
-    public GregorianCalendar getFlightTime() 
+    public Date getFlightTime() 
     {
         return flightTime;
     }
 
-    public void setFlightTime(GregorianCalendar flightTime) 
+    public void setFlightTime(Date flightTime) 
     {
         this.flightTime = flightTime;
     }
@@ -94,14 +132,14 @@ public class Route
         this.duration = duration;
     }
     
-    public void setRouteId( int routeId )
+    public void setRouteId( Float routeId )
     {
         this.id = routeId;
     }
     
-    public int getRouteId()
+    public Float getRouteId()
     {
-        return this.id;
+        return id;
     }
 
 }

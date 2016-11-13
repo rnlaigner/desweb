@@ -2,16 +2,18 @@ package airlinesystem.model.entity.airline;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import airlinesystem.model.entity.seat.Seat;
 
 /*
-Classe voo esta relacionada ao ticket que um passageiro compra
+Classe flight é o vôo que o passageiro compra e está em seu ticket
 */
 @Entity
 @Table(name="flight")
@@ -22,13 +24,15 @@ public class Flight
     @Column(name = "id",unique=true, nullable = false)
     private Long id;
 	
-	@Transient
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="route_id")
     private Route route;
 	
-	@Transient
+	@Column(nullable = true)
     private int number;
 	
-	@Transient
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="seat_id")
     private Seat seat;
     
     public Flight()

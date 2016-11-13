@@ -1,26 +1,57 @@
 package airlinesystem.model.entity.seat;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import airlinesystem.model.entity.airline.Airplane;
 import airlinesystem.model.valueobject.enums.SeatCategory;
 
+@Entity
+@Table(name="seat")
 public class Seat 
 {
-    private String airplaneSeat;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique=true, nullable = false)
+	private Long id;
+	
+	@Column(nullable = true)
+    private String number;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="airplane_id")
+	private Airplane airplane;
+	
+	@Enumerated(EnumType.STRING)
     private SeatCategory category;
     
-    public Seat(String airplaneSeat, SeatCategory category)
+	public Seat()
     {
-        this.airplaneSeat = airplaneSeat;
+    }
+	
+    public Seat(String number, SeatCategory category)
+    {
+        this.number = number;
         this.category = category;
     }
 
     public String getAirplaneSeat() 
     {
-        return airplaneSeat;
+        return number;
     }
 
-    public void setAirplaneSeat(String airplaneSeat) 
+    public void setNumber(String number) 
     {
-        this.airplaneSeat = airplaneSeat;
+        this.number = number;
     }
 
     public SeatCategory getCategory() 

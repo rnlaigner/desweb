@@ -3,13 +3,38 @@ package airlinesystem.model.entity.airline;
 import airlinesystem.model.entity.seat.Seat;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="airplane")
 public class Airplane 
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",unique=true, nullable = false)
+	private Float id;
+	
+	@OneToMany(mappedBy = "airplane")
     private List<Seat> seats;
+    
+    @Column(nullable = true)
     private int airplaneNumber;
+    
+    @Column(nullable = true)
     private String company;
+    
+    @Column(nullable = true)
     private String model;
-    private int id;
+    
+    public Airplane()
+    {
+    }
     
     public Airplane(int airplaneNumber, List<Seat> seats)
     {
@@ -61,11 +86,11 @@ public class Airplane
 		this.model = model;
 	}
 
-	public int getId() {
+	public Float getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Float id) {
 		this.id = id;
 	}
     

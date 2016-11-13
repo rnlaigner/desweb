@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import airlinesystem.model.entity.airline.Order;
 import airlinesystem.model.entity.user.User;
  
 public class PersistenceTest{
@@ -24,8 +25,13 @@ public class PersistenceTest{
             User user = new User();
             user.setEmail("abc123");
             user.setPassword("abc123");
+            
+            Order order = new Order();
+            order.setUser(user);
              
             em.persist(user);
+            
+            em.persist(order);
              
             em.getTransaction().commit();
         }

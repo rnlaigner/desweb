@@ -28,7 +28,9 @@ public class SimulateDB
         {
             String routeDestiny = route.getDestiny().getName();
             String routeOrigin = route.getOrigin().getName();
-            GregorianCalendar routeDayCalendar = route.getFlightTime();
+            //GregorianCalendar routeDayCalendar = route.getFlightTime();
+            
+            GregorianCalendar routeDayCalendar = new GregorianCalendar();
             
             //transformar gregorianCalendar no formato dd/MM/YYYY
             //day estara nesse formato
@@ -67,8 +69,8 @@ public class SimulateDB
         airports.add(new Airport("MIA","Miami"));
         airports.add(new Airport("BUE","Buenos Aires"));
         
-        routes.add(new Route(1,airports.get(0),airports.get(1),new GregorianCalendar(2016,10,15,20,30),new GregorianCalendar(2016,10,16,6,30),airplanes.get(0)));
-        routes.add(new Route(2,airports.get(1),airports.get(2),new GregorianCalendar(2016,10,16,8,30),new GregorianCalendar(2016,10,16,12,30),airplanes.get(0)));
+        //routes.add(new Route(1,airports.get(0),airports.get(1),new GregorianCalendar(2016,10,15,20,30),new GregorianCalendar(2016,10,16,6,30),airplanes.get(0)));
+        //routes.add(new Route(2,airports.get(1),airports.get(2),new GregorianCalendar(2016,10,16,8,30),new GregorianCalendar(2016,10,16,12,30),airplanes.get(0)));
         //routes.add(new Route(3,"GIG","Charlotte",new GregorianCalendar(2016,10,15,19,30),new GregorianCalendar(2016,10,16,4,30),airplanes.get(0)));
         //routes.add(new Route(4,"Charlotte","Boston",new GregorianCalendar(2016,10,16,9,30),new GregorianCalendar(2016,10,16,12,30),airplanes.get(0)));
 
