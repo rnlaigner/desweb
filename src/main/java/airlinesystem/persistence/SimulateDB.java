@@ -1,11 +1,12 @@
 package airlinesystem.persistence;
 
-import airlinesystem.model.entity.airline.Airplane;
-import airlinesystem.model.entity.airline.Airport;
-import airlinesystem.model.entity.airline.Route;
-import airlinesystem.model.entity.seat.Seat;
-import airlinesystem.model.entity.user.User;
-import airlinesystem.model.valueobject.enums.SeatCategory;
+import airlinesystem.model.entity.Airplane;
+import airlinesystem.model.entity.Airport;
+import airlinesystem.model.entity.Route;
+import airlinesystem.model.entity.Seat;
+import airlinesystem.model.entity.User;
+import airlinesystem.model.enums.SeatCategory;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;

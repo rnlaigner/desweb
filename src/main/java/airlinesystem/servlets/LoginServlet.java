@@ -15,7 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
-import airlinesystem.model.entity.user.User;
+import airlinesystem.login.Login;
+import airlinesystem.model.entity.User;
+import airlinesystem.model.exception.ObjetoNaoEncontradoException;
 
 /**
  * Servlet implementation class LoginServlet
@@ -96,22 +98,45 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		boolean logged = false;
+		
 	    HttpSession session = request.getSession();
         
 	    String remember = request.getParameter("remember-me");
         String email = request.getParameter("email");
 	    String password = request.getParameter("password");
 	    
-	    if(remember != null)
-	    {
-	    	ServletContext servletContext = request.getServletContext();
-	    	servletContext.setAttribute("email", email);
-	    }
+	    Login login;
 	    
-	    session.setAttribute("email", email);
+	    try
+	    {
+	    	login = new Login(email,password);
+	    	login.authenticate();
+	    	logged = true;
+	    }
+	    catch(ObjetoNaoEncontradoException e)
+		{	
+	    	//log4j
+		}
+	    
+	    if(logged)
+	    {
+	    
+		    if(remember != null)
+		    {
+		    	ServletContext servletContext = request.getServletContext();
+		    	servletContext.setAttribute("email", email);
+		    }
+		    
+		    session.setAttribute("email", email);
+	    
+	    }
+	    else
+	    {
+	    	//colocar erro na tela
+	    }
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");      
         rd.forward(request, response);

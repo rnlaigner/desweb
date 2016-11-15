@@ -1,9 +1,9 @@
 package airlinesystem.controller;
 
-import airlinesystem.login.Login;
-import airlinesystem.model.entity.airline.Route;
-import airlinesystem.model.entity.seat.Seat;
-import airlinesystem.model.entity.user.User;
+//import airlinesystem.login.Login;
+import airlinesystem.model.entity.Route;
+import airlinesystem.model.entity.Seat;
+import airlinesystem.model.entity.User;
 import airlinesystem.model.exception.ExistantUsernameException;
 import airlinesystem.model.exception.InvalidFlightOptionException;
 import airlinesystem.model.exception.WrongPasswordException;
@@ -79,17 +79,18 @@ public class AirlineSystemController
     
     public User validateLogin(Scanner scanner)
     { 
-        String username;
-        String password;
+//        String username;
+//        String password;
+//        
+//        System.out.println("Entre com seu nome de usuario");
+//        username = scanner.nextLine();
+//        System.out.println("Entre com sua senha");
+//        password = scanner.nextLine();
         
-        System.out.println("Entre com seu nome de usuario");
-        username = scanner.nextLine();
-        System.out.println("Entre com sua senha");
-        password = scanner.nextLine();
+        //Login login = new Login(username, password);
         
-        Login login = new Login(username, password);
-        
-        return login.authenticate(database);
+        //return login.authenticate(database);
+        return new User();
     }
     
     /*

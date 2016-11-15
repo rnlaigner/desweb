@@ -5,13 +5,9 @@
  */
 package airlinesystem.login;
 
-import airlinesystem.model.entity.user.User;
-import airlinesystem.model.exception.WrongPasswordException;
-import airlinesystem.model.exception.WrongUsernameException;
-import airlinesystem.persistence.SimulateDB;
-
-import java.util.Date;
-import java.util.List;
+import airlinesystem.dao.UserAppService;
+import airlinesystem.model.entity.User;
+import airlinesystem.model.exception.ObjetoNaoEncontradoException;
 
 /**
  *
@@ -19,43 +15,26 @@ import java.util.List;
  */
 public class Login 
 {
-    private String username;
+    private String email;
     private String password;
-    private Date date;
     
-    public Login(String username, String password)
+    private static final UserAppService userAppService = UserAppService.getInstance();
+    
+    public Login(String email, String password)
     {
-        this.username = username;
+        this.email = email;
         this.password = password;
-        this.setDate(new Date());
     }
     
-    public User authenticate(SimulateDB database)
+    public User authenticate() throws ObjetoNaoEncontradoException
     {
-        List<User> userList = database.retrieveUsers();
-        
-        for(User user : userList)
-        {
-            if(user.getUsername().equals(this.username))
-            {
-                if(user.getPassword().equals(this.password))
-                {
-                    return user;
-                }
-                else
-                {
-                    throw new WrongPasswordException();
-                }
-            }
-        }
-        throw new WrongUsernameException();
+    	User user;
+        try {
+			user = userAppService.recuperaUmUser(email,password);
+		} catch (ObjetoNaoEncontradoException e) {
+			throw new ObjetoNaoEncontradoException(e.getMessage());
+		}
+		return user;
     }
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
 }

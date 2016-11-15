@@ -9,31 +9,26 @@
 <!--<![endif]-->
 
 	<style>
-	
-		.inner-intro .teste {
-		    float: none;
-		    margin: 0 auto;
-		    text-align: right;
-		    display: inline-block;
-		    padding-left: 27px;
-		    padding-right: 27px;
-		    min-width: auto;
-		    width: auto;
+		div.transbox {
+		  margin: 0 auto;
+    	  width: 500px;
+		  padding-top: 1px;
+		  padding-bottom: 19px;
+		  background-color: rgba(255,255,255,0.9);
+		  border: 1px;
+		  opacity: 0.9;
+		  filter: alpha(opacity=60); /* For IE8 and earlier */
 		}
 		
-		.ui-home-main-offer-price {
-		    -moz-box-sizing: border-box;
-		    -webkit-box-sizing: border-box;
-		    box-sizing: border-box;
-		    background-color: rgba(255,255,255,0.15);
-		    padding: 9px 1% 0;
-		    height: 65px;
-		    min-width: 140px;
-		    width: 46%;
-		    float: left;
-		    text-align: right;
+		h1.header-title, p.header-sub-title, button.custom-btn
+		{
+			color:#337ab7;
 		}
-	
+		
+		button.custom-btn
+		{
+			border-color:#337ab7;
+		}
 	</style>
 
 	<head>
@@ -83,7 +78,7 @@
 					<% if(email == null){ %>
 					<li><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown">Login<strong class="caret"></strong></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
 						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
 							<form method="post" action="LoginServlet" accept-charset="UTF-8">
 								<input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email">
@@ -118,48 +113,54 @@
 		<div id="header">
 		    <div class="flexslider">
 		        <ul class="slides">
-		            <li class="slider-item" style="background-image: url('ui/assets/images/item-1.png')">
+		            <li class="slider-item" style="background-image: url('ui/assets/images/item-9.jpg')">
 		                <div class="intro container">
-		                    <div class="inner-intro teste">
-		                        <h1 class="header-title">
-		                            <span>traveling</span> always "good idea"
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button id="bookBtn1" class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    <div class="inner-intro">
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            <span>traveling</span> always "good idea"
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn1" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
 		            <li class="slider-item" style="background-image: url('ui/assets/images/item-8.jpg')">
 		                <div class="intro">
 		                    <div class="inner-intro">
-		                        <h1 class="header-title">
-		                            to <span>travel</span> is to <span>live</span>
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button id="bookBtn2" class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            to <span>travel</span> is to <span>live</span>
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn2" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
 		            <li class="slider-item" style="background-image: url('ui/assets/images/item-6.jpg')">
 		                <div class="intro">
 		                    <div class="inner-intro">
-		                        <h1 class="header-title">
-		                            to <span>travel</span> is to <span>live</span>
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button id="bookBtn3" class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            to <span>travel</span> is to <span>live</span>
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn3" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
