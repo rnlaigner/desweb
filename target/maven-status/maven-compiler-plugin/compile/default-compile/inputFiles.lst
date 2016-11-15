@@ -23,6 +23,7 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\constants\Const
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\entity\airline\CheckIn.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\entity\airline\Flight.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\entity\airline\Route.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\persistence\HibernateInit.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\entity\airline\Ticket.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\entity\seat\Seat.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\exception\LoginException.java

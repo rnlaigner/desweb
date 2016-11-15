@@ -7,6 +7,30 @@
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html class="noIE" lang="en-US">
 <!--<![endif]-->
+
+	<style>
+		div.transbox {
+		  margin: 0 auto;
+    	  width: 500px;
+		  padding-top: 1px;
+		  padding-bottom: 19px;
+		  background-color: rgba(255,255,255,0.9);
+		  border: 1px;
+		  opacity: 0.9;
+		  filter: alpha(opacity=60); /* For IE8 and earlier */
+		}
+		
+		h1.header-title, p.header-sub-title, button.custom-btn
+		{
+			color:#337ab7;
+		}
+		
+		button.custom-btn
+		{
+			border-color:#337ab7;
+		}
+	</style>
+
 	<head>
 		<!-- meta -->
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,22 +71,39 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="index.html">Início</a></li>
+					<li><a href="index.html">Início</a></li>
 					<li><a href="about.jsp">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
+					<%String email = (String) session.getAttribute("email");%>
+					<% if(email == null){ %>
 					<li><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">Login<strong class="caret"></strong></a>
-						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-							<form method="post" action="loginServlet" accept-charset="UTF-8">
-								<input style="margin-bottom: 15px;" type="text" placeholder="Nome de usuário" id="username" name="username">
-								<input style="margin-bottom: 15px;" type="password" placeholder="Senha" id="password" name="password">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
+						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<form method="post" action="LoginServlet" accept-charset="UTF-8">
+								<input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email">
+								<input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password">
 								<input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">
-								<label class="string optional" for="user_remember_me"> Lembrar-se de mim</label>
+								<label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label>
 								<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar">
 							</form>
 						</div>
 					</li>
+					<% } else { %>
+						<li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Minha Conta<strong class="caret"></strong></a>
+					        <!--  <span class="caret"></span></a> -->
+					        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+					          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+					          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+					          <li>
+							    <form method="post" action="LogoutServlet" accept-charset="UTF-8">
+								   <input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair">
+							    </form>
+						      </li>
+					        </ul>
+						</li>
+					<% } %>	
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
@@ -72,48 +113,54 @@
 		<div id="header">
 		    <div class="flexslider">
 		        <ul class="slides">
-		            <li class="slider-item" style="background-image: url('ui/assets/images/item-1.png')">
+		            <li class="slider-item" style="background-image: url('ui/assets/images/item-9.jpg')">
 		                <div class="intro container">
 		                    <div class="inner-intro">
-		                        <h1 class="header-title">
-		                            <span>traveling</span> always "good idea"
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button id="bookBtn" class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            <span>traveling</span> always "good idea"
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn1" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
-		            <li class="slider-item" style="background-image: url('ui/assets/images/item-2.png')">
+		            <li class="slider-item" style="background-image: url('ui/assets/images/item-8.jpg')">
 		                <div class="intro">
 		                    <div class="inner-intro">
-		                        <h1 class="header-title">
-		                            to <span>travel</span> is to <span>live</span>
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            to <span>travel</span> is to <span>live</span>
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn2" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
-		            <li class="slider-item" style="background-image: url('ui/assets/images/item-3.jpg')">
+		            <li class="slider-item" style="background-image: url('ui/assets/images/item-6.jpg')">
 		                <div class="intro">
 		                    <div class="inner-intro">
-		                        <h1 class="header-title">
-		                            to <span>travel</span> is to <span>live</span>
-		                        </h1>
-		                        <p class="header-sub-title">
-		                            it leaves you speecless, then turns your into a storyteller.
-		                        </p>
-		                        <button class="btn custom-btn">
-		                            book now
-		                        </button>
+		                    	<div class="transbox">
+			                        <h1 class="header-title">
+			                            to <span>travel</span> is to <span>live</span>
+			                        </h1>
+			                        <p class="header-sub-title">
+			                            it leaves you speecless, then turns your into a storyteller.
+			                        </p>
+			                        <button id="bookBtn3" class="btn custom-btn">
+			                            book now
+			                        </button>
+			                    </div>
 		                    </div>
 		                </div>
 		            </li> <!-- /.slider-item -->
@@ -546,9 +593,19 @@
 		//var pathname = window.location.pathname; // Returns path only
 		//var url      = window.location.href;     // Returns full URL
 	
-	    document.getElementById("bookBtn").onclick = function () {
-	    	window.location='home.jsp#bookSection';
-	    };
+// 	    document.getElementById("bookBtn").onclick = function () {
+// 	    	window.location='home.jsp#bookSection';
+// 	    };
+
+		$('#bookBtn1').click(function() {
+			window.location='home.jsp#bookSection';
+		});
+		$('#bookBtn2').click(function() {
+			window.location='home.jsp#bookSection';
+		});
+		$('#bookBtn3').click(function() {
+			window.location='home.jsp#bookSection';
+		});
 	</script>
 
 </body>

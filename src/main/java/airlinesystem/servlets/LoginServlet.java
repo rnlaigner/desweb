@@ -6,10 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 
 import airlinesystem.model.entity.user.User;
 
@@ -17,7 +21,28 @@ import airlinesystem.model.entity.user.User;
  * Servlet implementation class LoginServlet
  */
 public class LoginServlet extends HttpServlet {
+	
+	Session session;
+	
 	private static final long serialVersionUID = 1L;
+	
+	/*
+	@Override
+	public void init()
+	{
+		HibernateInit hibernateInit;
+		
+		hibernateInit = HibernateInit.getInstance();
+		
+		try {
+			hibernateInit.voidSetUp();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    session = hibernateInit.sessionFactory.openSession();
+	}
+	*/
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -71,11 +96,24 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//doGet(request, response);
+	    HttpSession session = request.getSession();
+        
+	    String remember = request.getParameter("remember-me");
+        String email = request.getParameter("email");
+	    String password = request.getParameter("password");
+	    
+	    if(remember != null)
+	    {
+	    	ServletContext servletContext = request.getServletContext();
+	    	servletContext.setAttribute("email", email);
+	    }
+	    
+	    session.setAttribute("email", email);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/home.html");      
+		RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");      
         rd.forward(request, response);
 		
 	}

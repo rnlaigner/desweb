@@ -18,6 +18,7 @@ airlinesystem\login\Login.class
 airlinesystem\model\exception\ExistantUsernameException.class
 airlinesystem\model\entity\airline\Airplane.class
 airlinesystem\model\entity\airline\CheckIn.class
+airlinesystem\persistence\HibernateInit.class
 airlinesystem\model\entity\passenger\Passenger.class
 airlinesystem\model\valueobject\enums\SeatCategory.class
 airlinesystem\model\entity\airline\Flight.class
