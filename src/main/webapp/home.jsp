@@ -71,39 +71,30 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html">Início</a></li>
+					<li><a href="home.jsp">Início</a></li>
 					<li><a href="about.jsp">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
-					<%String email = (String) session.getAttribute("email");%>
-					<% if(email == null){ %>
-					<li><a href="contact.jsp">Cadastre-se</a></li>
-					<li class="dropdown">
+					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
+					<li class="dropdown signed-out">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
-						<div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
-							<form method="post" action="LoginServlet" accept-charset="UTF-8">
-								<input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email">
-								<input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password">
-								<input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1">
-								<label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label>
-								<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar">
-							</form>
-						</div>
+						<ul class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<li><input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email"><li>
+							<li><input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password"><li>
+							<li><input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1"><li>
+							<li><label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label><li>
+							<li><input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar"></li>
+							<li id="messageDiv" style="display:none;"></li>
+						</ul>
 					</li>
-					<% } else { %>
-						<li class="dropdown">
-					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Minha Conta<strong class="caret"></strong></a>
-					        <!--  <span class="caret"></span></a> -->
-					        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
-					          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
-					          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
-					          <li>
-							    <form method="post" action="LogoutServlet" accept-charset="UTF-8">
-								   <input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair">
-							    </form>
-						      </li>
-					        </ul>
-						</li>
-					<% } %>	
+					<li class="dropdown signed-in" style="display:none;">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
+				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
+				        </ul>
+					</li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
@@ -117,7 +108,7 @@
 		                <div class="intro container">
 		                    <div class="inner-intro">
 		                    	<div class="transbox">
-			                        <h1 class="header-title">
+			                        <h1 class="header-title"> 
 			                            <span>traveling</span> always "good idea"
 			                        </h1>
 			                        <p class="header-sub-title">
@@ -581,32 +572,14 @@
 		</div>		
 	</footer>
 
-
 	<script src="ui/assets/js/jquery-1.11.2.min.js"></script>
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
     <script src="ui/assets/js/contact.js"></script>
     <script src="ui/assets/js/jquery.flexslider.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-
-	<script type="text/javascript">
-		//var pathname = window.location.pathname; // Returns path only
-		//var url      = window.location.href;     // Returns full URL
-	
-// 	    document.getElementById("bookBtn").onclick = function () {
-// 	    	window.location='home.jsp#bookSection';
-// 	    };
-
-		$('#bookBtn1').click(function() {
-			window.location='home.jsp#bookSection';
-		});
-		$('#bookBtn2').click(function() {
-			window.location='home.jsp#bookSection';
-		});
-		$('#bookBtn3').click(function() {
-			window.location='home.jsp#bookSection';
-		});
-	</script>
+	<script src="ui/assets/js/menu.js"></script>
+	<script src="ui/assets/js/login.js"></script>
 
 </body>
 </html>

@@ -27,6 +27,7 @@ airlinesystem\model\entity\Seat.class
 airlinesystem\model\exception\InfraestruturaException.class
 airlinesystem\model\entity\BankTransferPayment.class
 airlinesystem\persistence\SimulateDB.class
+airlinesystem\servlets\LogoutServlet.class
 airlinesystem\model\entity\Flight.class
 airlinesystem\model\exception\InvalidFlightOptionException.class
 airlinesystem\model\entity\Order.class

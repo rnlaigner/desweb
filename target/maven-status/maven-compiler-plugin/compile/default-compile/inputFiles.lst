@@ -16,6 +16,7 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\exception\Inval
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\exception\PaymentException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\FabricaDeDAOs.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\enums\SeatCategory.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\LogoutServlet.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\controller\AirlineSystemController.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\enums\AgeCategory.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\model\exception\ObjetoNaoEncontradoException.java
