@@ -33,27 +33,29 @@
 
 	<head>
 		<!-- meta -->
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
-	<title>Euro Travel</title>
-
-	<link rel="stylesheet" href="ui/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="ui/assets/css/ionicons.min.css">
-	<link rel="stylesheet" href="ui/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="ui/assets/css/owl.theme.css">
-	<link rel="stylesheet" href="ui/assets/css/flexslider.css" type="text/css">
-    <link rel="stylesheet" href="ui/assets/css/main.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-			<!--[if lt IE 9]>
-				<script src="ui/assets/js/html5shiv.js"></script>
-				<script src="ui/assets/js/respond.js"></script>
-			<![endif]-->
-
-			<!--[if IE 8]>
-		    	<script src="ui/assets/js/selectivizr.js"></script>
-		    <![endif]-->
-</head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+		<title>Euro Travel</title>
+	
+		<link rel="stylesheet" href="ui/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="ui/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="ui/assets/css/owl.carousel.css">
+		<link rel="stylesheet" href="ui/assets/css/owl.theme.css">
+		<link rel="stylesheet" href="ui/assets/css/flexslider.css" type="text/css">
+	    <link rel="stylesheet" href="ui/assets/css/main.css">
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	 
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+				<!--[if lt IE 9]>
+					<script src="ui/assets/js/html5shiv.js"></script>
+					<script src="ui/assets/js/respond.js"></script>
+				<![endif]-->
+	
+				<!--[if IE 8]>
+			    	<script src="ui/assets/js/selectivizr.js"></script>
+			    <![endif]-->
+	</head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -161,50 +163,114 @@
 <!-- Find a Tour -->
 	<section id="bookSection" class="tour section-wrapper container">
 		<h2 class="section-title">
-			Find a Tour
+			Encontre sua passagem
 		</h2>
 		<p class="section-subtitle">
-			Where would you like to go?
+			Para onde você deseja ir?
 		</p>
 		<div class="row">
 			<div class="col-md-3 col-sm-6">
+				<div class="input-group">
+					<input type="text" class="form-control border-radius border-right" placeholder="Origem"/>
+					<span class="input-group-addon border-radius custom-addon">
+						<i class="ion-ios-calendar"></i>
+					</span>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="input-group">
+					<input type="text" class="form-control border-radius border-right" placeholder="Destino"/>
+					<span class="input-group-addon border-radius custom-addon">
+						<i class="ion-ios-calendar"></i>
+					</span>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="input-group">
+					<input type="text" class="form-control border-radius border-right" id="datepicker1" placeholder="Data de Saída"/>
+					<span class="input-group-addon border-radius custom-addon">
+						<i class="ion-ios-calendar"></i>
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-md-3 col-sm-6">
+				<div class="input-group">
+					<input type="text" class="form-control border-radius border-right" id="datepicker2" placeholder="Data de Retorno"/>
+					<span class="input-group-addon border-radius custom-addon">
+						<i class="ion-ios-calendar"></i>
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-md-3 col-sm-6">
 				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel1">Select list (select one):</label>
+						<label for="sel1">Adultos</label>
 						<select class="form-control border-radius" id="sel1">
-							<option>America</option>
-							<option>Bangladesh</option>
-							<option>Canada</option>
-							<option>India</option>
+							<option value="" disabled selected>Adultos</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
 						</select>
 					</div>
 				</form>
 			</div>
-
+			
 			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Arrival"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
-				</div>
+				<form role="form" class="form-dropdown">
+					<div class="form-group">
+						<label for="sel2">Crianças</label>
+						<select class="form-control border-radius" id="sel2">
+							<option value="" disabled selected>Crianças</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+				</form>
 			</div>
-
+			
 			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Departure"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
-				</div>
+				<form role="form" class="form-dropdown">
+					<div class="form-group">
+						<label for="sel3">Classe</label>
+						<select class="form-control border-radius" id="sel3">
+							<option value="" disabled selected>Crianças</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+				</form>
 			</div>
-
+			
 			<div class="col-md-3 col-sm-6">
-				<div class="btn btn-default border-radius custom-button">
-					Search
-				</div>
+				<form role="form" class="form-dropdown">
+					<div class="form-group">
+						<label for="sel4">Bebês</label>
+						<select class="form-control border-radius" id="sel4">
+							<option value="" disabled selected>Bebês</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+				</form>
 			</div>
+		</div>	
+		
+		
+		<div class="btn btn-default border-radius custom-button center-block" style="width: 20em; height: 3em;">
+			Procurar
 		</div>
+		
 	</section> <!-- /.tour -->
 
 
@@ -572,6 +638,7 @@
 		</div>		
 	</footer>
 
+	<!-- Animações da tela principal -->
 	<script src="ui/assets/js/jquery-1.11.2.min.js"></script>
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
@@ -580,6 +647,24 @@
 	<script src="ui/assets/js/script.js"></script>
 	<script src="ui/assets/js/menu.js"></script>
 	<script src="ui/assets/js/login.js"></script>
+	
+	<!-- Date Picker -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+    $( function() {
+        $( "#datepicker1" ).datepicker({
+          minDate: -20, 
+          maxDate: "+1Y"
+        });
+      } );
+    $( function() {
+        $( "#datepicker2" ).datepicker({
+        	minDate: -20, 
+            maxDate: "+1Y +10D"
+        });
+      } );
+    </script>
 
 </body>
 </html>
