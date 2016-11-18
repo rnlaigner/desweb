@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.login.Login;
-import airlinesystem.model.exception.ObjetoNaoEncontradoException;
 
 /**
  * Servlet implementation class LoginServlet

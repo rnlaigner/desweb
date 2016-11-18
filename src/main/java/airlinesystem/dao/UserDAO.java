@@ -2,8 +2,8 @@ package airlinesystem.dao;
 
 import java.util.List;
 
-import airlinesystem.model.entity.User;
-import airlinesystem.model.exception.ObjetoNaoEncontradoException;
+import airlinesystem.entity.User;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public interface UserDAO
 {	

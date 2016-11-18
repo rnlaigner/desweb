@@ -73,8 +73,8 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="home.jsp">Início</a></li>
-					<li><a href="about.jsp">Vôos</a></li>
+					<li class="active"><a href="home.jsp">Início</a></li>
+					<li><a href="flights.jsp">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
@@ -238,9 +238,9 @@
 			<div class="col-md-3 col-sm-6">
 				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel3">Classe</label>
-						<select class="form-control border-radius" id="sel3">
-							<option value="" disabled selected>Crianças</option>
+						<label for="sel4">Bebês</label>
+						<select class="form-control border-radius" id="sel4">
+							<option value="" disabled selected>Bebês</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -253,17 +253,17 @@
 			<div class="col-md-3 col-sm-6">
 				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel4">Bebês</label>
-						<select class="form-control border-radius" id="sel4">
-							<option value="" disabled selected>Bebês</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
+						<label for="sel3">Classe</label>
+						<select class="form-control border-radius" id="sel3">
+							<option value="" disabled selected>Classe</option>
+							<option value="1">Turística</option>
+							<option value="2">Executiva</option>
+							<option value="3">Primeira Classe</option>
 						</select>
 					</div>
 				</form>
 			</div>
+			
 		</div>	
 		
 		

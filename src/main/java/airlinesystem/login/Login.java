@@ -6,8 +6,8 @@
 package airlinesystem.login;
 
 import airlinesystem.dao.UserAppService;
-import airlinesystem.model.entity.User;
-import airlinesystem.model.exception.ObjetoNaoEncontradoException;
+import airlinesystem.entity.User;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 /**
  *

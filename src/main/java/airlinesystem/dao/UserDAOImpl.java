@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
-import airlinesystem.model.entity.User;
-import airlinesystem.model.exception.InfraestruturaException;
-import airlinesystem.model.exception.ObjetoNaoEncontradoException;
+import airlinesystem.entity.User;
+import airlinesystem.exception.InfraestruturaException;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.utils.JPAUtil;
 
 public class UserDAOImpl implements UserDAO

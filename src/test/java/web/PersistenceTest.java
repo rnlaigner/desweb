@@ -4,8 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import airlinesystem.model.entity.Order;
-import airlinesystem.model.entity.User;
+import airlinesystem.entity.Order;
+import airlinesystem.entity.User;
  
 public class PersistenceTest{
 	private static EntityManager em;

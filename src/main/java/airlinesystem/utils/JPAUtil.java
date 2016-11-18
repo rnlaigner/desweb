@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import airlinesystem.model.exception.InfraestruturaException;
+import airlinesystem.exception.InfraestruturaException;
 
 public class JPAUtil 
 {	private static EntityManagerFactory emf;
