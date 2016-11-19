@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
-import airlinesystem.enums.SeatCategory;
 import airlinesystem.exception.InfraestruturaException;
 import airlinesystem.utils.JPAUtil;
 
@@ -15,18 +13,19 @@ public class RouteDAOImpl implements RouteDAO
 {	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Route> findRoutes(Airport origin, Airport destiny, Date departureDate, Date returnDate, SeatCategory seatCategory) {
+	public List<Route> findRoutes(String origin, String destiny, Date departureDate) {
 		try
 		{	
 			EntityManager em = JPAUtil.getEntityManager();
 
 			List<Route> routes = em
 					.createQuery("select r from Route r " +
-						     "order by p.id asc")
-				.getResultList();
-			
-//		"where email = :email and password = :password")
-//			.setParameter("email", email).setParameter("password", password).getSingleResult();
+							"where origin = :origin and destiny = :destiny" +
+							"and departure = :departure")
+					.setParameter("origin", origin)
+					.setParameter("destiny", destiny)
+					.setParameter("departure", departureDate)
+					.getResultList();
 
 			return routes;
 		} 

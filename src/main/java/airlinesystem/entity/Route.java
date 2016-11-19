@@ -21,7 +21,7 @@ public class Route
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)
-    private Float id;
+    private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="airplane_id")
@@ -32,17 +32,17 @@ public class Route
     private Airport origin;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="detinyairport_id")
+	@JoinColumn(name="destinyairport_id")
     private Airport destiny;
 	
 	@Column(nullable = false)
-    private Date landingTime;
+    private Date landing;
     
     @Column(nullable = false)
-    private Date departureTime;
+    private Date departure;
     
     @Column(nullable = false)
-    private double price;//Base-price. Should be multiplied by the weight of the Seat
+    private Float price;//Base-price. Should be multiplied by the weight of the Seat
     
     @Transient
     private Period duration;
@@ -52,14 +52,14 @@ public class Route
     	
     }
     
-    public Route(Float routeId, Airport origin, Airport destiny, Date flightTime, Date landTime, Airplane airplane)
+    public Route(Airport origin, Airport destiny, Date departure, Date landing, Airplane airplane, Float price)
     { 
-      this.id = routeId;
       this.origin = origin;
       this.destiny = destiny;
-      this.landingTime = landTime;
-      this.departureTime = flightTime;
+      this.landing = landing;
+      this.departure = departure;
       this.airplane = airplane;
+      this.price = price;
     }
 
     public Airplane getAirplane() 
@@ -94,22 +94,22 @@ public class Route
 
     public Date getLandingTime() 
     {
-        return landingTime;
+        return landing;
     }
 
     public void setLandingTime(Date landingTime) 
     {
-        this.landingTime = landingTime;
+        this.landing = landingTime;
     }
 
     public Date getDepartureTime() 
     {
-        return departureTime;
+        return departure;
     }
 
     public void setDepartureTime(Date departureTime) 
     {
-        this.departureTime = departureTime;
+        this.departure = departureTime;
     }
 
     public double getPriceFactor() 
@@ -117,7 +117,7 @@ public class Route
         return price;
     }
 
-    public void setPriceFactor(double price) 
+    public void setPriceFactor(Float price) 
     {
         this.price = price;
     }
@@ -132,12 +132,12 @@ public class Route
         this.duration = duration;
     }
     
-    public void setRouteId( Float routeId )
+    public void setRouteId( Long routeId )
     {
         this.id = routeId;
     }
     
-    public Float getRouteId()
+    public Long getRouteId()
     {
         return id;
     }

@@ -64,7 +64,7 @@ public class SimulateDB
         seats.add(new Seat("DF",SeatCategory.ECONOMY));
         seats.add(new Seat("IO",SeatCategory.ECONOMY));
         
-        airplanes.add(new Airplane(1,seats,"American Airlines","ATY-3456"));
+        //airplanes.add(new Airplane(1,seats,"American Airlines","ATY-3456"));
         
         airports.add(new Airport("GIG","Rio de Janeiro"));
         airports.add(new Airport("MIA","Miami"));

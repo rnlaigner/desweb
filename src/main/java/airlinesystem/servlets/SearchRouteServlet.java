@@ -18,7 +18,8 @@ import airlinesystem.login.Login;
  */
 public class SearchRouteServlet extends HttpServlet {
 	
-	private static final RouteBusiness routeBusiness = RouteBusiness.getInstance();
+	@SuppressWarnings("unused")
+	private RouteBusiness routeBusiness;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -53,6 +54,8 @@ public class SearchRouteServlet extends HttpServlet {
 	    String password = request.getParameter("password");
 	    String message;
 	    Login login;
+	    
+	    routeBusiness = RouteBusiness.getInstance();
 	    
 	    try
 	    {

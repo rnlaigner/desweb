@@ -17,13 +17,10 @@ public class Airplane
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)
-	private Float id;
+	private Long id;
 	
 	@OneToMany(mappedBy = "airplane")
     private List<Seat> seats;
-    
-    @Column(nullable = true)
-    private int airplaneNumber;
     
     @Column(nullable = true)
     private String company;
@@ -35,28 +32,17 @@ public class Airplane
     {
     }
     
-    public Airplane(int airplaneNumber, List<Seat> seats)
+    public Airplane(String model, List<Seat> seats)
     {
-        this.airplaneNumber = airplaneNumber;
+        this.model = model;
         this.seats = seats;
     }
 
-    public Airplane(int airplaneNumber, List<Seat> seats, String company, String model)
+    public Airplane(String model, List<Seat> seats, String company)
     {
-        this.airplaneNumber = airplaneNumber;
         this.seats = seats;
         this.company = company;
         this.model = model;
-    }
-
-    public int getAirplaneNumber() 
-    {
-        return airplaneNumber;
-    }
-
-    public void setAirplaneNumber(int airplaneNumber) 
-    {
-        this.airplaneNumber = airplaneNumber;
     }
 
     public List<Seat> getSeats() 
@@ -85,11 +71,11 @@ public class Airplane
 		this.model = model;
 	}
 
-	public Float getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Float id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
     
