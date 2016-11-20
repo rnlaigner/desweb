@@ -2,8 +2,10 @@ package airlinesystem.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,7 @@ public class Airplane
     @Column(name = "id",unique=true, nullable = false)
 	private Long id;
 	
-	@OneToMany(mappedBy = "airplane")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "airplane", cascade = CascadeType.ALL)
     private List<Seat> seats;
     
     @Column(nullable = true)
@@ -30,6 +32,11 @@ public class Airplane
     
     public Airplane()
     {
+    }
+    
+    public Airplane(String model)
+    {
+        this.model = model;
     }
     
     public Airplane(String model, List<Seat> seats)

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import airlinesystem.dao.AirportAppService;
 import airlinesystem.dao.RouteAppService;
+import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
 import airlinesystem.entity.Seat;
 
@@ -13,6 +15,8 @@ public class RouteBusiness {
 	private static final RouteBusiness routeBusiness = new RouteBusiness();
 	
 	private RouteAppService routeAppService;
+	
+	private AirportAppService airportAppService;
 	
 	private RouteBusiness()
 	{
@@ -28,7 +32,16 @@ public class RouteBusiness {
 	{
 		routeAppService = RouteAppService.getInstance();
 		
-		List<Route> routes = routeAppService.findRoutes(origin, destiny, departureDate);
+		airportAppService = AirportAppService.getInstance();
+		
+		//TODO obter id do aeroporto pedido (fazer isso por ora)
+		//ideal eh que ajax preencha automaticamente os aeroportos possiveis na tela
+		
+		Airport originAirport = airportAppService.findByName(origin);
+		
+		Airport destinyAirport = airportAppService.findByName(destiny);
+		
+		List<Route> routes = routeAppService.findRoutes(originAirport, destinyAirport, departureDate);
 		
 		return filterSeatCategory(routes, seatCategory);
 		

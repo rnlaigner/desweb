@@ -1,8 +1,9 @@
 package airlinesystem.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import airlinesystem.business.RouteBusiness;
-import airlinesystem.exception.ObjetoNaoEncontradoException;
-import airlinesystem.login.Login;
+import airlinesystem.entity.Route;
+import airlinesystem.utils.Util;
 
 /**
  * Servlet implementation class LoginServlet
  */
 public class SearchRouteServlet extends HttpServlet {
 	
-	@SuppressWarnings("unused")
 	private RouteBusiness routeBusiness;
 	
 	private static final long serialVersionUID = 1L;
@@ -46,51 +46,38 @@ public class SearchRouteServlet extends HttpServlet {
 	}
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException 
-	{
-		boolean logged = false;
+	{		
 	    HttpSession session = request.getSession();
-	    String remember = request.getParameter("remember-me");
-        String email = request.getParameter("email");
-	    String password = request.getParameter("password");
-	    String message;
-	    Login login;
+	    String origin = request.getParameter("origin");
+        String destiny = request.getParameter("destiny");
+	    String departureDate = request.getParameter("departureDate");
+	    String returnDate = request.getParameter("returnDate");
+	    String adult = request.getParameter("adult");
+	    String children = request.getParameter("children");
+	    String baby = request.getParameter("baby");
+	    //change Formatting in home.jsp UTF para ISO
+	    String seatCategory = request.getParameter("seat");
 	    
 	    routeBusiness = RouteBusiness.getInstance();
 	    
-	    try
-	    {
-	    	login = new Login(email,password);
-	    	login.authenticate();
-	    	logged = true;
-	    }
-	    catch(ObjetoNaoEncontradoException e)
-		{	
-	    	//log4j
-		}
+	    List<Route> outboundRoutes = routeBusiness.findRoutes(origin, destiny, Util.strToDateUS(departureDate), seatCategory);
 	    
-	    if(logged)
-	    {
+	    List<Route> returnRoutes = routeBusiness.findRoutes(destiny, origin, Util.strToDateUS(returnDate), seatCategory);
 	    
-		    if(remember != null)
-		    {
-		    	//NOT THE RIGHT WAY TO DO IT 
-		    	ServletContext servletContext = request.getServletContext();
-		    	servletContext.setAttribute("email", email);
-		    }
-		    session.setAttribute("email", email);
-		    
-		    message = "SUCCESS";
-	    }
-	    else
-	    {
-	    	//colocar erro na tela
-	    	message = "FAILURE";
-	    }
+	    session.setAttribute("outboundRoutes", outboundRoutes);
+	    session.setAttribute("returnRoutes", returnRoutes);
 		
-//		RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");      
-//        rd.forward(request, response);
-	    
-	    response.getWriter().write(message);
+		RequestDispatcher rd = request.getRequestDispatcher("/flights.jsp");      
+		
+        try 
+        {
+			rd.forward(request, response);
+		} 
+        catch (ServletException e) 
+        {
+			//Pagina de erro
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -23,8 +23,8 @@ public class Airport
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id",unique=true, nullable = false)
-	private Long id;
-	
+	private Long id;	
+
 	@Column(nullable = true)
     private String name;
 	
@@ -56,5 +56,7 @@ public class Airport
         this.city = city;
     }
     
-    
+    public Long getId() {
+		return id;
+	}
 }

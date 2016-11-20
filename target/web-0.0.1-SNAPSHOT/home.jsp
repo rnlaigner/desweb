@@ -33,29 +33,29 @@
 
 	<head>
 		<!-- meta -->
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
-	<title>Euro Travel</title>
-
-	<link rel="stylesheet" href="ui/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="ui/assets/css/ionicons.min.css">
-	<link rel="stylesheet" href="ui/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="ui/assets/css/owl.theme.css">
-	<link rel="stylesheet" href="ui/assets/css/flexslider.css" type="text/css">
-    <link rel="stylesheet" href="ui/assets/css/main.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-			<!--[if lt IE 9]>
-				<script src="ui/assets/js/html5shiv.js"></script>
-				<script src="ui/assets/js/respond.js"></script>
-			<![endif]-->
-
-			<!--[if IE 8]>
-		    	<script src="ui/assets/js/selectivizr.js"></script>
-		    <![endif]-->
-</head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+		<title>Euro Travel</title>
+	
+		<link rel="stylesheet" href="ui/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="ui/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="ui/assets/css/owl.carousel.css">
+		<link rel="stylesheet" href="ui/assets/css/owl.theme.css">
+		<link rel="stylesheet" href="ui/assets/css/flexslider.css" type="text/css">
+	    <link rel="stylesheet" href="ui/assets/css/main.css">
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	 
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+				<!--[if lt IE 9]>
+					<script src="ui/assets/js/html5shiv.js"></script>
+					<script src="ui/assets/js/respond.js"></script>
+				<![endif]-->
+	
+				<!--[if IE 8]>
+			    	<script src="ui/assets/js/selectivizr.js"></script>
+			    <![endif]-->
+	</head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -73,8 +73,8 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="home.jsp">Início</a></li>
-					<li><a href="about.jsp">Vôos</a></li>
+					<li class="active"><a href="home.jsp">Início</a></li>
+					<li><a href="flights.jsp">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
@@ -171,7 +171,7 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Origem"/>
+					<input type="text" class="form-control border-radius border-right" id="origin" placeholder="Origem"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -180,7 +180,7 @@
 
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Destino"/>
+					<input type="text" class="form-control border-radius border-right" id="destiny" placeholder="Destino"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -189,7 +189,7 @@
 
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="datepicker1" placeholder="Data de Saída"/>
+					<input type="text" class="form-control border-radius border-right" id="departure" placeholder="Data de Saída"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -198,7 +198,7 @@
 			
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="datepicker2" placeholder="Data de Retorno"/>
+					<input type="text" class="form-control border-radius border-right" id="return" placeholder="Data de Retorno"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -209,11 +209,12 @@
 				<form role="form" class="form-dropdown">
 					<div class="form-group">
 						<label for="sel1">Adultos</label>
-						<select class="form-control border-radius" id="sel1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
+						<select class="form-control border-radius" id="adult">
+							<option value="" disabled selected>Adultos</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
 						</select>
 					</div>
 				</form>
@@ -223,22 +224,52 @@
 				<form role="form" class="form-dropdown">
 					<div class="form-group">
 						<label for="sel2">Crianças</label>
-						<select class="form-control border-radius" id="sel2">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
+						<select class="form-control border-radius" id="children">
+							<option value="" disabled selected>Crianças</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
 						</select>
 					</div>
 				</form>
 			</div>
 			
 			<div class="col-md-3 col-sm-6">
-				<div class="btn btn-default border-radius custom-button">
-					Search
-				</div>
+				<form role="form" class="form-dropdown">
+					<div class="form-group">
+						<label for="sel3">Bebês</label>
+						<select class="form-control border-radius" id="baby">
+							<option value="" disabled selected>Bebês</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</div>
+				</form>
 			</div>
+			
+			<div class="col-md-3 col-sm-6">
+				<form role="form" class="form-dropdown">
+					<div class="form-group">
+						<label for="sel4">Classe</label>
+						<select class="form-control border-radius" id="seat">
+							<option value="" disabled selected>Classe</option>
+							<option value="1">Turística</option>
+							<option value="2">Executiva</option>
+							<option value="3">Primeira Classe</option>
+						</select>
+					</div>
+				</form>
+			</div>
+			
+		</div>	
+		
+		<div class="btn btn-default border-radius custom-button center-block" id="search" style="width: 20em; height: 3em;">
+			Procurar
 		</div>
+		
 	</section> <!-- /.tour -->
 
 
@@ -615,18 +646,34 @@
 	<script src="ui/assets/js/script.js"></script>
 	<script src="ui/assets/js/menu.js"></script>
 	<script src="ui/assets/js/login.js"></script>
+	<script src="ui/assets/js/search.js"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <script>
-        $( function() {
-	    $( "#datepicker1" ).datepicker();
-	  } );
-	  $( function() {
-		    $( "#datepicker2" ).datepicker();
-		  } );
-	</script>
+    $( function() {
+        $( "#departure" ).datepicker({
+          minDate: -20, 
+          maxDate: "+1Y"
+        });
+      } );
+
+    $('#departure').change(function(){
+        $(this).attr('value', $('#departure').val());
+    });
+    
+    $( function() {
+        $( "#return" ).datepicker({
+        	minDate: -20, 
+            maxDate: "+1Y +10D"
+        });
+      } );
+
+    $('#return').change(function(){
+        $(this).attr('value', $('#return').val());
+    });
+    </script>
 
 </body>
 </html>

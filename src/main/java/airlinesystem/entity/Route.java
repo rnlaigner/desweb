@@ -23,7 +23,7 @@ public class Route
     @Column(name = "id",unique=true, nullable = false)
     private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="airplane_id")
     private Airplane airplane;
 	

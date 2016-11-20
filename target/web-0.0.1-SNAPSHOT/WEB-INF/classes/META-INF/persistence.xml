@@ -15,6 +15,7 @@
        -->
        <property name="hibernate.connection.username" value="root" />
        <property name="hibernate.connection.password" value="root" />
+       <!-- procura @entity em todas as classes do pacote -->
        <property name="hibernate.archive.autodetection" value="class" />
        <property name="hibernate.show_sql" value="true" />
        <property name="hibernate.format_sql" value="true" />

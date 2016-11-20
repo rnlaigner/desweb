@@ -37,10 +37,11 @@ public class Seat
     {
     }
 	
-    public Seat(String number, SeatCategory category)
+    public Seat(String number, SeatCategory category, Airplane airplane)
     {
         this.number = number;
         this.category = category;
+        this.airplane = airplane;
     }
 
     public String getAirplaneSeat() 

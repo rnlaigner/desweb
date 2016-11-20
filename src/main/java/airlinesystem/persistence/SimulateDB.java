@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class SimulateDB 
 {
     
@@ -59,10 +60,10 @@ public class SimulateDB
         List<Seat> seats = new ArrayList<Seat>();
         List<Airport> airports = new ArrayList<Airport>();
         
-        seats.add(new Seat("AC",SeatCategory.FIRST_CLASS));
-        seats.add(new Seat("EA",SeatCategory.FIRST_CLASS));
-        seats.add(new Seat("DF",SeatCategory.ECONOMY));
-        seats.add(new Seat("IO",SeatCategory.ECONOMY));
+//        seats.add(new Seat("AC",SeatCategory.FIRST_CLASS));
+//        seats.add(new Seat("EA",SeatCategory.FIRST_CLASS));
+//        seats.add(new Seat("DF",SeatCategory.ECONOMY));
+//        seats.add(new Seat("IO",SeatCategory.ECONOMY));
         
         //airplanes.add(new Airplane(1,seats,"American Airlines","ATY-3456"));
         

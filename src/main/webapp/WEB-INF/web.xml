@@ -28,4 +28,16 @@
   	<servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description>Servlet para tratar busca de rotas</description>
+    <display-name>SearchRouteServlet</display-name>
+    <servlet-name>SearchRouteServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.SearchRouteServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>SearchRouteServlet</servlet-name>
+    <url-pattern>/SearchRouteServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

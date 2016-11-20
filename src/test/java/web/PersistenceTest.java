@@ -35,30 +35,36 @@ public class PersistenceTest{
             user.setEmail("abc123");
             user.setPassword("abc123");
             
-            Seat seat1 = new Seat("1",SeatCategory.ECONOMY);
-            Seat seat2 = new Seat("2",SeatCategory.ECONOMY);
+            Airplane airplane = new Airplane("Airbus A320-100/200");
+            
+            Seat seat1 = new Seat("1",SeatCategory.ECONOMY,airplane);
+            Seat seat2 = new Seat("2",SeatCategory.ECONOMY,airplane);
             
             List<Seat> seats = new ArrayList<Seat>();
             
             seats.add(seat1);
             seats.add(seat2);
             
-            Airplane airplane = new Airplane("Airbus A320-100/200",seats);
+            airplane.setSeats(seats);
             
             Airport airport1 = new Airport("GIG","Rio de Janeiro");
             
             Airport airport2 = new Airport("REC","Recife");
             
-            Date date1 = new Date();
+            Calendar cal = Calendar.getInstance(); 
+            cal.set(2016, 11, 1, 12, 0, 0);
             
-            Calendar cal = Calendar.getInstance(); // creates calendar
-            cal.setTime(date1); // sets calendar time/date
-            cal.add(Calendar.HOUR_OF_DAY, 5); // adds one hour
-            cal.getTime(); // returns new date object, one hour in the future
+            Date date1 = cal.getTime(); 
+            
+            cal.add(Calendar.HOUR_OF_DAY, 5); 
             
             Date date2 = cal.getTime();
             
-            Route route = new Route(airport1,airport2, date1, date2, airplane, new Float(1000));
+            Route route1 = new Route(airport1,airport2, date1, date2, airplane, new Float(1000));
+            
+            cal.set(2016, 11, 10, 12, 0);
+            
+            Route route2 = new Route(airport2,airport1, cal.getTime(), cal.getTime(), airplane, new Float(1000));
             
             em.persist(user);
             
@@ -67,7 +73,8 @@ public class PersistenceTest{
             em.persist(airplane);
             em.persist(airport1);
             em.persist(airport2);
-            em.persist(route);
+            em.persist(route1);
+            em.persist(route2);
              
             em.getTransaction().commit();
         }

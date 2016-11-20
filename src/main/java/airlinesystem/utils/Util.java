@@ -42,6 +42,14 @@ public class Util
 
 		return java.sql.Date.valueOf(ano + "-" + mes + "-" + dia);
 	}
+	
+	public static Date strToDateUS(String umaData)
+	{	int mes = Integer.parseInt(umaData.substring(0,2));
+		int dia = Integer.parseInt(umaData.substring(3,5));
+		int ano = Integer.parseInt(umaData.substring(6,10));
+
+		return java.sql.Date.valueOf(ano + "-" + mes + "-" + dia);
+	}
 
 	public static Calendar strToCalendar(String umaData)
 	{

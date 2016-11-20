@@ -101,6 +101,9 @@ public class JPAUtil
 		}
 	}
 
+	// o close é importante pois os objetos podem ficar alocados no cache do entity manager
+	// mesmo já tendo sido deletados ou mudados
+	// portanto fechamos o entity manager e criamos outro
 	public static void closeEntityManager() 
 	{	//System.out.println("Vai fechar sessão");
 

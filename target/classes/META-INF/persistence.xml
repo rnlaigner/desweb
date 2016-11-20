@@ -15,11 +15,12 @@
        -->
        <property name="hibernate.connection.username" value="root" />
        <property name="hibernate.connection.password" value="root" />
+       <!-- procura @entity em todas as classes do pacote -->
        <property name="hibernate.archive.autodetection" value="class" />
        <property name="hibernate.show_sql" value="true" />
        <property name="hibernate.format_sql" value="true" />
        <!-- mude para create ao inves de update na primeira vez que rodar -->
-       <property name="hibernate.hbm2ddl.auto" value="create" />
+       <property name="hibernate.hbm2ddl.auto" value="update" />
      </properties>
     </persistence-unit>
     
