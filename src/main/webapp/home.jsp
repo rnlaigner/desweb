@@ -74,7 +74,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="home.jsp">Início</a></li>
-					<li><a href="flights.jsp">Vôos</a></li>
+					<li><a href="/SearchRouteServlet">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
@@ -161,8 +161,7 @@
 		    </div> <!-- /.flexslider -->
 		</div> <!-- /#header -->
 		
-<form method="post" action="SearchRouteServlet" accept-charset="UTF-8">
-		
+<form method="post" action="SearchRouteServlet" onsubmit="return validateSearch()" accept-charset="UTF-8">
 <!-- Find a Tour -->
 	<section id="bookSection" class="tour section-wrapper container">
 		<h2 class="section-title">
@@ -251,7 +250,7 @@
 					<div class="form-group">
 						<select class="form-control border-radius" id="seat" name="seat">
 							<option value="" disabled selected>Classe</option>
-							<option value="Turística">Turística</option>
+							<option value="Turística">Tarifa Cheia</option>
 							<option value="Executiva">Executiva</option>
 							<option value="Primeira Classe">Primeira Classe</option>
 						</select>

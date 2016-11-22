@@ -80,6 +80,15 @@ public class Util
 	public static String dateToStr(java.util.Date umaData)
 	{	return sdf.format(umaData);
 	}
+	
+	public static String milisecondsToDate(long milliseconds)
+	{
+		int seconds = (int) (milliseconds / 1000) % 60 ;
+		int minutes = (int) ((milliseconds / (1000*60)) % 60);
+		int hours   = (int) ((milliseconds / (1000*60*60)) % 24);
+		
+		return String.valueOf(hours + ":" + minutes + ":" + seconds);
+	}
 
 	public static String calendarToStr(Calendar umaData)
 	{

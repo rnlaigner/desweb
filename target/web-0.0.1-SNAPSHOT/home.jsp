@@ -74,7 +74,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="home.jsp">Início</a></li>
-					<li><a href="flights.jsp">Vôos</a></li>
+					<li><a href="/SearchRouteServlet">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
@@ -160,6 +160,8 @@
 		        </ul> <!-- /.slides -->
 		    </div> <!-- /.flexslider -->
 		</div> <!-- /#header -->
+		
+<form method="post" action="SearchRouteServlet" onsubmit="return validateSearch()" accept-charset="UTF-8">
 <!-- Find a Tour -->
 	<section id="bookSection" class="tour section-wrapper container">
 		<h2 class="section-title">
@@ -168,10 +170,12 @@
 		<p class="section-subtitle">
 			Para onde você deseja ir?
 		</p>
+		
 		<div class="row">
+			
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="origin" placeholder="Origem"/>
+					<input type="text" class="form-control border-radius border-right" id="origin" name="origin" placeholder="Origem"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -180,7 +184,7 @@
 
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="destiny" placeholder="Destino"/>
+					<input type="text" class="form-control border-radius border-right" id="destiny" name="destiny" placeholder="Destino"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -189,7 +193,7 @@
 
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="departure" placeholder="Data de Saída"/>
+					<input type="text" class="form-control border-radius border-right" id="departure" name="departureDate" placeholder="Data de Saída"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -198,7 +202,7 @@
 			
 			<div class="col-md-3 col-sm-6">
 				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="return" placeholder="Data de Retorno"/>
+					<input type="text" class="form-control border-radius border-right" id="return" name="returnDate" placeholder="Data de Retorno"/>
 					<span class="input-group-addon border-radius custom-addon">
 						<i class="ion-ios-calendar"></i>
 					</span>
@@ -206,10 +210,9 @@
 			</div>
 			
 			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
+				
 					<div class="form-group">
-						<label for="sel1">Adultos</label>
-						<select class="form-control border-radius" id="adult">
+						<select class="form-control border-radius" id="adult" name="adult">
 							<option value="" disabled selected>Adultos</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -217,14 +220,11 @@
 							<option value="4">4</option>
 						</select>
 					</div>
-				</form>
 			</div>
 			
 			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel2">Crianças</label>
-						<select class="form-control border-radius" id="children">
+						<select class="form-control border-radius" id="children" name="children">
 							<option value="" disabled selected>Crianças</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -232,14 +232,11 @@
 							<option value="4">4</option>
 						</select>
 					</div>
-				</form>
 			</div>
 			
 			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel3">Bebês</label>
-						<select class="form-control border-radius" id="baby">
+						<select class="form-control border-radius" id="baby" name="baby">
 							<option value="" disabled selected>Bebês</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -247,32 +244,26 @@
 							<option value="4">4</option>
 						</select>
 					</div>
-				</form>
 			</div>
 			
 			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
 					<div class="form-group">
-						<label for="sel4">Classe</label>
-						<select class="form-control border-radius" id="seat">
+						<select class="form-control border-radius" id="seat" name="seat">
 							<option value="" disabled selected>Classe</option>
-							<option value="1">Turística</option>
-							<option value="2">Executiva</option>
-							<option value="3">Primeira Classe</option>
+							<option value="Turística">Tarifa Cheia</option>
+							<option value="Executiva">Executiva</option>
+							<option value="Primeira Classe">Primeira Classe</option>
 						</select>
 					</div>
-				</form>
 			</div>
 			
 		</div>	
 		
-		<div class="btn btn-default border-radius custom-button center-block" id="search" style="width: 20em; height: 3em;">
-			Procurar
-		</div>
-		
+		<input class="btn btn-default border-radius custom-button center-block" type="submit" value="Procurar" id="search" style="width: 20em; height: 3em;">
+			
 	</section> <!-- /.tour -->
 
-
+</form>
 <!-- Our Blazzing offers -->
 	<section id="" class="offer section-wrapper">
 		<div class="container">
@@ -646,7 +637,7 @@
 	<script src="ui/assets/js/script.js"></script>
 	<script src="ui/assets/js/menu.js"></script>
 	<script src="ui/assets/js/login.js"></script>
-	<script src="ui/assets/js/search.js"></script>
+	<!-- <script src="ui/assets/js/search.js"></script> -->
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

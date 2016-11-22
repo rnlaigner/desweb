@@ -60,12 +60,35 @@ public class SearchRouteServlet extends HttpServlet {
 	    
 	    routeBusiness = RouteBusiness.getInstance();
 	    
-	    List<Route> outboundRoutes = routeBusiness.findRoutes(origin, destiny, Util.strToDateUS(departureDate), seatCategory);
-	    
-	    List<Route> returnRoutes = routeBusiness.findRoutes(destiny, origin, Util.strToDateUS(returnDate), seatCategory);
-	    
-	    session.setAttribute("outboundRoutes", outboundRoutes);
-	    session.setAttribute("returnRoutes", returnRoutes);
+	    //Se origem é nulo é porque todos os outros parâmetros são nulos
+	    //Se origem é nulo é porque não foi sequer tratado em search.js
+	    if (origin != null){
+		    List<Route> outboundRoutes = routeBusiness.find(origin, destiny, Util.strToDateUS(departureDate), seatCategory);
+		    
+		    List<Route> returnRoutes = routeBusiness.find(destiny, origin, Util.strToDateUS(returnDate), seatCategory);
+		    
+		    //TODO devo colocar na session ou no request?
+		    session.setAttribute("seatCategory", seatCategory);
+		    session.setAttribute("destiny", outboundRoutes.get(0).getDestiny().getCity());
+		    session.setAttribute("origin", returnRoutes.get(0).getDestiny().getCity());
+		    
+		    session.setAttribute("adult", adult);
+		    session.setAttribute("children", children);
+		    session.setAttribute("baby", baby);
+		    
+		    session.setAttribute("outboundRoutes", outboundRoutes);
+		    session.setAttribute("returnRoutes", returnRoutes);
+	    }
+	    else {
+	    	List<Route> routes = routeBusiness.findAll();
+	    	
+	    	session.setAttribute("seatCategory", null);
+	    	session.setAttribute("destiny", null);
+		    session.setAttribute("origin", null);
+	    	
+	    	session.setAttribute("outboundRoutes", routes);
+		    session.setAttribute("returnRoutes", routes);
+	    }
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/flights.jsp");      
 		

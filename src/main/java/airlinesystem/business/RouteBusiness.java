@@ -1,6 +1,7 @@
 package airlinesystem.business;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class RouteBusiness {
 		return routeBusiness;
 	}
 	
-	public List<Route> findRoutes(String origin, String destiny, Date departureDate, String seatCategory)
+	public List<Route> find(String origin, String destiny, Date departureDate, String seatCategory)
 	{
 		routeAppService = RouteAppService.getInstance();
 		
@@ -40,11 +41,36 @@ public class RouteBusiness {
 		Airport originAirport = airportAppService.findByName(origin);
 		
 		Airport destinyAirport = airportAppService.findByName(destiny);
+		 
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(departureDate);
 		
-		List<Route> routes = routeAppService.findRoutes(originAirport, destinyAirport, departureDate);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
 		
-		return filterSeatCategory(routes, seatCategory);
+		Date maxDepartureDate = cal.getTime();
 		
+		cal.set(Calendar.HOUR_OF_DAY, 00);
+		cal.set(Calendar.MINUTE, 00);
+		cal.set(Calendar.SECOND, 00);
+		
+		departureDate = cal.getTime();
+		
+		List<Route> routes = routeAppService.find(originAirport, destinyAirport, departureDate, maxDepartureDate);
+		
+		return routes;
+		
+		//return filterSeatCategory(routes, seatCategory);
+	}
+	
+	public List<Route> findAll() {
+		
+		routeAppService = RouteAppService.getInstance();
+		
+		List<Route> routes = routeAppService.findAll(new Date());
+		
+		return routes;
 	}
 	
 	private List<Route> filterSeatCategory(List<Route> routes, String seatCategory)

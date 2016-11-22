@@ -2,7 +2,7 @@ package airlinesystem.enums;
 
 public enum SeatCategory 
 {
-    ECONOMY ("Turística",2),
+    ECONOMY ("Tarifa Cheia",2),
     EXECUTIVE("Executiva",4),
     FIRST_CLASS ("Primeira Classe",8);
     

@@ -112,12 +112,12 @@ public class Route
         this.departure = departureTime;
     }
 
-    public double getPriceFactor() 
+    public double getPrice() 
     {
         return price;
     }
 
-    public void setPriceFactor(Float price) 
+    public void setPrice(Float price) 
     {
         this.price = price;
     }

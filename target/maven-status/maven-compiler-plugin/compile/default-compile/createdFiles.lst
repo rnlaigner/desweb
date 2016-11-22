@@ -21,6 +21,7 @@ airlinesystem\exception\InfraestruturaException.class
 airlinesystem\utils\Pair.class
 airlinesystem\entity\Airplane.class
 airlinesystem\exception\LoginException.class
+airlinesystem\servlets\OrderServlet.class
 airlinesystem\servlets\SearchRouteServlet.class
 airlinesystem\constants\Constants.class
 airlinesystem\dao\RouteDAO.class

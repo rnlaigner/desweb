@@ -1,8 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "java.util.List"%>
+<%@ page import = "airlinesystem.utils.Util"%>
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Route" %>
+<%@ page language="java" %>
+<%@ page session="true" %>
+<% 
+@SuppressWarnings("unchecked")
+List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); 
+
+@SuppressWarnings("unchecked") 
+List<Route> returnRoutes = (List<Route>) session.getAttribute("returnRoutes"); 
+ 
+String seatCategory = (String) session.getAttribute("seatCategory"); 
+String destinyCity = (String) session.getAttribute("destiny");
+String originCity = (String) session.getAttribute("origin");
+%>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
 <!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
@@ -51,7 +65,6 @@
 		    <![endif]-->
 </head>
 <body>
-<% List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); %>
 <!-- Home -->
 	<section class="header">
 		
@@ -71,7 +84,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="home.jsp">Home</a></li>
+						<li><a href="home.jsp">Início</a></li>
 						<li class="active"><a href="flights.jsp">Vôos</a></li>
 						<li><a href="services.html">services</a></li>
 						<li><a href="contact.html">contact</a></li>
@@ -80,6 +93,199 @@
 		  	</div><!-- /.container -->
 		</nav>
 	</section> <!-- /#header -->
+	<!-- Section Background -->
+	<section class="section-background">
+		<div class="container">
+			<h2 class="page-header" id="destinyCity" style="display:block;">
+				<%if (destinyCity != null){ %>
+				Escolha seu vôo para <%= destinyCity %>
+				<%} else{ %>
+				Escolha seu vôo de ida 
+				<%} %>
+			</h2>
+			<h2 class="page-header" id="originCity" style="display:none;">
+				<%if (originCity != null){ %>
+				Escolha seu vôo para <%= originCity %>
+				<%} else{ %>
+				Escolha seu vôo de volta 
+				<%} %>
+			</h2>
+			<ol class="breadcrumb">
+				<li><a href="home.jsp">Início</a></li>
+				<li class="active">&nbsp;Vôos</li>
+			</ol>
+		</div> <!-- /.container -->
+	</section> <!-- /.section-background -->
+	
+	<br><br>
+	
+	<div class="container" id="outboundRoutes" style="display:block;">
+    <ul class="list-group">
+    <%  int index = 0; 
+    	for(Route route : outboundRoutes){%>
+    	<li>
+	        <div class="panel panel-default">
+	            <div class="panel-body" style="padding-bottom: 1px;">
+	                <div class="panel-info">
+	                    <p><strong>Ida</strong></p>
+	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                </div>		
+    		
+    				<div class="panel-info">
+	                    <p><strong><%= route.getOrigin().getName()	%></strong></p>
+	                    <p><%= route.getOrigin().getCity()	%></p>
+	                    <p><%   @SuppressWarnings( "deprecation" )
+	                    		String departureHour = String.valueOf(route.getDepartureTime().getHours());
+	                    		@SuppressWarnings( "deprecation" )
+	                    		String departureMinute = String.valueOf(route.getDepartureTime().getMinutes());
+	                    		StringBuilder sb = new StringBuilder(departureHour);
+	                    		sb.append(":").append(departureMinute);
+	                    		out.print(sb.toString());
+	                    	%></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong><%= route.getDestiny().getName()	%></strong></p>
+	                    <p><%= route.getDestiny().getCity()	%></p>
+	                    <p><%   @SuppressWarnings( "deprecation" )
+	                    		String landingHour = String.valueOf(route.getLandingTime().getHours());
+		                		@SuppressWarnings( "deprecation" )
+		                		String landingMinute = String.valueOf(route.getLandingTime().getMinutes());
+	                    		sb = new StringBuilder(landingHour);
+	                    		sb.append(":").append(landingMinute);
+	                    		out.print(sb.toString());
+	                    	%></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Duração</strong></p>
+	                    <p><% 
+	                    	long mili1 = route.getDepartureTime().getTime();
+	                    	long mili2 = route.getLandingTime().getTime();
+	                    	long mili = mili2 - mili1;
+	                    	String miliStr = Util.milisecondsToDate(mili);  
+	                    	out.print(miliStr);
+	                    %></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                	<% if (seatCategory != null){%>
+	                	<p><strong>Classe</strong></p>
+	                	<p>seatCategory</p>
+	                	<%}else{	%>
+	                		<p><strong>Classes disponíveis</strong></p>
+	                		<p>Tarifa Cheia/Executiva/Primeira Classe</p>
+	                	<%}	%>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Número do vôo</strong></p>
+	                    <p><%= route.getRouteId() %></p>
+	                    <p><%= route.getAirplane().getModel() %></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Preço por adulto</strong></p>
+	                    <p>R$ <%= route.getPrice() %></p>
+	                </div>
+	                
+	                 <div class="panel-info">
+	                    <p><strong>Refeição</strong></p>
+	                    <p>Não</p>
+	                </div>
+	                
+	                <div class="btn btn-default border-radius custom-button outbound" 
+	                id="<%=index%>"
+	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+						Comprar
+				   </div>
+	            </div>
+	         </div>
+	     </li>
+<%		index++;
+    	}	%>
+	</ul>
+	</div>
+	
+	<div class="container" id="returnRoutes" style="display:none;">
+    <ul class="list-group">
+    
+    	<% for(Route route : returnRoutes){%>
+    	<li>
+	        <div class="panel panel-default">
+	            <div class="panel-body" style="padding-bottom: 1px;">
+	                <div class="panel-info">
+	                    <p><strong>Retorno</strong></p>
+	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                </div>		
+    		
+    				<div class="panel-info">
+	                    <p><strong><%= route.getOrigin().getName()	%></strong></p>
+	                    <p><%= route.getOrigin().getCity()	%></p>
+	                    <p><%   @SuppressWarnings( "deprecation" )
+		                		String departureHour = String.valueOf(route.getDepartureTime().getHours());
+		                		@SuppressWarnings( "deprecation" )
+		                		String departureMinute = String.valueOf(route.getDepartureTime().getMinutes());
+		                		StringBuilder sb = new StringBuilder(departureHour);
+		                		sb.append(":").append(departureMinute);
+		                		out.print(sb.toString());
+	                    	%></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong><%= route.getDestiny().getName()	%></strong></p>
+	                    <p><%= route.getDestiny().getCity()	%></p>
+	                    <p><%   @SuppressWarnings( "deprecation" )
+		                		String landingHour = String.valueOf(route.getLandingTime().getHours());
+		                		@SuppressWarnings( "deprecation" )
+		                		String landingMinute = String.valueOf(route.getLandingTime().getMinutes());
+		                		sb = new StringBuilder(landingHour);
+		                		sb.append(":").append(landingMinute);
+		                		out.print(sb.toString());
+	                    	%></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Duração</strong></p>
+	                    <p><% 
+	                    	long mili1 = route.getDepartureTime().getTime();
+	                    	long mili2 = route.getLandingTime().getTime();
+	                    	long mili = mili2 - mili1;
+	                    	String miliStr = Util.milisecondsToDate(mili);  
+	                    	out.print(miliStr);
+	                    %></p>
+	                </div>
+	                
+	                <% if (seatCategory != null){%>
+	                	<p><strong>Classe</strong></p>
+	                	<p>seatCategory</p>
+	                	<%}else{	%>
+	                		<p><strong>Classes disponíveis</strong></p>
+	                		<p>Tarifa Cheia/Executiva/Primeira Classe</p>
+	                	<%}	%>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Preço por adulto</strong></p>
+	                    <p><%= route.getPrice() %></p>
+	                </div>
+	                
+	                 <div class="panel-info">
+	                    <p><strong>Refeição</strong></p>
+	                    <p>Não</p>
+	                </div>
+	                
+	                <div class="btn btn-default border-radius custom-button return" 
+	                id="<%=index%>"
+	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+						Comprar
+				   </div>
+	            </div>
+	         </div>
+	     </li>
+<%		index++;
+    	}%>
+	</ul>
+	</div>
 	
 	<section id="bookSection" class="tour section-wrapper container">
 		<h2 class="section-title">
@@ -174,83 +380,20 @@
 						<label for="sel4">Classe</label>
 						<select class="form-control border-radius" id="sel3">
 							<option value="" disabled selected>Classe</option>
-							<option value="1">Turística</option>
+							<option value="1">Tarifa Cheia</option>
 							<option value="2">Executiva</option>
 							<option value="3">Primeira Classe</option>
 						</select>
 					</div>
 				</form>
 			</div>
-			
 		</div>	
-		
 		
 		<div class="btn btn-default border-radius custom-button center-block" id="search" style="width: 20em; height: 3em;">
 			Procurar
 		</div>
 		
-	</section> <!-- /.tour -->
-
-	<div class="container" >
-    <ul class="list-group">
-	    <li>
-	        <div class="panel panel-default">
-	            <div class="panel-body" style="padding-bottom: 1px;">
-	                <div class="panel-info">
-	                    <p><strong>Ida</strong></p>
-	                    <p>21 de Janeiro de 2018</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>GIG</strong></p>
-	                    <p>Rio de Janeiro</p>
-	                    <p>12h</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>REC</strong></p>
-	                    <p>Recife</p>
-	                    <p>18h 40</p>
-	                </div>	
-	                
-	                <div class="panel-info">
-	                    <p><strong>Duração</strong></p>
-	                    <p>6h 40</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>Classe</strong></p>
-	                    <p>Executiva</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>Número do vôo</strong></p>
-	                    <p>1789</p>
-	                    <p>Airbus A320-100/200</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>Preço por adulto</strong></p>
-	                    <p>R$ 780,90</p>
-	                </div>
-	                
-	                <div class="panel-info">
-	                    <p><strong>Refeição</strong></p>
-	                    <p>Não</p>
-	                </div>
-	                
-	               <div class="btn btn-default border-radius custom-button" style="width: 10em; 
-	               																	height: 2.7em;
-	               																	float: right;
-																				    margin-right: 10px;
-																				    margin-top: 27px;">
-						Comprar
-				   </div>
-	            </div>
-	        </div>
-	    </li>
-	</ul>
-	</div>
+	</section> 
 
 	<div class="section-wrapper sponsor">
 		<div class="container">
@@ -400,17 +543,11 @@
 		</div>		
 	</footer>
 
-
 	<script src="ui/assets/js/jquery-1.11.2.min.js"></script>
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
-    <script src="ui/assets/js/contact.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-
-
-
-
-
-
+	<script src="ui/assets/js/order.js"></script>
+	
 </body>
 </html>

@@ -8,5 +8,7 @@ import airlinesystem.entity.Route;
 
 public interface RouteDAO
 {	
-	public List<Route> findRoutes(Airport origin, Airport destiny, Date departureDate);
+	public List<Route> find(Airport origin, Airport destiny, Date departureDate, Date maxDepartureDate);
+
+	public List<Route> findAll(Date departureDate);
 }

@@ -23,9 +23,21 @@ public class RouteAppService
 		return routeAppService;
 	}
 	
-	public List<Route> findRoutes(Airport origin, Airport destiny, Date departureDate) 
+	public List<Route> find(Airport origin, Airport destiny, Date departureDate, Date maxDepartureDate) 
 	{	try
-		{	List<Route> routes = routeDAO.findRoutes(origin, destiny, departureDate);
+		{	List<Route> routes = routeDAO.find(origin, destiny, departureDate, maxDepartureDate);
+
+			return routes;
+		} 
+		finally
+		{   JPAUtil.closeEntityManager();
+		}
+	}
+
+	public List<Route> findAll(Date departureDate) {
+		try
+		{	
+			List<Route> routes = routeDAO.findAll(departureDate);
 
 			return routes;
 		} 
