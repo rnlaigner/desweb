@@ -27,11 +27,11 @@ public class Route
 	@JoinColumn(name="airplane_id")
     private Airplane airplane;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="originairport_id")
     private Airport origin;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="destinyairport_id")
     private Airport destiny;
 	

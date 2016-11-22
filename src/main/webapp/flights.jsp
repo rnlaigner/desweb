@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "java.util.List"%>
+<%@ page import = "airlinesystem.utils.Util"%>
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Route" %>
+<%@ page language="java" %>
+<%@ page session="true" %>
+<% List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
 <!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
@@ -51,7 +55,6 @@
 		    <![endif]-->
 </head>
 <body>
-<% List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); %>
 <!-- Home -->
 	<section class="header">
 		
@@ -193,6 +196,31 @@
 
 	<div class="container" >
     <ul class="list-group">
+    
+    	<% for(Route route : outboundRoutes){%>
+    	<li>
+	        <div class="panel panel-default">
+	            <div class="panel-body" style="padding-bottom: 1px;">
+	                <div class="panel-info">
+	                    <p><strong>Ida</strong></p>
+	                    <p><% Util.dateToStr(route.getDepartureTime());	%></p>
+	                </div>		
+    		
+    				<div class="panel-info">
+	                    <p><strong><% route.getOrigin().getName();	%></strong></p>
+	                    <p><% route.getOrigin().getCity();	%></p>
+	                    <p><% 
+	                    		StringBuilder sb = 
+	                    			new StringBuilder(String.valueOf(route.getDepartureTime().getHours()));
+	                    			sb.append(":").append(route.getDepartureTime().getMinutes());
+	                    		sb.toString();
+	                    	%></p>
+	                </div>
+	            </div>
+	         </div>
+	     </li>
+    	<%}	%>
+    
 	    <li>
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">

@@ -73,7 +73,11 @@ public class Util
 		return Timestamp.valueOf(ano + "-" + mes + "-" + dia + " " + hh + ":" + mi + ":" + ss);
 	}
 
-	public static String dateToStr(Date umaData)
+	public static String dateToStr(java.sql.Date umaData)
+	{	return sdf.format(umaData);
+	}
+	
+	public static String dateToStr(java.util.Date umaData)
 	{	return sdf.format(umaData);
 	}
 
