@@ -25,12 +25,15 @@ public class Airport
     @Column(name = "id",unique=true, nullable = false)
 	private Long id;	
 
-	@Column(nullable = true)
+	@Column(nullable = false)
     private String name;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
     private String city;
 	
+	@Column(nullable = false)
+	private Float fee;
+
 	public Airport() 
 	{
     }
@@ -58,5 +61,13 @@ public class Airport
     
     public Long getId() {
 		return id;
+	}
+    
+    public Float getFee() {
+		return fee;
+	}
+
+	public void setFee(Float fee) {
+		this.fee = fee;
 	}
 }

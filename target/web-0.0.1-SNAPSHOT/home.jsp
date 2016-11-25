@@ -161,7 +161,7 @@
 		    </div> <!-- /.flexslider -->
 		</div> <!-- /#header -->
 		
-<form method="post" action="SearchRouteServlet" onsubmit="return validateSearch()" accept-charset="UTF-8">
+<form method="post" action="SearchRouteServlet" id="searchForm" accept-charset="UTF-8">
 <!-- Find a Tour -->
 	<section id="bookSection" class="tour section-wrapper container">
 		<h2 class="section-title">
@@ -249,10 +249,9 @@
 			<div class="col-md-3 col-sm-6">
 					<div class="form-group">
 						<select class="form-control border-radius" id="seat" name="seat">
-							<option value="" disabled selected>Classe</option>
-							<option value="Turística">Tarifa Cheia</option>
-							<option value="Executiva">Executiva</option>
-							<option value="Primeira Classe">Primeira Classe</option>
+							<option value="" disabled selected>Refeição</option>
+							<option value="Turística">Sim</option>
+							<option value="Executiva">Não</option>
 						</select>
 					</div>
 			</div>
@@ -635,7 +634,7 @@
     <script src="ui/assets/js/contact.js"></script>
     <script src="ui/assets/js/jquery.flexslider.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/menu.js"></script>
+	<script type="text/javascript" src="ui/assets/js/menu.js?1500"></script>
 	<script src="ui/assets/js/login.js"></script>
 	<!-- <script src="ui/assets/js/search.js"></script> -->
 	

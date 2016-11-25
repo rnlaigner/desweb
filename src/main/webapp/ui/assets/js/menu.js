@@ -3,30 +3,31 @@
  ------------------------------------------*/
 
 $(document).ready(function () {
-
-//	$('#bookBtn1').click(function() {
-//		window.location='home.jsp#bookSection';
-//	});
-//	$('#bookBtn2').click(function() {
-//		window.location='home.jsp#bookSection';
-//	});
-//	$('#bookBtn3').click(function() {
-//		window.location='home.jsp#bookSection';
-//	});
-	
-	$(document).on('click', '#bookBtn1', '#bookBtn2', '#bookBtn3', function(event) {
-		$('html, body').animate({
-	        scrollTop: $("#bookSection").offset().top
-	    }, 2000);
+	$('#bookBtn1').click(function() {
+		window.location='home.jsp#bookSection';
 	});
+	$('#bookBtn2').click(function() {
+		window.location='home.jsp#bookSection';
+	});
+	$('#bookBtn3').click(function() {
+		window.location='home.jsp#bookSection';
+	});
+	
+//	$(document).on('click', '#bookBtn1', '#bookBtn2', '#bookBtn3', function(event) {
+//		$('html, body').animate({
+//	        scrollTop: $("#bookSection").offset().top
+//	    }, 2000);
+//		$('body').scrollTo('#bookSection');
+//	});
 	
 	//avoid dropdown-menu to deactivate when clicking on elements inside it
     $(document).on('click', '.dropdown-menu', function (e) {
     	  e.stopPropagation();
     });
     
-    function validateSearch()
-    {
+    $('#searchForm').on('submit', function(e){
+        e.preventDefault();
+    
         var origin = $("#origin").val();
         var destiny = $("#destiny").val();
         var departureDate = $("#departure").attr('value');
@@ -56,8 +57,8 @@ $(document).ready(function () {
             alert("A classe do vôo é necessária");
             return false;
         }
-        return true;
-    };
+        this.submit();
+    });
 });
 
 

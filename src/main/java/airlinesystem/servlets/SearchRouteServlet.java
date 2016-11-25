@@ -56,19 +56,19 @@ public class SearchRouteServlet extends HttpServlet {
 	    String children = request.getParameter("children");
 	    String baby = request.getParameter("baby");
 	    //change Formatting in home.jsp UTF para ISO
-	    String seatCategory = request.getParameter("seat");
+	    //String seatCategory = request.getParameter("seat");
 	    
 	    routeBusiness = RouteBusiness.getInstance();
 	    
 	    //Se origem é nulo é porque todos os outros parâmetros são nulos
 	    //Se origem é nulo é porque não foi sequer tratado em search.js
 	    if (origin != null){
-		    List<Route> outboundRoutes = routeBusiness.find(origin, destiny, Util.strToDateUS(departureDate), seatCategory);
+		    List<Route> outboundRoutes = routeBusiness.find(origin, destiny, Util.strToDateUS(departureDate));
 		    
-		    List<Route> returnRoutes = routeBusiness.find(destiny, origin, Util.strToDateUS(returnDate), seatCategory);
+		    List<Route> returnRoutes = routeBusiness.find(destiny, origin, Util.strToDateUS(returnDate));
 		    
 		    //TODO devo colocar na session ou no request?
-		    session.setAttribute("seatCategory", seatCategory);
+		    //session.setAttribute("seatCategory", seatCategory);
 		    session.setAttribute("destiny", outboundRoutes.get(0).getDestiny().getCity());
 		    session.setAttribute("origin", returnRoutes.get(0).getDestiny().getCity());
 		    

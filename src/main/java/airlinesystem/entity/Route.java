@@ -132,12 +132,12 @@ public class Route
         this.duration = duration;
     }
     
-    public void setRouteId( Long routeId )
+    public void setId( Long id )
     {
-        this.id = routeId;
+        this.id = id;
     }
     
-    public Long getRouteId()
+    public Long getId()
     {
         return id;
     }

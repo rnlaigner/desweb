@@ -4,6 +4,7 @@
 <%@ page import = "airlinesystem.utils.Util"%>
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Route" %>
+<%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
@@ -12,8 +13,7 @@ List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"
 
 @SuppressWarnings("unchecked") 
 List<Route> returnRoutes = (List<Route>) session.getAttribute("returnRoutes"); 
- 
-String seatCategory = (String) session.getAttribute("seatCategory"); 
+
 String destinyCity = (String) session.getAttribute("destiny");
 String originCity = (String) session.getAttribute("origin");
 %>
@@ -27,6 +27,10 @@ String originCity = (String) session.getAttribute("origin");
 	<head>
 	
 	<style>
+		.category {
+			color: black;
+		}
+	
 		.list-group li {
     		list-style: none;
 		}
@@ -112,17 +116,18 @@ String originCity = (String) session.getAttribute("origin");
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
-				<li class="active">&nbsp;Vôos</li>
+				<li><a href="flights.jsp">Vôos</a></li>
+				<li class="active" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
+				<li style="display:none;" id="breadcrumbReturn">Vôos de Volta</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
 	
-	<br><br>
+	<br>
 	
 	<div class="container" id="outboundRoutes" style="display:block;">
     <ul class="list-group">
-    <%  int index = 0; 
-    	for(Route route : outboundRoutes){%>
+    <%  for(Route route : outboundRoutes){%>
     	<li>
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
@@ -169,13 +174,20 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="panel-info">
-	                	<% if (seatCategory != null){%>
-	                	<p><strong>Classe</strong></p>
-	                	<p>seatCategory</p>
-	                	<%}else{	%>
-	                		<p><strong>Classes disponíveis</strong></p>
-	                		<p>Tarifa Cheia/Executiva/Primeira Classe</p>
-	                	<%}	%>
+	                    <ul class="list-group">
+						  <li class="list-group-item">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						    Tarifa Cheia
+						  </li>
+						  <li class="list-group-item">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						    Executiva
+						  </li>
+						  <li class="list-group-item">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
+						    Primeira Classe
+						  </li>
+						</ul>
 	                </div>
 	                
 	                <div class="panel-info">
@@ -195,15 +207,14 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button outbound" 
-	                id="<%=index%>"
+	                id="<%= route.getRouteId() %>"
 	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
 	            </div>
 	         </div>
 	     </li>
-<%		index++;
-    	}	%>
+<%		 }	%>
 	</ul>
 	</div>
 	
@@ -256,13 +267,22 @@ String originCity = (String) session.getAttribute("origin");
 	                    %></p>
 	                </div>
 	                
-	                <% if (seatCategory != null){%>
-	                	<p><strong>Classe</strong></p>
-	                	<p>seatCategory</p>
-	                	<%}else{	%>
-	                		<p><strong>Classes disponíveis</strong></p>
-	                		<p>Tarifa Cheia/Executiva/Primeira Classe</p>
-	                	<%}	%>
+	                <div class="panel-info">
+	                    <ul class="list-group">
+						  <li class="list-group-item category">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						    Tarifa Cheia
+						  </li>
+						  <li class="list-group-item">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						    Executiva
+						  </li>
+						  <li class="list-group-item">
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
+						    Primeira Classe
+						  </li>
+						</ul>
+	                </div>
 	                
 	                <div class="panel-info">
 	                    <p><strong>Preço por adulto</strong></p>
@@ -275,15 +295,14 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button return" 
-	                id="<%=index%>"
+	                id="<%= route.getRouteId() %>"
 	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
 	            </div>
 	         </div>
 	     </li>
-<%		index++;
-    	}%>
+<%		}%>
 	</ul>
 	</div>
 	
