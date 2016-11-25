@@ -5,6 +5,7 @@
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.enums.SeatCategory" %>
+<%@ page import = "java.util.Random;" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
@@ -16,6 +17,8 @@ List<Route> returnRoutes = (List<Route>) session.getAttribute("returnRoutes");
 
 String destinyCity = (String) session.getAttribute("destiny");
 String originCity = (String) session.getAttribute("origin");
+
+Random randomGenerator = new Random();
 %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
@@ -107,11 +110,15 @@ String originCity = (String) session.getAttribute("origin");
 				Escolha seu vôo de volta 
 				<%} %>
 			</h2>
+			<h2 class="page-header" id="resume" style="display:none;">
+				Resumo de suas escolhas
+			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li><a href="flights.jsp">Vôos</a></li>
 				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
 				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
+				<li style="display:none;" id="breadcrumbResume">&nbsp;Resumo</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -171,18 +178,15 @@ String originCity = (String) session.getAttribute("origin");
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
 						  </li>
 						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						    Executiva
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
 						  </li>
 						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						  	Primeira Classe
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
 						  </li>
 						</ul>
 	                </div>
@@ -208,8 +212,8 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button outbound" 
-	                id="<%= route.getId() %>"
-	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+	                 id="<%= randomGenerator.nextInt() %>" route_id="<%= route.getId() %>"
+	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
 	            </div>
@@ -273,18 +277,15 @@ String originCity = (String) session.getAttribute("origin");
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
 						  </li>
 						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						    Executiva
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
 						  </li>
 						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						  	Primeira Classe
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
-						    
+						    <span class="tag tag-default tag-pill float-xs-right">R$ <%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
 						  </li>
 						</ul>
 	                </div>
@@ -310,8 +311,8 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button return" 
-	                id="<%= route.getId() %>"
-	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+	                id="<%= randomGenerator.nextInt() %>" route_id="<%= route.getId() %>"
+	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
 	            </div>
@@ -321,9 +322,19 @@ String originCity = (String) session.getAttribute("origin");
 	</ul>
 	</div>
 	
-	<!-- rotas escolhidas sao colocadas aqui -->
+	<!-- rotas escolhidas sao colocadas aqui TODO tirar botao comprar -->
 	<div class="container" id="selectedRoutes" style="display:none;">
-		<ul class="list-group">
+		<ul class="list-group routes">
+		</ul>
+	</div>
+	
+	<!-- DIV PARA: Ao final das escolhas, 
+		o sistema mostra o preço de cada perna, os preços das taxas de embarque (específica por aeroporto e 
+		somada com as escalas caso existam)  e o total a ser pago pelo bilhete.  Nesta etapa, deve ser dada ao 
+		usuário  a opção de escolher o assento; alguns assentos podem ter preços diferenciados e isto deve ser 
+		refletido no total a ser pago. -->
+	<div class="container" id="orderResume" style="display:none;">
+		<ul class="list-group routes">
 		</ul>
 	</div>
 

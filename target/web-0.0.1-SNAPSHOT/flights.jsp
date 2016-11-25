@@ -27,13 +27,6 @@ String originCity = (String) session.getAttribute("origin");
 	<head>
 	
 	<style>
-		.category {
-			color: black;
-		}
-	
-		.list-group li {
-    		list-style: none;
-		}
 		.panel-info, .panel-rating, .panel-more1 {
 		    float: left;
 		    margin: 0 10px;
@@ -117,8 +110,9 @@ String originCity = (String) session.getAttribute("origin");
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li><a href="flights.jsp">Vôos</a></li>
-				<li class="active" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
-				<li style="display:none;" id="breadcrumbReturn">Vôos de Volta</li>
+				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
+				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
+				<li style="display:none;" id="breadcrumbResume">&nbsp;Resumo</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -128,7 +122,7 @@ String originCity = (String) session.getAttribute("origin");
 	<div class="container" id="outboundRoutes" style="display:block;">
     <ul class="list-group">
     <%  for(Route route : outboundRoutes){%>
-    	<li>
+    	<li id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
@@ -174,31 +168,34 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="panel-info">
+	                	<p><strong>Preços disponíveis</strong></p>
 	                    <ul class="list-group">
-						  <li class="list-group-item">
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						    
 						  </li>
-						  <li class="list-group-item">
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						    Executiva
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						    
 						  </li>
-						  <li class="list-group-item">
+						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
+						  	Primeira Classe
 						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
-						    Primeira Classe
+						    
 						  </li>
 						</ul>
 	                </div>
 	                
 	                <div class="panel-info">
 	                    <p><strong>Número do vôo</strong></p>
-	                    <p><%= route.getRouteId() %></p>
-	                    <p><%= route.getAirplane().getModel() %></p>
+	                    <p><%= route.getId() %></p>
 	                </div>
 	                
 	                <div class="panel-info">
-	                    <p><strong>Preço por adulto</strong></p>
-	                    <p>R$ <%= route.getPrice() %></p>
+	                    <p><strong>Aeronave</strong></p>
+	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
 	                 <div class="panel-info">
@@ -206,8 +203,13 @@ String originCity = (String) session.getAttribute("origin");
 	                    <p>Não</p>
 	                </div>
 	                
+	                <div class="panel-info">
+	                    <p><strong>Escala</strong></p>
+	                    <p>Não</p>
+	                </div>
+	                
 	                <div class="btn btn-default border-radius custom-button outbound" 
-	                id="<%= route.getRouteId() %>"
+	                id="<%= route.getId() %>"
 	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
@@ -222,7 +224,7 @@ String originCity = (String) session.getAttribute("origin");
     <ul class="list-group">
     
     	<% for(Route route : returnRoutes){%>
-    	<li>
+    	<li id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
@@ -268,25 +270,34 @@ String originCity = (String) session.getAttribute("origin");
 	                </div>
 	                
 	                <div class="panel-info">
+	                	<p><strong>Preços disponíveis</strong></p>
 	                    <ul class="list-group">
-						  <li class="list-group-item category">
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.ECONOMY.getFactor() %></span>
+						    
 						  </li>
-						  <li class="list-group-item">
-						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
 						    Executiva
+						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.EXECUTIVE.getFactor() %></span>
+						    
 						  </li>
-						  <li class="list-group-item">
+						  <li class="list-group-item" style="padding: 5px 15px; color:#969595;">
+						  	Primeira Classe
 						    <span class="tag tag-default tag-pill float-xs-right"><%= route.getPrice() * SeatCategory.FIRST_CLASS.getFactor() %></span>
-						    Primeira Classe
+						    
 						  </li>
 						</ul>
 	                </div>
 	                
 	                <div class="panel-info">
-	                    <p><strong>Preço por adulto</strong></p>
-	                    <p><%= route.getPrice() %></p>
+	                    <p><strong>Número do vôo</strong></p>
+	                    <p><%= route.getId() %></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Aeronave</strong></p>
+	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
 	                 <div class="panel-info">
@@ -294,8 +305,13 @@ String originCity = (String) session.getAttribute("origin");
 	                    <p>Não</p>
 	                </div>
 	                
+	                <div class="panel-info">
+	                    <p><strong>Escala</strong></p>
+	                    <p>Não</p>
+	                </div>
+	                
 	                <div class="btn btn-default border-radius custom-button return" 
-	                id="<%= route.getRouteId() %>"
+	                id="<%= route.getId() %>"
 	                style="width: 10em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
@@ -306,113 +322,111 @@ String originCity = (String) session.getAttribute("origin");
 	</ul>
 	</div>
 	
-	<section id="bookSection" class="tour section-wrapper container">
-		<h2 class="section-title">
-			Não gostou das opções? Refaça sua pesquisa!
-		</h2>
-		<br>
-		<div class="row">
-			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Origem"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
-				</div>
-			</div>
+	<!-- rotas escolhidas sao colocadas aqui -->
+	<div class="container" id="selectedRoutes" style="display:none;">
+		<ul class="list-group routes">
+		</ul>
+	</div>
 
-			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" placeholder="Destino"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
+	<form method="post" action="SearchRouteServlet" id="searchForm" accept-charset="UTF-8">
+		<!-- Find a Tour -->
+		<section id="bookSection" class="tour section-wrapper container">
+			<h1 class="section-title">
+				Não gostou das opções? Refaça sua pesquisa!
+			</h1>
+			<br>
+			<div class="row">
+				
+				<div class="col-md-3 col-sm-6">
+					<div class="input-group">
+						<input type="text" class="form-control border-radius border-right" id="origin" name="origin" placeholder="Origem"/>
+						<span class="input-group-addon border-radius custom-addon">
+							<i class="ion-ios-calendar"></i>
+						</span>
+					</div>
 				</div>
-			</div>
+	
+				<div class="col-md-3 col-sm-6">
+					<div class="input-group">
+						<input type="text" class="form-control border-radius border-right" id="destiny" name="destiny" placeholder="Destino"/>
+						<span class="input-group-addon border-radius custom-addon">
+							<i class="ion-ios-calendar"></i>
+						</span>
+					</div>
+				</div>
+	
+				<div class="col-md-3 col-sm-6">
+					<div class="input-group">
+						<input type="text" class="form-control border-radius border-right" id="departure" name="departureDate" placeholder="Data de Saída"/>
+						<span class="input-group-addon border-radius custom-addon">
+							<i class="ion-ios-calendar"></i>
+						</span>
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+					<div class="input-group">
+						<input type="text" class="form-control border-radius border-right" id="return" name="returnDate" placeholder="Data de Retorno"/>
+						<span class="input-group-addon border-radius custom-addon">
+							<i class="ion-ios-calendar"></i>
+						</span>
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+					
+						<div class="form-group">
+							<select class="form-control border-radius" id="adult" name="adult">
+								<option value="" disabled selected>Adultos</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+						</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<select class="form-control border-radius" id="children" name="children">
+								<option value="" disabled selected>Crianças</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+						</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<select class="form-control border-radius" id="baby" name="baby">
+								<option value="" disabled selected>Bebês</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+						</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<select class="form-control border-radius" id="seat" name="seat">
+								<option value="" disabled selected>Escala</option>
+								<option value="Turística">Sim</option>
+								<option value="Executiva">Não</option>
+							</select>
+						</div>
+				</div>
+				
+			</div>	
+			
+			<input class="btn btn-default border-radius custom-button center-block" type="submit" value="Procurar" id="search" style="width: 20em; height: 3em;">
+				
+		</section> <!-- /.tour -->
 
-			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="datepicker1" placeholder="Data de Saída"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
-				</div>
-			</div>
-			
-			<div class="col-md-3 col-sm-6">
-				<div class="input-group">
-					<input type="text" class="form-control border-radius border-right" id="datepicker2" placeholder="Data de Retorno"/>
-					<span class="input-group-addon border-radius custom-addon">
-						<i class="ion-ios-calendar"></i>
-					</span>
-				</div>
-			</div>
-			
-			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
-					<div class="form-group">
-						<label for="sel1">Adultos</label>
-						<select class="form-control border-radius" id="sel1">
-							<option value="" disabled selected>Adultos</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
-					</div>
-				</form>
-			</div>
-			
-			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
-					<div class="form-group">
-						<label for="sel2">Crianças</label>
-						<select class="form-control border-radius" id="sel2">
-							<option value="" disabled selected>Crianças</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
-					</div>
-				</form>
-			</div>
-			
-			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
-					<div class="form-group">
-						<label for="sel3">Bebês</label>
-						<select class="form-control border-radius" id="sel4">
-							<option value="" disabled selected>Bebês</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
-					</div>
-				</form>
-			</div>
-			
-			<div class="col-md-3 col-sm-6">
-				<form role="form" class="form-dropdown">
-					<div class="form-group">
-						<label for="sel4">Classe</label>
-						<select class="form-control border-radius" id="sel3">
-							<option value="" disabled selected>Classe</option>
-							<option value="1">Tarifa Cheia</option>
-							<option value="2">Executiva</option>
-							<option value="3">Primeira Classe</option>
-						</select>
-					</div>
-				</form>
-			</div>
-		</div>	
-		
-		<div class="btn btn-default border-radius custom-button center-block" id="search" style="width: 20em; height: 3em;">
-			Procurar
-		</div>
-		
-	</section> 
+	</form>
 
 	<div class="section-wrapper sponsor">
 		<div class="container">
@@ -566,7 +580,7 @@ String originCity = (String) session.getAttribute("origin");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/order.js"></script>
+	<script src="ui/assets/js/order.js?1600"></script>
 	
 </body>
 </html>

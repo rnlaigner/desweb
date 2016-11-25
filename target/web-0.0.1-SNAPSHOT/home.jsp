@@ -74,7 +74,8 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="home.jsp">Início</a></li>
-					<li><a href="/SearchRouteServlet">Vôos</a></li>
+					<!-- mudar o que eh exibido no link -->
+					<li><a href="/web/SearchRouteServlet">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
@@ -249,7 +250,7 @@
 			<div class="col-md-3 col-sm-6">
 					<div class="form-group">
 						<select class="form-control border-radius" id="seat" name="seat">
-							<option value="" disabled selected>Refeição</option>
+							<option value="" disabled selected>Escala</option>
 							<option value="Turística">Sim</option>
 							<option value="Executiva">Não</option>
 						</select>
