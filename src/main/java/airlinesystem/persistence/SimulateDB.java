@@ -67,9 +67,9 @@ public class SimulateDB
         
         //airplanes.add(new Airplane(1,seats,"American Airlines","ATY-3456"));
         
-        airports.add(new Airport("GIG","Rio de Janeiro"));
-        airports.add(new Airport("MIA","Miami"));
-        airports.add(new Airport("BUE","Buenos Aires"));
+//        airports.add(new Airport("GIG","Rio de Janeiro"));
+//        airports.add(new Airport("MIA","Miami"));
+//        airports.add(new Airport("BUE","Buenos Aires"));
         
         //routes.add(new Route(1,airports.get(0),airports.get(1),new GregorianCalendar(2016,10,15,20,30),new GregorianCalendar(2016,10,16,6,30),airplanes.get(0)));
         //routes.add(new Route(2,airports.get(1),airports.get(2),new GregorianCalendar(2016,10,16,8,30),new GregorianCalendar(2016,10,16,12,30),airplanes.get(0)));

@@ -49,10 +49,75 @@ $(document).ready(function () {
     	
     	$('#selectedRoutes').css("display","block");
     	
+    	$('.outbound').css("display","none");
+    	$('.return').css("display","none");
+    	
     	$('#originCity').css("display","none");
     	$('#resume').css("display","block");
+    	
+    	$('.returnSeats').css("display","block");
+    	$('.outboundSeats').css("display","block");
+    	
+    	$('.food').css("display","none");
+    	$('.scale').css("display","none");
+    	
+    	$('.flightNumber').css("display","none");
+    	$('.airplaneModel').css("display","none");
+    	
     });
     
+    $( function() {
+        $( "#departureDate" ).datepicker({
+          minDate: 1, 
+          maxDate: "+1Y"
+        });
+      } );
+
+    $('#departureDate').change(function(){
+        $(this).attr('value', $('#departure').val());
+    });
+    
+    $( function() {
+        $( "#returnDate" ).datepicker({
+        	minDate: 2, 
+            maxDate: "+1Y +10D"
+        });
+      } );
+
+    $('#returnDate').change(function(){
+        $(this).attr('value', $('#return').val());
+    });
+    
+    function HandlePopupResult(result) {
+        alert("result of popup is: " + result);
+    }
+    
+    function deselect(e) {
+    	 $('.pop').slideFadeToggle(function() {
+    	   e.removeClass('selected');
+    	 });    
+    }
+
+	$(function() {
+	  $('#contact').on('click', function() {
+	    if($(this).hasClass('selected')) {
+	      deselect($(this));               
+	    } else {
+	      $(this).addClass('selected');
+	      $('.pop').slideFadeToggle();
+	    }
+	    return false;
+	  });
+
+	  $('.close').on('click', function() {
+	    deselect($('#contact'));
+	    return false;
+	  });
+	});
+
+    $.fn.slideFadeToggle = function(easing, callback) {
+    	return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+    };
 });
 
 

@@ -38,9 +38,10 @@ public class Airport
 	{
     }
 
-    public Airport(String name, String city) {
+    public Airport(String name, String city, Float fee) {
         this.name = name;
         this.city = city;
+        this.fee = fee;
     }
 
     public String getName() {

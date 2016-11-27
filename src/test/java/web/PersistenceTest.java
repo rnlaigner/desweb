@@ -47,9 +47,9 @@ public class PersistenceTest{
             
             airplane.setSeats(seats);
             
-            Airport airport1 = new Airport("GIG","Rio de Janeiro");
+            Airport airport1 = new Airport("GIG","Rio de Janeiro", Float.valueOf("150"));
             
-            Airport airport2 = new Airport("REC","Recife");
+            Airport airport2 = new Airport("REC","Recife", Float.valueOf("250"));
             
             Calendar cal = Calendar.getInstance(); 
             cal.set(2016, 11, 1, 12, 0, 0);

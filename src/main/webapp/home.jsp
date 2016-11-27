@@ -645,7 +645,7 @@
     <script>
     $( function() {
         $( "#departure" ).datepicker({
-          minDate: -20, 
+          minDate: 1, 
           maxDate: "+1Y"
         });
       } );
@@ -656,7 +656,7 @@
     
     $( function() {
         $( "#return" ).datepicker({
-        	minDate: -20, 
+        	minDate: 2, 
             maxDate: "+1Y +10D"
         });
       } );

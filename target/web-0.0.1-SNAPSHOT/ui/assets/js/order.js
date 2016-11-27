@@ -17,21 +17,21 @@ $(document).ready(function () {
     	
     	$('#breadcrumbReturn').css("display","inline");
     	$('#breadcrumbReturn').addClass("active");
-    	
-    	outboundRouteId = $(this).attr('id');
+    	debugger;
+    	outboundRouteId = $(this).attr('route_id');
     	
     	var id = '#'+outboundRouteId;
     	
     	var outboundRoute =  $("#outboundRoutes").find( id );
     	
-    	$( "#selectedRoutes routes" ).append( outboundRoute );
+    	$( "#selectedRoutes .routes" ).append( outboundRoute );
     	
     });
     
     $(".return").on('click', function(){
-    	
+    	debugger;
         //pegar os voos selecionados
-    	var returnRouteId = $(this).attr('id');
+    	var returnRouteId = $(this).attr('route_id');
     	
     	var id = '#'+returnRouteId;
     	
@@ -48,6 +48,9 @@ $(document).ready(function () {
     	$('#breadcrumbResume').addClass("active");
     	
     	$('#selectedRoutes').css("display","block");
+    	
+    	$('#originCity').css("display","none");
+    	$('#resume').css("display","block");
     });
     
 });
