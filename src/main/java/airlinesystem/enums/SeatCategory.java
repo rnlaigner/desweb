@@ -3,8 +3,8 @@ package airlinesystem.enums;
 public enum SeatCategory 
 {
 	DEAL("Promocional",1),
-    ECONOMY("Tarifa Cheia",2),
-    EXECUTIVE("Executiva",4),
+    ECONOMY("Classe Econômica",2),//Tarifa Cheia
+    EXECUTIVE("Classe Executiva",4),
     FIRST_CLASS ("Primeira Classe",8);
     
     private final String name;   

@@ -82,9 +82,13 @@ public class SearchRouteServlet extends HttpServlet {
 	    else {
 	    	List<Route> routes = routeBusiness.findAll();
 	    	
-	    	session.setAttribute("seatCategory", null);
+	    	//session.setAttribute("seatCategory", null);
 	    	session.setAttribute("destiny", null);
 		    session.setAttribute("origin", null);
+		    
+		    session.setAttribute("adult", "0");
+		    session.setAttribute("children", "0");
+		    session.setAttribute("baby", "0");
 	    	
 	    	session.setAttribute("outboundRoutes", routes);
 		    session.setAttribute("returnRoutes", routes);

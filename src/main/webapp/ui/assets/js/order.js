@@ -3,7 +3,15 @@
  ------------------------------------------*/
 
 $(document).ready(function () {
-	var outboundRouteId;
+
+	var firstClassFactor = $('#firstClassFactor').text();
+	var executiveClassFactor = $('#executiveClassFactor').text();
+	var economyClassFactor = $('#economyClassFactor').text();
+	
+	var adults = $('#adults').text();
+	var children = $('#children').text();
+	var babies = $('#babies').text();
+	
     $(".outbound").on('click', function(){
     	$('#outboundRoutes').css("display","none");
     	$('#returnRoutes').css("display","block");
@@ -17,19 +25,24 @@ $(document).ready(function () {
     	
     	$('#breadcrumbReturn').css("display","inline");
     	$('#breadcrumbReturn').addClass("active");
-    	debugger;
-    	outboundRouteId = $(this).attr('route_id');
+    	
+    	var outboundRouteId = $(this).attr('route_id');
     	
     	var id = '#'+outboundRouteId;
     	
     	var outboundRoute =  $("#outboundRoutes").find( id );
     	
+    	//<a href='#' onclick='openSeatsPopUp()' title='Pop Up'>Pop Up</a>
+    	
     	$( "#selectedRoutes .routes" ).append( outboundRoute );
     	
+    	//$( "#selectedRoutes .routes" ).find(id).append("<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Pop Up</a>");
+    	
+    	//this strategy does not work. insert this element at jsp. maintain hidden until resume
+    	//$("<a href='#' id='outSeatsPopUp' title='Pop Up'>Pop Up</a>").insertAfter( "#selectedRoutes .routes .outbound" );
     });
     
     $(".return").on('click', function(){
-    	debugger;
         //pegar os voos selecionados
     	var returnRouteId = $(this).attr('route_id');
     	
@@ -64,6 +77,7 @@ $(document).ready(function () {
     	$('.flightNumber').css("display","none");
     	$('.airplaneModel').css("display","none");
     	
+    	$('.seatsPopUp').css("display","block");
     });
     
     $( function() {
@@ -88,8 +102,48 @@ $(document).ready(function () {
         $(this).attr('value', $('#return').val());
     });
     
-    function HandlePopupResult(result) {
-        alert("result of popup is: " + result);
+    $(document).on('click', '#returnSeatsPopUp', function(event){
+    	var price = $("#selectedRoutes .returnPrice").attr('price');
+    	
+    	var w = window.open("http://localhost:8080/web/seats.jsp", "_blank", "scrollbars=1,resizable=1,height=520,width=600");
+    	
+    	w.price = price;
+    	w.firstClassFactor = firstClassFactor;
+    	w.executiveClassFactor = executiveClassFactor;
+    	w.economyClassFactor = economyClassFactor;
+    	
+    	w.adults = adults;
+    	w.children = children;
+    	w.babies = babies;
+    	
+    	var name = 'returnTotal';
+    	w.elementName = name;
+    });
+    
+    $(document).on('click', '#outboundSeatsPopUp', function(event){
+    	var price = $("#selectedRoutes .outboundPrice").attr('price');
+    	
+    	var w = window.open("http://localhost:8080/web/seats.jsp", "_blank", "scrollbars=1,resizable=1,height=520,width=600");
+    	
+    	w.price = price;
+    	w.firstClassFactor = firstClassFactor;
+    	w.executiveClassFactor = executiveClassFactor;
+    	w.economyClassFactor = economyClassFactor;
+    	
+    	w.adults = adults;
+    	w.children = children;
+    	w.babies = babies;
+    	
+    	var name = 'outboundTotal';
+    	w.elementName = name;
+    });
+    
+    function setClassAndRoutePrice(firstClassFactor,executiveClassFactor,economyClassFactor,price,window)
+    {
+    	window.price = price;
+    	window.firstClassFactor = firstClassFactor;
+    	window.executiveClassFactor = executiveClassFactor;
+    	window.economyClassFactor = economyClassFactor;
     }
     
     function deselect(e) {

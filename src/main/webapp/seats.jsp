@@ -93,6 +93,10 @@
 	/* 	background: url(vip.png); */
 		background-color: #3a78c3;
 	}
+	div.seatCharts-seat.available.executive-class {
+	/* 	background: url(vip.png); */
+		background-color: #3a12c3;
+	}
 	div.seatCharts-seat.focused {
 		background-color: #76B474;
 	}
@@ -111,7 +115,6 @@
 	div.seatCharts-legend {
 		padding-left: 0px;
 		position: absolute;
-		bottom: 16px;
 	}
 	ul.seatCharts-legendList {
 		padding-left: 0px;
@@ -136,9 +139,9 @@
 <body>
 	<div class="wrapper">
 	  <div class="container">
-	  <h1>jQuery Seat Charts Plugin Demo</h1>
+	  <h1>Selecione seu(s) assento(s)</h1>
 	    <div id="seat-map">
-	      <div class="front-indicator">Front</div>
+	      <div class="front-indicator">Frente do Avião</div>
 	    </div>
 	    <div class="booking-details">
 	      <h2>Booking Details</h2>
@@ -155,6 +158,14 @@
 	<script src="ui/assets/js/jquery.seat-charts.js"></script> 
 	<script>
 			var firstSeatLabel = 1;
+
+			var firstClassPrice = this.firstClassFactor * this.price;
+			var executiveClassPrice = this.price * this.executiveClassFactor;
+			var economyClassPrice = this.price * this.economyClassFactor;
+			
+			var maxSeats = +this.adults + +this.children + +this.babies;
+			
+			var numberSelectedSeats = 0;
 		
 			$(document).ready(function() {
 				var $cart = $('#selected-seats'),
@@ -162,24 +173,30 @@
 					$total = $('#total'),
 					sc = $('#seat-map').seatCharts({
 					map: [
-						'ff_ff',
-						'ff_ff',
-						'ee_ee',
-						'ee_ee',
+						'pp_pp',
+						'pp_pp',
+						'xx_xx',
+						'xx_xx',
 						'ee___',
 						'ee_ee',
 						'ee_ee',
 						'ee_ee',
-						'eeeee',
+						'ee_ee',
+						'eeeee'
 					],
 					seats: {
-						f: {
-							price   : 100,
+						p: {
+							price   : firstClassPrice,
 							classes : 'first-class', //your custom CSS class
 							category: 'First Class'
 						},
+						x: {
+							price   : executiveClassPrice,
+							classes : 'executive-class', //your custom CSS class
+							category: 'Executive Class'
+						},
 						e: {
-							price   : 40,
+							price   : economyClassPrice,
 							classes : 'economy-class', //your custom CSS class
 							category: 'Economy Class'
 						}					
@@ -194,12 +211,20 @@
 					legend : {
 						node : $('#legend'),
 					    items : [
-							[ 'f', 'available',   'First Class' ],
-							[ 'e', 'available',   'Economy Class'],
-							[ 'f', 'unavailable', 'Already Booked']
+							[ 'p', 'available',   'Primeira Classe' ],
+							[ 'x', 'available',   'Executiva' ],
+							[ 'e', 'available',   'Classe Econômica'],
+							[ 'f', 'unavailable', 'Indisponível']
 					    ]					
 					},
 					click: function () {
+
+						if(maxSeats != 0 && numberSelectedRows > maxSeats)
+						{
+							alert("Número máximo de assentos ultrapassado");
+							return;
+						}
+						
 						if (this.status() == 'available') {
 							//let's create a new <li> which we'll add to the cart items
 							$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
@@ -215,11 +240,16 @@
 							 */
 							$counter.text(sc.find('selected').length+1);
 							$total.text(recalculateTotal(sc)+this.data().price);
+
+							numberSelectedSeats = $counter.text();
 							
 							return 'selected';
 						} else if (this.status() == 'selected') {
 							//update the counter
 							$counter.text(sc.find('selected').length-1);
+
+							numberSelectedSeats = $counter.text();
+							
 							//and total
 							$total.text(recalculateTotal(sc)-this.data().price);
 						
@@ -244,7 +274,21 @@
 				});
 
 				$('.checkout-button').on('click', function () {
-					opener.document.getElementsByName('p_name').value = $('#total').html();
+
+					if(maxSeats != 0 && numberSelectedSeats < maxSeats){
+						alert("Ainda há assentos a serem escolhidos")
+					}
+					debugger;
+					var value = $('#total').html();
+					
+					//opener.document.getElementById(this.totalId).value = value;
+					
+					opener.document.getElementsByName("outboundTotal").value = value;
+
+					//parent.abc();
+
+					opener.updateTotal(elementName);
+					
 					self.close();
 				});
 

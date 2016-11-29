@@ -19,7 +19,18 @@ List<Route> returnRoutes = (List<Route>) session.getAttribute("returnRoutes");
 String destinyCity = (String) session.getAttribute("destiny");
 String originCity = (String) session.getAttribute("origin");
 
+String adults = (String) session.getAttribute("adult");
+String children = (String) session.getAttribute("children");
+String babies = (String) session.getAttribute("baby");
+
 Random randomGenerator = new Random();
+
+//Invalida no caso de um clique na aba Voos nao trazer os voos da ultima pesquisa (DA ERRO!!!)
+//session.invalidate();
+
+// session.setAttribute("adult", 0);
+// session.setAttribute("children", 0);
+// session.setAttribute("baby", 0);
 %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
@@ -91,14 +102,28 @@ Random randomGenerator = new Random();
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-			<!--[if lt IE 9]>
-				<script src="ui/assets/js/html5shiv.js"></script>
-				<script src="ui/assets/js/respond.js"></script>
-			<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="ui/assets/js/html5shiv.js"></script>
+		<script src="ui/assets/js/respond.js"></script>
+	<![endif]-->
 
-			<!--[if IE 8]>
-		    	<script src="ui/assets/js/selectivizr.js"></script>
-		    <![endif]-->
+	<!--[if IE 8]>
+    	<script src="ui/assets/js/selectivizr.js"></script>
+    <![endif]-->
+    
+     <script>
+	 	function updateTotal(elementName){
+		 	debugger;
+	 		var value = document.getElementsByName(elementName).value;
+
+			var elementId = '#' +  elementName;
+	 		
+	 		$(elementId).html(value);
+
+// 			value = $("#outboundPrice").value;
+// 	 		$(totalId).html(value);
+		}
+     </script>
 </head>
 <body>
 <!-- Home -->
@@ -129,6 +154,7 @@ Random randomGenerator = new Random();
 		  	</div><!-- /.container -->
 		</nav>
 	</section> <!-- /#header -->
+	
 	<!-- Section Background -->
 	<section class="section-background">
 		<div class="container">
@@ -209,7 +235,7 @@ Random randomGenerator = new Random();
 	                    %></p>
 	                </div>
 	                
-	                <div class="panel-info">
+	                <div class="panel-info outboundPrice" price=<%= route.getPrice()%>>
 	                	<p><strong>Preço por adulto</strong></p>
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
@@ -241,18 +267,6 @@ Random randomGenerator = new Random();
 	                    <p><strong>Refeição</strong></p>
 	                    <p>Não</p>
 	                </div>
-	                
-	                
-                	<div class="col-md-3 col-sm-6 outboundSeats" style="display:none;">
-                		<p><strong>Selecione seu assento</strong></p>
-						<div class="form-group">
-							<select class="form-control border-radius" id="seatOutbound" name="seatOutbound">
-								<%for (Seat seat : route.getAirplane().getSeats()){%>
-								<option value="<%= seat.getAirplaneSeat() %>" seat_category="<%= seat.getCategory().getName() %>" ><%= seat.getAirplaneSeat() + " - " + seat.getCategory().getName()%></option>
-								<%} %>
-							</select>
-						</div>
-					</div>
 					
 					<!-- TODO taxa de embarque -->
 	                
@@ -267,6 +281,16 @@ Random randomGenerator = new Random();
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
+				   
+				   <div class="panel-info seatsPopUp" style="display:none;">
+				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Pop Up</a>
+				   </div>
+				   
+				   <div class="panel-info">
+				   		<p><strong>Total</strong></p>
+	                    <p id="outboundTotal" name="outboundTotal"></p>
+	               </div>
+				   
 	            </div>
 	         </div>
 	     </li>
@@ -323,7 +347,7 @@ Random randomGenerator = new Random();
 	                    %></p>
 	                </div>
 	                
-	                <div class="panel-info">
+	                <div class="panel-info returnPrice" price=<%= route.getPrice()%>>
 	                	<p><strong>Preço por adulto</strong></p>
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
@@ -356,17 +380,6 @@ Random randomGenerator = new Random();
 	                    <p>Não</p>
 	                </div>
 	                
-	                <div class="col-md-3 col-sm-6 returnSeats" style="display:none;">
-	               		<p><strong>Selecione seu assento</strong></p>
-						<div class="form-group">
-							<select class="form-control border-radius" id="seatOutbound" name="seatOutbound">
-								<%for (Seat seat : route.getAirplane().getSeats()){%>
-								<option value="<%= seat.getAirplaneSeat() %>" seat_category="<%= seat.getCategory().getName() %>"><%= seat.getAirplaneSeat() + " - " + seat.getCategory().getName()%></option>
-								<%} %>
-							</select>
-						</div>
-					</div>
-	                
 	                <div class="panel-info scale">
 	                    <p><strong>Escala</strong></p>
 	                    <p>Não</p>
@@ -377,6 +390,16 @@ Random randomGenerator = new Random();
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
+				  
+				   <div class="panel-info seatsPopUp" style="display:none;">
+				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Pop Up</a>
+				   </div>
+				   
+				   <div class="panel-info">
+				   		<p><strong>Total</strong></p>
+	                    <p id="returnTotal" name="returnTotal"></p>
+	               </div>
+				   
 	            </div>
 	         </div>
 	     </li>
@@ -384,34 +407,37 @@ Random randomGenerator = new Random();
 	</ul>
 	</div>
 	
-	<p name='p_name'> Paragrafo de teste  </p>
-	
-	<a href='#' onclick='javascript:window.open("http://localhost:8080/web/seats.jsp", "_blank", "scrollbars=1,resizable=1,height=500,width=600");' title='Pop Up'>Pop Up</a>
-	
-	<div class="messagepop pop">
-	    <form method="post" id="new_message" action="/messages">
-	        <p><label class="lblpop" for="email">Your email or name</label><input type="text" size="30" name="email" id="email" /></p>
-	        <p><label class="lblpop" for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
-	        <p><input type="submit" value="Send Message" name="commit" id="message_submit"/> or <a class="close" href="/">Cancel</a></p>
-	    </form>
-	</div>
-
-	<a href="/contact" id="contact">Contact Us</a>
-	
 	<!-- rotas escolhidas sao colocadas aqui TODO tirar botao comprar -->
 	<div class="container" id="selectedRoutes" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
 	</div>
 	
-	<!-- DIV PARA: Ao final das escolhas, 
-		o sistema mostra o preço de cada perna, os preços das taxas de embarque (específica por aeroporto e 
-		somada com as escalas caso existam)  e o total a ser pago pelo bilhete.  Nesta etapa, deve ser dada ao 
-		usuário  a opção de escolher o assento; alguns assentos podem ter preços diferenciados e isto deve ser 
-		refletido no total a ser pago. -->
 	<div class="container" id="orderResume" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
+	</div>
+	
+	<div class="info" style="display:block">
+		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
+		<div id="executiveClassFactor"><%=SeatCategory.EXECUTIVE.getFactor()%></div>
+		<div id="economyClassFactor"><%=SeatCategory.ECONOMY.getFactor()%></div>
+		
+		<div id="adults">
+				<%if(adults!=null){%>
+					<%=adults%><%} else{ %>
+					0
+				<%} %></div>
+		<div id="children">
+				<%if(children!=null){%>
+					<%=children%><%} else{ %>
+					0
+				<%} %></div>
+		<div id="babies">
+				<%if(babies!=null){%>
+					<%=babies%><%} else{ %>
+					0
+				<%} %></div>
 	</div>
 
 	<jsp:include page="search.jsp">
@@ -570,14 +596,10 @@ Random randomGenerator = new Random();
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/order.js?1600"></script>
+	<script src="ui/assets/js/order.js?1005"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-     <script>
-	    
-    </script>
 	
 </body>
 </html>
