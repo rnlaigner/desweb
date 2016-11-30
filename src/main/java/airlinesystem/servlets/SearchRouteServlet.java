@@ -76,6 +76,14 @@ public class SearchRouteServlet extends HttpServlet {
 		    session.setAttribute("children", children);
 		    session.setAttribute("baby", baby);
 		    
+		    Integer totalPassengers = Integer.valueOf(0);
+
+		    totalPassengers = adult == null ? totalPassengers + Integer.parseInt(adult) : totalPassengers;
+		    totalPassengers = children == null ? totalPassengers + Integer.parseInt(children) : totalPassengers;
+		    totalPassengers = baby == null ? totalPassengers + Integer.parseInt(baby) : totalPassengers;
+
+		    session.setAttribute("totalPassengers",totalPassengers);
+		    
 		    session.setAttribute("outboundRoutes", outboundRoutes);
 		    session.setAttribute("returnRoutes", returnRoutes);
 	    }
@@ -90,6 +98,8 @@ public class SearchRouteServlet extends HttpServlet {
 		    session.setAttribute("children", "0");
 		    session.setAttribute("baby", "0");
 	    	
+		    session.setAttribute("totalPassengers",0);
+		    
 	    	session.setAttribute("outboundRoutes", routes);
 		    session.setAttribute("returnRoutes", routes);
 	    }

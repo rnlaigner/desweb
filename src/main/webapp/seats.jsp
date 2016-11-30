@@ -218,14 +218,15 @@
 					    ]					
 					},
 					click: function () {
-
-						if(maxSeats != 0 && numberSelectedRows > maxSeats)
-						{
-							alert("Número máximo de assentos ultrapassado");
-							return;
-						}
 						
 						if (this.status() == 'available') {
+
+							if(maxSeats != 0 && numberSelectedSeats == maxSeats)
+							{
+								alert("Número máximo de assentos ultrapassado");
+								return;
+							}
+							
 							//let's create a new <li> which we'll add to the cart items
 							$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
 								.attr('id', 'cart-item-'+this.settings.id)
@@ -283,7 +284,7 @@
 					
 					//opener.document.getElementById(this.totalId).value = value;
 					
-					opener.document.getElementsByName("outboundTotal").value = value;
+					opener.document.getElementsByName(elementName).value = value;
 
 					//parent.abc();
 

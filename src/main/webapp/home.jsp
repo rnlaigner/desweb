@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<% 
+String email = (String) session.getAttribute("email");
+%>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
 <!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
@@ -635,9 +638,10 @@
     <script src="ui/assets/js/contact.js"></script>
     <script src="ui/assets/js/jquery.flexslider.js"></script>
 	<script src="ui/assets/js/script.js"></script>
+	
+	<!--  -->
 	<script type="text/javascript" src="ui/assets/js/menu.js?1500"></script>
-	<script src="ui/assets/js/login.js"></script>
-	<!-- <script src="ui/assets/js/search.js"></script> -->
+	<script src="ui/assets/js/login.js?1001"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

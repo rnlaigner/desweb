@@ -36,6 +36,11 @@ $(document).ready(function () {
             }
         });
     });
+    
+    //avoid dropdown-menu to deactivate when clicking on elements inside it
+    $(document).on('click', '.dropdown-menu', function (e) {
+    	  e.stopPropagation();
+    });
      
     //function to display message to the user
     function processLoginResult(results){

@@ -10,6 +10,8 @@
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
+String email = (String) session.getAttribute("email");
+
 @SuppressWarnings("unchecked")
 List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); 
 
@@ -22,6 +24,8 @@ String originCity = (String) session.getAttribute("origin");
 String adults = (String) session.getAttribute("adult");
 String children = (String) session.getAttribute("children");
 String babies = (String) session.getAttribute("baby");
+
+// Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
 
 Random randomGenerator = new Random();
 
@@ -50,7 +54,12 @@ Random randomGenerator = new Random();
 		{
 			border-color:#337ab7;
 			padding: 9px;
-		}	
+		}
+		
+		.col-form-label
+		{
+			color:black;
+		}
 		
 		a.selected {
 		  background-color:#1F75CC;
@@ -120,8 +129,13 @@ Random randomGenerator = new Random();
 	 		
 	 		$(elementId).html(value);
 
-// 			value = $("#outboundPrice").value;
-// 	 		$(totalId).html(value);
+	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
+            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+">R$ "+value+"</p>").appendTo( "."+elementName );
+
+			if(elementName = 'returnTotal')
+			{
+				
+			}
 		}
      </script>
 </head>
@@ -143,14 +157,35 @@ Random randomGenerator = new Random();
 				</div> <!-- /.navbar-header -->
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="home.jsp">Início</a></li>
-						<li class="active"><a href="flights.jsp">Vôos</a></li>
-						<li><a href="services.html">services</a></li>
-						<li><a href="contact.html">contact</a></li>
-					</ul> <!-- /.nav -->
-			    </div><!-- /.navbar-collapse -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="home.jsp">Início</a></li>
+					<!-- mudar o que eh exibido no link -->
+					<li class="active"><a href="/web/SearchRouteServlet">Vôos</a></li>
+					<li><a href="contact.jsp">Contato</a></li>
+					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
+					<li class="dropdown signed-out">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
+						<ul class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<li><input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email"><li>
+							<li><input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password"><li>
+							<li><input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1"><li>
+							<li><label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label><li>
+							<li><input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar"></li>
+							<li id="messageDiv" style="display:none;"></li>
+						</ul>
+					</li>
+					<li class="dropdown signed-in" style="display:none;">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
+				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
+				        </ul>
+					</li>
+				</ul> <!-- /.nav -->
+		    </div><!-- /.navbar-collapse -->
 		  	</div><!-- /.container -->
 		</nav>
 	</section> <!-- /#header -->
@@ -173,14 +208,14 @@ Random randomGenerator = new Random();
 				<%} %>
 			</h2>
 			<h2 class="page-header" id="resume" style="display:none;">
-				Resumo de suas escolhas
+				Selecione seu(s) assento(s)
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li><a href="flights.jsp">Vôos</a></li>
 				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
 				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
-				<li style="display:none;" id="breadcrumbResume">&nbsp;Resumo</li>
+				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -286,9 +321,11 @@ Random randomGenerator = new Random();
 				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Pop Up</a>
 				   </div>
 				   
-				   <div class="panel-info">
+				   <div class="panel-info outboundTotal">
+				   		<!-- 
 				   		<p><strong>Total</strong></p>
 	                    <p id="outboundTotal" name="outboundTotal"></p>
+	                     -->
 	               </div>
 				   
 	            </div>
@@ -394,10 +431,12 @@ Random randomGenerator = new Random();
 				   <div class="panel-info seatsPopUp" style="display:none;">
 				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Pop Up</a>
 				   </div>
-				   
-				   <div class="panel-info">
+	               
+	                <div class="panel-info returnTotal">
+				   		<!-- 
 				   		<p><strong>Total</strong></p>
-	                    <p id="returnTotal" name="returnTotal"></p>
+	                    <p id="outboundTotal" name="outboundTotal"></p>
+	                     -->
 	               </div>
 				   
 	            </div>
@@ -407,18 +446,21 @@ Random randomGenerator = new Random();
 	</ul>
 	</div>
 	
-	<!-- rotas escolhidas sao colocadas aqui TODO tirar botao comprar -->
+	<!-- rotas escolhidas sao colocadas aqui -->
 	<div class="container" id="selectedRoutes" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
 	</div>
 	
+	<!--
 	<div class="container" id="orderResume" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
 	</div>
+	-->
 	
-	<div class="info" style="display:block">
+	
+	<div class="info" style="display:none; visibility: hidden;">
 		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
 		<div id="executiveClassFactor"><%=SeatCategory.EXECUTIVE.getFactor()%></div>
 		<div id="economyClassFactor"><%=SeatCategory.ECONOMY.getFactor()%></div>
@@ -438,6 +480,15 @@ Random randomGenerator = new Random();
 					<%=babies%><%} else{ %>
 					0
 				<%} %></div>
+	</div>
+	
+	<jsp:include page="form.jsp">
+		<jsp:param name="cor" value="azul" />
+	</jsp:include>
+	
+	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt()%>"
+	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
+		Prosseguir >>
 	</div>
 
 	<jsp:include page="search.jsp">
@@ -596,7 +647,10 @@ Random randomGenerator = new Random();
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/order.js?1005"></script>
+	
+	<!--  -->
+	<script src="ui/assets/js/login.js?1001"></script>
+	<script src="ui/assets/js/order.js?1006"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

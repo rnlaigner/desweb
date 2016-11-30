@@ -65,19 +65,30 @@ $(document).ready(function () {
     	$('.outbound').css("display","none");
     	$('.return').css("display","none");
     	
+    	$('.proceed').css("display","block");
+    	
     	$('#originCity').css("display","none");
     	$('#resume').css("display","block");
     	
     	$('.returnSeats').css("display","block");
     	$('.outboundSeats').css("display","block");
     	
-    	$('.food').css("display","none");
-    	$('.scale').css("display","none");
+    	//$('.food').css("display","none");
+    	//$('.scale').css("display","none");
     	
-    	$('.flightNumber').css("display","none");
-    	$('.airplaneModel').css("display","none");
+    	//$('.flightNumber').css("display","none");
+    	//$('.airplaneModel').css("display","none");
     	
     	$('.seatsPopUp').css("display","block");
+    });
+    
+    $(".proceed").on('click', function(){
+    	
+    	//TODO if se nao ha seats selecionados, retorna
+    	
+    	$('#selectedRoutes').css("display","none");
+    	
+    	$('#passengerForm').css("display","block");
     });
     
     $( function() {
