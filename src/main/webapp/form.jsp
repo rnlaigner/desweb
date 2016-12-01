@@ -108,9 +108,12 @@ Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
 
 <div class="container" id="passengerForm" style="display:none;">
     <ul class="list-group">		
-<% for (int i = 0; i <= totalPassengers; i++) { %>
+<% 
+totalPassengers = totalPassengers == 0 ? 1 : totalPassengers;
+
+for (int i = 1; i <= totalPassengers; i++) { %>
 		<li>
-			<p class="col-form-label">Entre com as informações para o passageiro <%=i+1%></p>
+			<p class="col-form-label">Entre com as informações para o passageiro <%=i%></p>
 			<div class="form-group row">
 			  <label for="example-text-input" class="col-xs-2 col-form-label">Nome completo</label>
 			  <div class="col-xs-10">
@@ -124,7 +127,7 @@ Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
 			  </div>
 			</div>
 			<div class="form-group row">
-			  <label for="example-email-input" class="col-xs-2 col-form-label">Identidade/Passaporte</label>
+			  <label for="example-email-input" class="col-xs-2 col-form-label">Identidade</label>
 			  <div class="col-xs-10">
 			    <input class="form-control" type="email" value="" id="example-email-input">
 			  </div>

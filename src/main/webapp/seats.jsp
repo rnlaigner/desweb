@@ -228,7 +228,8 @@
 							}
 							
 							//let's create a new <li> which we'll add to the cart items
-							$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+							$('<li class="selectedSeat">'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+								.attr('seatNumber',this.settings.label)
 								.attr('id', 'cart-item-'+this.settings.id)
 								.data('seatId', this.settings.id)
 								.appendTo($cart);
@@ -286,9 +287,15 @@
 					
 					opener.document.getElementsByName(elementName).value = value;
 
-					//parent.abc();
+					var size = $('.selectedSeat').length;
 
-					opener.updateTotal(elementName);
+					var array = new Array();
+
+					$('.selectedSeat').each(function() {
+					    array.push($(this).attr('seatNumber'));
+					});
+
+					opener.updateTotal(elementName,array,numberSelectedSeats);
 					
 					self.close();
 				});

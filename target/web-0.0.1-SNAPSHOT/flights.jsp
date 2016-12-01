@@ -10,6 +10,8 @@
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
+String email = (String) session.getAttribute("email");
+
 @SuppressWarnings("unchecked")
 List<Route> outboundRoutes = (List<Route>) session.getAttribute("outboundRoutes"); 
 
@@ -19,7 +21,20 @@ List<Route> returnRoutes = (List<Route>) session.getAttribute("returnRoutes");
 String destinyCity = (String) session.getAttribute("destiny");
 String originCity = (String) session.getAttribute("origin");
 
+String adults = (String) session.getAttribute("adult");
+String children = (String) session.getAttribute("children");
+String babies = (String) session.getAttribute("baby");
+
+Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
+
 Random randomGenerator = new Random();
+
+//Invalida no caso de um clique na aba Voos nao trazer os voos da ultima pesquisa (DA ERRO!!!)
+//session.invalidate();
+
+// session.setAttribute("adult", 0);
+// session.setAttribute("children", 0);
+// session.setAttribute("baby", 0);
 %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
@@ -39,7 +54,44 @@ Random randomGenerator = new Random();
 		{
 			border-color:#337ab7;
 			padding: 9px;
-		}	
+		}
+		
+		.col-form-label
+		{
+			color:black;
+		}
+		
+		a.selected {
+		  background-color:#1F75CC;
+		  color:white;
+		  z-index:100;
+		}
+		
+		.messagepop {
+		  background-color:#FFFFFF;
+		  border:1px solid #999999;
+		  cursor:default;
+		  display:none;
+		  margin-top: 15px;
+		  position:absolute;
+		  text-align:left;
+		  width:394px;
+		  z-index:50;
+		  padding: 25px 25px 20px;
+		}
+		
+		label.lblpop {
+		  display: block;
+		  margin-bottom: 3px;
+		  padding-left: 15px;
+		  text-indent: -15px;
+		}
+		
+		.messagepop p, .messagepop.div {
+		  border-bottom: 1px solid #EFEFEF;
+		  margin: 8px 0;
+		  padding-bottom: 8px;
+		}
 	</style>
 	
 		<!-- meta -->
@@ -55,15 +107,41 @@ Random randomGenerator = new Random();
     <link rel="stylesheet" href="ui/assets/css/main.css">
     <link rel="stylesheet" href="ui/assets/css/section.css">
     <link rel="stylesheet" href="ui/assets/css/about.css">
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-			<!--[if lt IE 9]>
-				<script src="ui/assets/js/html5shiv.js"></script>
-				<script src="ui/assets/js/respond.js"></script>
-			<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="ui/assets/js/html5shiv.js"></script>
+		<script src="ui/assets/js/respond.js"></script>
+	<![endif]-->
 
-			<!--[if IE 8]>
-		    	<script src="ui/assets/js/selectivizr.js"></script>
-		    <![endif]-->
+	<!--[if IE 8]>
+    	<script src="ui/assets/js/selectivizr.js"></script>
+    <![endif]-->
+    
+     <script>
+	 	function updateTotal(elementName,array,numberSelectedSeats){
+		 	debugger;
+	 		var value = document.getElementsByName(elementName).value;
+
+			var elementId = '#' +  elementName;
+	 		
+	 		$(elementId).html(value);
+
+	 		//only if not exists. if exists, update total value
+	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
+            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
+
+
+			//TODO caso totalPassengers != numberSelectedSeats, adicionar mais forms
+            
+			if(elementName == 'returnTotal')
+			{
+				//change button... do something
+			}
+		}
+     </script>
 </head>
 <body>
 <!-- Home -->
@@ -83,17 +161,39 @@ Random randomGenerator = new Random();
 				</div> <!-- /.navbar-header -->
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="home.jsp">Início</a></li>
-						<li class="active"><a href="flights.jsp">Vôos</a></li>
-						<li><a href="services.html">services</a></li>
-						<li><a href="contact.html">contact</a></li>
-					</ul> <!-- /.nav -->
-			    </div><!-- /.navbar-collapse -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="home.jsp">Início</a></li>
+					<!-- mudar o que eh exibido no link -->
+					<li class="active"><a href="/web/SearchRouteServlet">Vôos</a></li>
+					<li><a href="contact.jsp">Contato</a></li>
+					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
+					<li class="dropdown signed-out">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
+						<ul class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<li><input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email"><li>
+							<li><input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password"><li>
+							<li><input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1"><li>
+							<li><label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label><li>
+							<li><input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar"></li>
+							<li id="messageDiv" style="display:none;"></li>
+						</ul>
+					</li>
+					<li class="dropdown signed-in" style="display:none;">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
+				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
+				        </ul>
+					</li>
+				</ul> <!-- /.nav -->
+		    </div><!-- /.navbar-collapse -->
 		  	</div><!-- /.container -->
 		</nav>
 	</section> <!-- /#header -->
+	
 	<!-- Section Background -->
 	<section class="section-background">
 		<div class="container">
@@ -112,14 +212,14 @@ Random randomGenerator = new Random();
 				<%} %>
 			</h2>
 			<h2 class="page-header" id="resume" style="display:none;">
-				Resumo de suas escolhas
+				Selecione seu(s) assento(s)
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li><a href="flights.jsp">Vôos</a></li>
 				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
 				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
-				<li style="display:none;" id="breadcrumbResume">&nbsp;Resumo</li>
+				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -174,8 +274,8 @@ Random randomGenerator = new Random();
 	                    %></p>
 	                </div>
 	                
-	                <div class="panel-info">
-	                	<p><strong>Preços disponíveis</strong></p>
+	                <div class="panel-info outboundPrice" price=<%= route.getPrice()%>>
+	                	<p><strong>Preço por adulto</strong></p>
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
@@ -192,12 +292,12 @@ Random randomGenerator = new Random();
 						</ul>
 	                </div>
 	                
-	                <div class="panel-info">
+	                 <div class="panel-info flightNumber">
 	                    <p><strong>Número do vôo</strong></p>
 	                    <p><%= route.getId() %></p>
 	                </div>
 	                
-	                <div class="panel-info">
+	                <div class="panel-info airplaneModel">
 	                    <p><strong>Aeronave</strong></p>
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
@@ -206,20 +306,11 @@ Random randomGenerator = new Random();
 	                    <p><strong>Refeição</strong></p>
 	                    <p>Não</p>
 	                </div>
+					
+					<!-- TODO taxa de embarque -->
 	                
 	                
-                	<div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="seatOutbound" name="seatOutbound">
-								<%for (Seat seat : route.getAirplane().getSeats()){%>
-								<option value="<%= seat.getAirplaneSeat() %>"><%= seat.getAirplaneSeat() + " - " + seat.getCategory().getName()%></option>
-								<%} %>
-							</select>
-						</div>
-					</div>
-	                
-	                
-	                <div class="panel-info">
+	                <div class="panel-info scale">
 	                    <p><strong>Escala</strong></p>
 	                    <p>Não</p>
 	                </div>
@@ -229,6 +320,18 @@ Random randomGenerator = new Random();
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
+				   
+				   <div class="panel-info seatsPopUp" style="display:none;">
+				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Assentos</a>
+				   </div>
+				   
+				   <div class="panel-info outboundTotal">
+				   		<!-- 
+				   		<p><strong>Total</strong></p>
+	                    <p id="outboundTotal" name="outboundTotal"></p>
+	                     -->
+	               </div>
+				   
 	            </div>
 	         </div>
 	     </li>
@@ -285,8 +388,8 @@ Random randomGenerator = new Random();
 	                    %></p>
 	                </div>
 	                
-	                <div class="panel-info">
-	                	<p><strong>Preços disponíveis</strong></p>
+	                <div class="panel-info returnPrice" price=<%= route.getPrice()%>>
+	                	<p><strong>Preço por adulto</strong></p>
 	                    <ul class="list-group">
 						  <li class="list-group-item" style="padding: 4px 15px; color:#969595;">
 						    Tarifa Cheia
@@ -303,12 +406,12 @@ Random randomGenerator = new Random();
 						</ul>
 	                </div>
 	                
-	                <div class="panel-info">
+	                <div class="panel-info flightNumber">
 	                    <p><strong>Número do vôo</strong></p>
 	                    <p><%= route.getId() %></p>
 	                </div>
 	                
-	                <div class="panel-info">
+	                <div class="panel-info airplaneModel">
 	                    <p><strong>Aeronave</strong></p>
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
@@ -318,17 +421,7 @@ Random randomGenerator = new Random();
 	                    <p>Não</p>
 	                </div>
 	                
-	                <div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="seatOutbound" name="seatOutbound">
-								<%for (Seat seat : route.getAirplane().getSeats()){%>
-								<option value="<%= seat.getAirplaneSeat() %>"><%= seat.getAirplaneSeat() + " - " + seat.getCategory().getName()%></option>
-								<%} %>
-							</select>
-						</div>
-					</div>
-	                
-	                <div class="panel-info">
+	                <div class="panel-info scale">
 	                    <p><strong>Escala</strong></p>
 	                    <p>Não</p>
 	                </div>
@@ -338,6 +431,18 @@ Random randomGenerator = new Random();
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
+				  
+				   <div class="panel-info seatsPopUp" style="display:none;">
+				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Assentos</a>
+				   </div>
+	               
+	                <div class="panel-info returnTotal">
+				   		<!-- 
+				   		<p><strong>Total</strong></p>
+	                    <p id="outboundTotal" name="outboundTotal"></p>
+	                     -->
+	               </div>
+				   
 	            </div>
 	         </div>
 	     </li>
@@ -345,120 +450,54 @@ Random randomGenerator = new Random();
 	</ul>
 	</div>
 	
-	<!-- rotas escolhidas sao colocadas aqui TODO tirar botao comprar -->
+	<!-- rotas escolhidas sao colocadas aqui -->
 	<div class="container" id="selectedRoutes" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
 	</div>
 	
-	<!-- DIV PARA: Ao final das escolhas, 
-		o sistema mostra o preço de cada perna, os preços das taxas de embarque (específica por aeroporto e 
-		somada com as escalas caso existam)  e o total a ser pago pelo bilhete.  Nesta etapa, deve ser dada ao 
-		usuário  a opção de escolher o assento; alguns assentos podem ter preços diferenciados e isto deve ser 
-		refletido no total a ser pago. -->
+	<!--
 	<div class="container" id="orderResume" style="display:none;">
 		<ul class="list-group routes">
 		</ul>
 	</div>
-
-	<form method="post" action="SearchRouteServlet" id="searchForm" accept-charset="UTF-8">
-		<!-- Find a Tour -->
-		<section id="bookSection" class="tour section-wrapper container">
-			<h1 class="section-title">
-				Não gostou das opções? Refaça sua pesquisa!
-			</h1>
-			<br>
-			<div class="row">
-				
-				<div class="col-md-3 col-sm-6">
-					<div class="input-group">
-						<input type="text" class="form-control border-radius border-right" id="origin" name="origin" placeholder="Origem"/>
-						<span class="input-group-addon border-radius custom-addon">
-							<i class="ion-ios-calendar"></i>
-						</span>
-					</div>
-				</div>
+	-->
 	
-				<div class="col-md-3 col-sm-6">
-					<div class="input-group">
-						<input type="text" class="form-control border-radius border-right" id="destiny" name="destiny" placeholder="Destino"/>
-						<span class="input-group-addon border-radius custom-addon">
-							<i class="ion-ios-calendar"></i>
-						</span>
-					</div>
-				</div>
 	
-				<div class="col-md-3 col-sm-6">
-					<div class="input-group">
-						<input type="text" class="form-control border-radius border-right" id="departure" name="departureDate" placeholder="Data de Saída"/>
-						<span class="input-group-addon border-radius custom-addon">
-							<i class="ion-ios-calendar"></i>
-						</span>
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<div class="input-group">
-						<input type="text" class="form-control border-radius border-right" id="return" name="returnDate" placeholder="Data de Retorno"/>
-						<span class="input-group-addon border-radius custom-addon">
-							<i class="ion-ios-calendar"></i>
-						</span>
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="adult" name="adult">
-								<option value="" disabled selected>Adultos</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="children" name="children">
-								<option value="" disabled selected>Crianças</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="baby" name="baby">
-								<option value="" disabled selected>Bebês</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-						<div class="form-group">
-							<select class="form-control border-radius" id="seat" name="seat">
-								<option value="" disabled selected>Escala</option>
-								<option value="Turística">Sim</option>
-								<option value="Executiva">Não</option>
-							</select>
-						</div>
-				</div>
-				
-			</div>	
-			
-			<input class="btn btn-default border-radius custom-button center-block" type="submit" value="Procurar" id="search" style="width: 20em; height: 3em;">
-				
-		</section> <!-- /.tour -->
+	<div class="info" style="display:none; visibility: hidden;">
+		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
+		<div id="executiveClassFactor"><%=SeatCategory.EXECUTIVE.getFactor()%></div>
+		<div id="economyClassFactor"><%=SeatCategory.ECONOMY.getFactor()%></div>
+		
+		<div id="adults">
+				<%if(adults!=null){%>
+					<%=adults%><%} else{ %>
+					0
+				<%} %></div>
+		<div id="children">
+				<%if(children!=null){%>
+					<%=children%><%} else{ %>
+					0
+				<%} %></div>
+		<div id="babies">
+				<%if(babies!=null){%>
+					<%=babies%><%} else{ %>
+					0
+				<%} %></div>
+	</div>
+	
+	<jsp:include page="form.jsp">
+		<jsp:param name="cor" value="azul" />
+	</jsp:include>
+	
+	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt()%>"
+	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
+		Prosseguir >>
+	</div>
 
-	</form>
+	<jsp:include page="search.jsp">
+		<jsp:param name="cor" value="azul" />
+	</jsp:include>
 
 	<div class="section-wrapper sponsor">
 		<div class="container">
@@ -612,7 +651,13 @@ Random randomGenerator = new Random();
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/order.js?1600"></script>
+	
+	<!--  -->
+	<script src="ui/assets/js/login.js?1001"></script>
+	<script src="ui/assets/js/order.js?1008"></script>
+	
+	<!-- Date Picker -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 </body>
 </html>

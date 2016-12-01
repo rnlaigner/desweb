@@ -19,11 +19,6 @@ $(document).ready(function () {
 //	    }, 2000);
 //		$('body').scrollTo('#bookSection');
 //	});
-	
-	//avoid dropdown-menu to deactivate when clicking on elements inside it
-    $(document).on('click', '.dropdown-menu', function (e) {
-    	  e.stopPropagation();
-    });
     
     $('#searchForm').on('submit', function(e){
         e.preventDefault();

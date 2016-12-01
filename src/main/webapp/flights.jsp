@@ -25,7 +25,7 @@ String adults = (String) session.getAttribute("adult");
 String children = (String) session.getAttribute("children");
 String babies = (String) session.getAttribute("baby");
 
-// Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
+Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
 
 Random randomGenerator = new Random();
 
@@ -121,7 +121,7 @@ Random randomGenerator = new Random();
     <![endif]-->
     
      <script>
-	 	function updateTotal(elementName){
+	 	function updateTotal(elementName,array,numberSelectedSeats){
 		 	debugger;
 	 		var value = document.getElementsByName(elementName).value;
 
@@ -129,12 +129,16 @@ Random randomGenerator = new Random();
 	 		
 	 		$(elementId).html(value);
 
+	 		//only if not exists. if exists, update total value
 	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
-            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+">R$ "+value+"</p>").appendTo( "."+elementName );
+            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
 
-			if(elementName = 'returnTotal')
+
+			//TODO caso totalPassengers != numberSelectedSeats, adicionar mais forms
+            
+			if(elementName == 'returnTotal')
 			{
-				
+				//change button... do something
 			}
 		}
      </script>
@@ -216,6 +220,8 @@ Random randomGenerator = new Random();
 				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
 				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
 				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
+				<li style="display:none;" id="breadcrumbPassenger">&nbsp;Dados do Passageiro</li>
+				<li style="display:none;" id="breadcrumbPayment">&nbsp;Pagamento</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -318,7 +324,7 @@ Random randomGenerator = new Random();
 				   </div>
 				   
 				   <div class="panel-info seatsPopUp" style="display:none;">
-				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Pop Up</a>
+				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Assentos</a>
 				   </div>
 				   
 				   <div class="panel-info outboundTotal">
@@ -429,7 +435,7 @@ Random randomGenerator = new Random();
 				   </div>
 				  
 				   <div class="panel-info seatsPopUp" style="display:none;">
-				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Pop Up</a>
+				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Assentos</a>
 				   </div>
 	               
 	                <div class="panel-info returnTotal">
@@ -489,6 +495,11 @@ Random randomGenerator = new Random();
 	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt()%>"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Prosseguir >>
+	</div>
+	
+	<div class="btn btn-default border-radius custom-button finish" id="<%=randomGenerator.nextInt()%>"
+	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
+		Concluir
 	</div>
 
 	<jsp:include page="search.jsp">
@@ -650,7 +661,7 @@ Random randomGenerator = new Random();
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1001"></script>
-	<script src="ui/assets/js/order.js?1006"></script>
+	<script src="ui/assets/js/order.js?1009"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

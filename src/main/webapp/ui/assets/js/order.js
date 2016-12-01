@@ -84,11 +84,60 @@ $(document).ready(function () {
     
     $(".proceed").on('click', function(){
     	
-    	//TODO if se nao ha seats selecionados, retorna
+    	//se nao ha seats selecionados, retorna
+    	if ( $( "#outboundTotal" ).length != 1 ) {
+    	    alert("Escolha os assentos do voo de ida");
+    	    return;    	 
+    	}
+    	if ( $( "#returnTotal" ).length != 1 ) {
+    	    alert("Escolha os assentos do voo de volta");
+    	    return;    	 
+    	}
     	
     	$('#selectedRoutes').css("display","none");
     	
     	$('#passengerForm').css("display","block");
+    	
+    	$('#breadcrumbPassenger').css("display","inline");
+    	$('#breadcrumbPassenger').addClass("active");
+    	
+    	$(this).css("display","none");
+    	
+    	$(".finish").css("display","block");
+    });
+    
+    $(".finish").on('click', function(){
+    	
+    	//TODO Fazer validacao dos campos
+    	
+    	//TODO definir o que preciso para persistir compra
+//    	PARA CADA ROTA:
+//    	id da rota botao de comprar
+//    	data da viagem
+//    	assentos escolhidos
+//    	valor final da passagem
+//    	assentos escolhidos - array
+//    	dados dos passageiros - array de json
+//    	dados do cartao
+    	
+    	$.ajax({
+        	type: "POST",
+            url : "OrderServlet",
+            data : {
+            	email : email,
+                password : password
+            },
+            success : function(results){
+                if(results != null && results != ""){
+                    
+                }else{
+                    
+                }
+            }
+        });
+    	
+    	
+    	debugger;
     });
     
     $( function() {

@@ -61,7 +61,6 @@ public class SearchRouteServlet extends HttpServlet {
 	    routeBusiness = RouteBusiness.getInstance();
 	    
 	    //Se origem é nulo é porque todos os outros parâmetros são nulos
-	    //Se origem é nulo é porque não foi sequer tratado em search.js
 	    if (origin != null){
 		    List<Route> outboundRoutes = routeBusiness.find(origin, destiny, Util.strToDateUS(departureDate));
 		    
