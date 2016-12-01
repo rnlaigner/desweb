@@ -45,6 +45,17 @@ public class OrderServlet extends HttpServlet {
 		 String outboundRouteId = request.getParameter("outboundRouteId");
 	     String returnRouteId = request.getParameter("returnRouteId");
 	     
+//	     routeIds 
+//     	 outboundDate 
+//     	 returnDate 
+//     	 outboundSeats 
+//     	 returnSeats 
+//     	 outboundTotal
+//     	 returnTotal
+//     	 arrayName 
+//     	 arrayNationality 
+//     	 arrayIdentity 
+	     
 	     routeBusiness = RouteBusiness.getInstance();
 	     
 	     

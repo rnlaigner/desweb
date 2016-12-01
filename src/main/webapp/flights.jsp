@@ -122,7 +122,6 @@ Random randomGenerator = new Random();
     
      <script>
 	 	function updateTotal(elementName,array,numberSelectedSeats){
-		 	debugger;
 	 		var value = document.getElementsByName(elementName).value;
 
 			var elementId = '#' +  elementName;
@@ -231,12 +230,12 @@ Random randomGenerator = new Random();
 	<div class="container" id="outboundRoutes" style="display:block;">
     <ul class="list-group">
     <%  for(Route route : outboundRoutes){%>
-    	<li id="<%= route.getId() %>">
+    	<li route_id="<%= route.getId() %>" id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
 	                    <p><strong>Ida</strong></p>
-	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                    <p class="outboundDate"><%= Util.dateToStr(route.getDepartureTime())	%></p>
 	                </div>		
     		
     				<div class="panel-info">
@@ -345,12 +344,12 @@ Random randomGenerator = new Random();
     <ul class="list-group">
     
     	<% for(Route route : returnRoutes){%>
-    	<li id="<%= route.getId() %>">
+    	<li route_id="<%= route.getId() %>" id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
 	                    <p><strong>Retorno</strong></p>
-	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                    <p class="returnDate"><%= Util.dateToStr(route.getDepartureTime())	%></p>
 	                </div>		
     		
     				<div class="panel-info">
@@ -661,7 +660,7 @@ Random randomGenerator = new Random();
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1001"></script>
-	<script src="ui/assets/js/order.js?1009"></script>
+	<script src="ui/assets/js/order.js?1011"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -107,25 +107,61 @@ $(document).ready(function () {
     });
     
     $(".finish").on('click', function(){
-    	
+    	debugger;
     	//TODO Fazer validacao dos campos
     	
-    	//TODO definir o que preciso para persistir compra
 //    	PARA CADA ROTA:
 //    	id da rota botao de comprar
+    	var routeIds = [];
+    	$('#selectedRoutes li [route_id]').each(function(i)
+		{
+    		routeIds.push($(this).attr('route_id'));
+		});
+    	
 //    	data da viagem
+    	var outboundDate = $('#selectedRoutes .outboundDate').html();
+    	var returnDate = $('#selectedRoutes .returnDate').html();
+    	
 //    	assentos escolhidos
+    	var outboundSeats = $('#selectedRoutes #outboundTotal').attr('seats');
+    	var returnSeats = $('#selectedRoutes #returnTotal').attr('seats')
+    	
 //    	valor final da passagem
-//    	assentos escolhidos - array
+    	var outboundTotal = $('#selectedRoutes #outboundTotal').attr('total');
+    	var returnTotal = $('#selectedRoutes #returnTotal').attr('total')
+    	
 //    	dados dos passageiros - array de json
+    	var arrayName = [];
+    	$('.name').each(function(i) { 
+    		arrayName.push($(this).val()); 
+    	});
+    	
+    	var arrayNationality = [];
+    	$('.nationality').each(function(i) { 
+    		arrayNationality.push($(this).val()); 
+    	});
+    	
+    	var arrayIdentity = [];
+    	$('.identity').each(function(i) { 
+    		arrayIdentity.push($(this).val()); 
+    	});
+    	
 //    	dados do cartao
     	
     	$.ajax({
         	type: "POST",
             url : "OrderServlet",
             data : {
-            	email : email,
-                password : password
+            	routeIds : routeIds,
+            	outboundDate : outboundDate,
+            	returnDate : returnDate,
+            	outboundSeats : outboundSeats,
+            	returnSeats : returnSeats,
+            	outboundTotal : outboundTotal,
+            	returnTotal : returnTotal,
+            	arrayName : arrayName,
+            	arrayNationality : arrayNationality,
+            	arrayIdentity : arrayIdentity
             },
             success : function(results){
                 if(results != null && results != ""){
@@ -137,7 +173,6 @@ $(document).ready(function () {
         });
     	
     	
-    	debugger;
     });
     
     $( function() {

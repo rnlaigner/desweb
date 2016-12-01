@@ -117,26 +117,26 @@ for (int i = 1; i <= totalPassengers; i++) { %>
 			<div class="form-group row">
 			  <label for="example-text-input" class="col-xs-2 col-form-label">Nome completo</label>
 			  <div class="col-xs-10">
-			    <input class="form-control" type="text" value="" id="example-text-input">
+			    <input class="form-control name" type="text" value="" id="example-text-input">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="example-search-input" class="col-xs-2 col-form-label">Nacionalidade</label>
 			  <div class="col-xs-10">
-			    <input class="form-control" type="search" value="Brasileiro" id="example-search-input">
+			    <input class="form-control nationality" type="search" value="Brasileiro" id="example-text-input">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="example-email-input" class="col-xs-2 col-form-label">Identidade</label>
 			  <div class="col-xs-10">
-			    <input class="form-control" type="email" value="" id="example-email-input">
+			    <input class="form-control identity" type="email" value="" id="example-text-input">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="example-time-input" class="col-xs-2 col-form-label">Possui necessidade especiais?</label>
 			  <div class="col-xs-10">
 			    <div class="checkbox">
-				  <label><input type="checkbox" value="">Option 3</label>
+				  <label><input class="specialNeed" type="checkbox" value="">Option 3</label>
 				</div>
 			  </div>
 			</div>
