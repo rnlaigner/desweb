@@ -37,13 +37,25 @@ public class Passenger
     private String cpf;
 	
 	@Column(nullable = false)
+    private String identificationNumber;
+
+	@Column(nullable = false)
+    private String nationality;
+
+	@Column(nullable = false)
+    private String passport;
+
+	@Column(nullable = false)
     private String telephone;
+	
+	@Column(nullable = false)
+    private Boolean disabled;
 	
 	@Enumerated(EnumType.STRING)
     private AgeCategory ageCategory;
     
     @OneToMany(mappedBy = "passenger")
-    private List<Ticket> tickets;
+    private List<Flight> flights;
     
     public Passenger()
     {
@@ -57,6 +69,30 @@ public class Passenger
         this.address = address;
         this.cpf = cpf;
     }
+    
+	public String getIdentificationNumber() {
+		return identificationNumber;
+	}
+
+	public void setIdentificationNumber(String identificationNumber) {
+		this.identificationNumber = identificationNumber;
+	}
+    
+	public String getPassport() {
+		return passport;
+	}
+	
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
 
     public String getName() 
     {
@@ -98,14 +134,14 @@ public class Passenger
         this.cpf = cpf;
     }
 
-    public List<Ticket> getTickets() 
+    public List<Flight> getTickets() 
     {
-        return tickets;
+        return flights;
     }
 
-    public void setTickets(List<Ticket> tickets) 
+    public void setTickets(List<Flight> flights) 
     {
-        this.tickets = tickets;
+        this.flights = flights;
     }
 
 	public String getTelephone() {

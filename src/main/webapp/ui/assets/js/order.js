@@ -106,8 +106,11 @@ $(document).ready(function () {
     	$(".finish").css("display","block");
     });
     
-    $(".finish").on('click', function(){
+    $(".finish").on('click', function(e){
     	debugger;
+    	
+    	e.preventDefault();
+    	
     	//TODO Fazer validacao dos campos
     	
 //    	PARA CADA ROTA:
@@ -122,7 +125,7 @@ $(document).ready(function () {
     	var outboundDate = $('#selectedRoutes .outboundDate').html();
     	var returnDate = $('#selectedRoutes .returnDate').html();
     	
-//    	assentos escolhidos
+//    	assentos escolhidos TODO FIXME
     	var outboundSeats = $('#selectedRoutes #outboundTotal').attr('seats');
     	var returnSeats = $('#selectedRoutes #returnTotal').attr('seats')
     	

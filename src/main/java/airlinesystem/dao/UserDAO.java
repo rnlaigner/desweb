@@ -7,19 +7,19 @@ import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public interface UserDAO
 {	
-	public long inclui(User umUser); 
+	public long add(User umUser); 
 
-	public void altera(User umUser)
+	public void edit(User umUser)
 		throws ObjetoNaoEncontradoException; 
 	
-	public void exclui(long id) 
+	public void remove(long id) 
 		throws ObjetoNaoEncontradoException; 
 	
-	public User recuperaUmUser(long numero) 
+	public User retrieveUser(long numero) 
 		throws ObjetoNaoEncontradoException; 
 	
-	public User recuperaUmUser(String email, String password) 
+	public User retrieveUser(String email, String password) 
 			throws ObjetoNaoEncontradoException;
 	
-	public List<User> recuperaUsers();
+	public List<User> retrieveUsers();
 }

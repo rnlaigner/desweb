@@ -27,38 +27,57 @@ public class Flight
     private Route route;
 	
 	@Column(nullable = true)
-    private int number;
+    private Long number;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="seat_id")
     private Seat seat;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="passenger_id")
+	private Passenger passenger;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="order_id")
+	private Passenger order;
     
     public Flight()
     {
     }
     
-    public Flight(Route route, int number)
+    public Flight(Route route, Long number, Seat seat, Passenger passenger)
     {
         this.route = route;
         this.number = number;
+        this.seat = seat;
+        this.passenger = passenger;
     }
 
+	public Passenger getPassenger() {
+		return passenger;
+	}
+
+	public void setPassenger(Passenger passenger) {
+		this.passenger = passenger;
+	}
+    
     public Route getRoutes() 
     {
         return this.route;
     }
+    
 
     public void setRoutes(Route route) 
     {
         this.route = route;
     }
 
-    public int getNumber() 
+    public Long getNumber() 
     {
         return number;
     }
 
-    public void setNumber(int number) 
+    public void setNumber(Long number) 
     {
         this.number = number;
     }

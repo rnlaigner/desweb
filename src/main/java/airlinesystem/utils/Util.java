@@ -4,8 +4,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class Util
@@ -110,5 +112,33 @@ public class Util
 	
 	public static String doubleToStr(double valor)
 	{	return nf.format(valor);
-	}		
+	}	
+	
+	public static List<String> convertCommaListToArray(String outboundSeats) {
+		List<String> array = new ArrayList<String>();
+		
+		int stringLength = outboundSeats.length();
+		int i = 0;
+		int start = i;
+		while (i < stringLength)
+		{
+			
+			i = getBreakPosition(outboundSeats,i);
+			array.add(outboundSeats.substring(start, i));
+			i++;
+			start = i;
+		}
+		return array;
+	}
+	
+	private static int getBreakPosition(String outboundSeats, int startPosition){
+		int i;
+		for(i = startPosition; i < outboundSeats.length(); i++){
+			if(outboundSeats.charAt(i)==','){
+				return i;
+			}
+		}
+		return i;
+	}
+	
 }

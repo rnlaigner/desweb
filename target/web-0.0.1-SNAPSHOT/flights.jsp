@@ -6,7 +6,7 @@
 <%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page import = "airlinesystem.entity.Seat" %>
-<%@ page import = "java.util.Random;" %>
+<%@ page import = "java.util.Random" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
@@ -122,7 +122,6 @@ Random randomGenerator = new Random();
     
      <script>
 	 	function updateTotal(elementName,array,numberSelectedSeats){
-		 	debugger;
 	 		var value = document.getElementsByName(elementName).value;
 
 			var elementId = '#' +  elementName;
@@ -220,6 +219,8 @@ Random randomGenerator = new Random();
 				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
 				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
 				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
+				<li style="display:none;" id="breadcrumbPassenger">&nbsp;Dados do Passageiro</li>
+				<li style="display:none;" id="breadcrumbPayment">&nbsp;Pagamento</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -229,12 +230,12 @@ Random randomGenerator = new Random();
 	<div class="container" id="outboundRoutes" style="display:block;">
     <ul class="list-group">
     <%  for(Route route : outboundRoutes){%>
-    	<li id="<%= route.getId() %>">
+    	<li route_id="<%= route.getId() %>" id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
 	                    <p><strong>Ida</strong></p>
-	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                    <p class="outboundDate"><%= Util.dateToStr(route.getDepartureTime())	%></p>
 	                </div>		
     		
     				<div class="panel-info">
@@ -343,12 +344,12 @@ Random randomGenerator = new Random();
     <ul class="list-group">
     
     	<% for(Route route : returnRoutes){%>
-    	<li id="<%= route.getId() %>">
+    	<li route_id="<%= route.getId() %>" id="<%= route.getId() %>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
 	                    <p><strong>Retorno</strong></p>
-	                    <p><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                    <p class="returnDate"><%= Util.dateToStr(route.getDepartureTime())	%></p>
 	                </div>		
     		
     				<div class="panel-info">
@@ -493,6 +494,11 @@ Random randomGenerator = new Random();
 	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt()%>"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Prosseguir >>
+	</div>
+	
+	<div class="btn btn-default border-radius custom-button finish" id="<%=randomGenerator.nextInt()%>"
+	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
+		Concluir
 	</div>
 
 	<jsp:include page="search.jsp">
@@ -654,7 +660,7 @@ Random randomGenerator = new Random();
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1001"></script>
-	<script src="ui/assets/js/order.js?1008"></script>
+	<script src="ui/assets/js/order.js?1012"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

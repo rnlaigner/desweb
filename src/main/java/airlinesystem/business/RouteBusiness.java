@@ -10,6 +10,7 @@ import airlinesystem.dao.RouteAppService;
 import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
 import airlinesystem.entity.Seat;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public class RouteBusiness {
 	
@@ -29,13 +30,28 @@ public class RouteBusiness {
 		return routeBusiness;
 	}
 	
+	public Route find(Long id)
+	{
+		routeAppService = RouteAppService.getInstance();
+		
+		Route route = null;
+		try {
+			route = routeAppService.find(id);
+		} catch (ObjetoNaoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return route;
+	}
+	
 	public List<Route> find(String origin, String destiny, Date departureDate)
 	{
 		routeAppService = RouteAppService.getInstance();
 		
 		airportAppService = AirportAppService.getInstance();
 		
-		//TODO obter id do aeroporto pedido (fazer isso por ora)
+		//TODO obter id do aeroporto pedido
 		//ideal eh que ajax preencha automaticamente os aeroportos possiveis na tela
 		
 		Airport originAirport = airportAppService.findByName(origin);

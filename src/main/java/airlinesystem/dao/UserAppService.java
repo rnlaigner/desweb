@@ -30,7 +30,7 @@ public class UserAppService
 			// inicia a transção no JPA
 			JPAUtil.beginTransaction();
 			// chama método inclui do DAO
-			long numero = userDAO.inclui(umUser);
+			long numero = userDAO.add(umUser);
 			// commita a transação
 			JPAUtil.commitTransaction();
 				
@@ -60,7 +60,7 @@ public class UserAppService
 	{	try
 		{	JPAUtil.beginTransaction();
 
-			userDAO.altera(umUser);
+			userDAO.edit(umUser);
 
 			JPAUtil.commitTransaction();
 		} 
@@ -90,7 +90,7 @@ public class UserAppService
 	{	try
 		{	JPAUtil.beginTransaction();
 
-			userDAO.exclui(numero);
+			userDAO.remove(numero);
 
 			JPAUtil.commitTransaction();
 		} 
@@ -119,7 +119,7 @@ public class UserAppService
 		throws ObjetoNaoEncontradoException
 	{	
 		try
-		{	User umUser = userDAO.recuperaUmUser(numero);
+		{	User umUser = userDAO.retrieveUser(numero);
 			
 			return umUser;
 		} 
@@ -135,7 +135,7 @@ public class UserAppService
 			throws ObjetoNaoEncontradoException
 		{	
 			try
-			{	User umUser = userDAO.recuperaUmUser(email,password);
+			{	User umUser = userDAO.retrieveUser(email,password);
 				
 				return umUser;
 			} 
@@ -149,7 +149,7 @@ public class UserAppService
 	
 	public List<User> recuperaUsers() 
 	{	try
-		{	List<User> users = userDAO.recuperaUsers();
+		{	List<User> users = userDAO.retrieveUsers();
 
 			return users;
 		} 

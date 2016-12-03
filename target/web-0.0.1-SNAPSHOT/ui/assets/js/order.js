@@ -86,12 +86,10 @@ $(document).ready(function () {
     	
     	//se nao ha seats selecionados, retorna
     	if ( $( "#outboundTotal" ).length != 1 ) {
-    		 
     	    alert("Escolha os assentos do voo de ida");
     	    return;    	 
     	}
     	if ( $( "#returnTotal" ).length != 1 ) {
-   		 
     	    alert("Escolha os assentos do voo de volta");
     	    return;    	 
     	}
@@ -99,6 +97,85 @@ $(document).ready(function () {
     	$('#selectedRoutes').css("display","none");
     	
     	$('#passengerForm').css("display","block");
+    	
+    	$('#breadcrumbPassenger').css("display","inline");
+    	$('#breadcrumbPassenger').addClass("active");
+    	
+    	$(this).css("display","none");
+    	
+    	$(".finish").css("display","block");
+    });
+    
+    $(".finish").on('click', function(e){
+    	debugger;
+    	
+    	e.preventDefault();
+    	
+    	//TODO Fazer validacao dos campos
+    	
+//    	PARA CADA ROTA:
+//    	id da rota botao de comprar
+    	var routeIds = [];
+    	$('#selectedRoutes li [route_id]').each(function(i)
+		{
+    		routeIds.push($(this).attr('route_id'));
+		});
+    	
+//    	data da viagem
+    	var outboundDate = $('#selectedRoutes .outboundDate').html();
+    	var returnDate = $('#selectedRoutes .returnDate').html();
+    	
+//    	assentos escolhidos
+    	var outboundSeats = $('#selectedRoutes #outboundTotal').attr('seats');
+    	var returnSeats = $('#selectedRoutes #returnTotal').attr('seats')
+    	
+//    	valor final da passagem
+    	var outboundTotal = $('#selectedRoutes #outboundTotal').attr('total');
+    	var returnTotal = $('#selectedRoutes #returnTotal').attr('total')
+    	
+//    	dados dos passageiros - array de json
+    	var arrayName = [];
+    	$('.name').each(function(i) { 
+    		arrayName.push($(this).val()); 
+    	});
+    	
+    	var arrayNationality = [];
+    	$('.nationality').each(function(i) { 
+    		arrayNationality.push($(this).val()); 
+    	});
+    	
+    	var arrayIdentity = [];
+    	$('.identity').each(function(i) { 
+    		arrayIdentity.push($(this).val()); 
+    	});
+    	
+//    	dados do cartao
+    	
+    	$.ajax({
+        	type: "POST",
+            url : "OrderServlet",
+            data : {
+            	routeIds : routeIds,
+            	outboundDate : outboundDate,
+            	returnDate : returnDate,
+            	outboundSeats : outboundSeats,
+            	returnSeats : returnSeats,
+            	outboundTotal : outboundTotal,
+            	returnTotal : returnTotal,
+            	arrayName : arrayName,
+            	arrayNationality : arrayNationality,
+            	arrayIdentity : arrayIdentity
+            },
+            success : function(results){
+                if(results != null && results != ""){
+                    
+                }else{
+                    
+                }
+            }
+        });
+    	
+    	
     });
     
     $( function() {

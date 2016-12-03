@@ -31,8 +31,8 @@ public class CheckIn
 	private Long id;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="checkin_id")
-    private Ticket ticket;
+	@JoinColumn(name="flight_id")
+    private Flight flight;
     
 	@Column(nullable = false)
     private Date date;
@@ -41,18 +41,18 @@ public class CheckIn
     {
     }
     
-    public CheckIn(Ticket ticket)
+    public CheckIn(Flight flight)
     {
-        this.ticket = ticket;
+        this.flight = flight;
         this.date = new Date();
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public Date getDate() {
@@ -62,7 +62,5 @@ public class CheckIn
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
     
 }

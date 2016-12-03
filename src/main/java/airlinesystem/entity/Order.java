@@ -1,5 +1,6 @@
 package airlinesystem.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Order
 	private Long id;
 	
 	@OneToMany(mappedBy = "order")
-    private List<Ticket> tickets;
+    private List<Flight> flights;
     
 	@Column(nullable = true)
     private double totalPrice;
@@ -49,32 +50,29 @@ public class Order
     	
     }
     
-    public Order(List<Ticket> tickets, User user, Payment payment)
+    public Order(List<Flight> flights, User user, Payment payment)
     {
-        this.tickets = tickets;
+        this.flights = flights;
         this.user = user;
         this.payment = payment;
     }
     
-    @SuppressWarnings("unused")
-	private double calcTotalPrice()
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}  
+
+    public List<Flight> getFlights() 
     {
-        double total = 0;
-        for (Ticket ticket : this.tickets) 
-        {
-            total += ticket.getPrice();
-        }
-        return total;
+        return flights;
     }
 
-    public List<Ticket> getTickets() 
+    public void setFlights(List<Flight> flights) 
     {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) 
-    {
-        this.tickets = tickets;
+        this.flights = flights;
     }
 
     public double getTotalPrice() 
@@ -110,5 +108,12 @@ public class Order
     public void setOrderNumber(Long orderNumber)
     {
         this.orderNumber = orderNumber;
+    }
+    
+    public void addFlight(Flight flight){
+    	if(this.flights == null){
+    		this.flights = new ArrayList<Flight>();
+    	}
+    	this.flights.add(flight);
     }
 }

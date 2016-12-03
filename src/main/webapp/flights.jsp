@@ -6,7 +6,7 @@
 <%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page import = "airlinesystem.entity.Seat" %>
-<%@ page import = "java.util.Random;" %>
+<%@ page import = "java.util.Random" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
@@ -28,6 +28,9 @@ String babies = (String) session.getAttribute("baby");
 Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
 
 Random randomGenerator = new Random();
+int minimum  = 1;
+int maximum = 100;
+int range = maximum - minimum + 1;
 
 //Invalida no caso de um clique na aba Voos nao trazer os voos da ultima pesquisa (DA ERRO!!!)
 //session.invalidate();
@@ -317,7 +320,7 @@ Random randomGenerator = new Random();
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button outbound" 
-	                 id="<%= randomGenerator.nextInt() %>" route_id="<%= route.getId() %>"
+	                 id="<%= randomGenerator.nextInt(range) + minimum %>" route_id="<%= route.getId() %>"
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
@@ -428,7 +431,7 @@ Random randomGenerator = new Random();
 	                </div>
 	                
 	                <div class="btn btn-default border-radius custom-button return" 
-	                id="<%= randomGenerator.nextInt() %>" route_id="<%= route.getId() %>"
+	                id="<%= randomGenerator.nextInt(range) + minimum %>" route_id="<%= route.getId() %>"
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
 				   </div>
@@ -491,12 +494,12 @@ Random randomGenerator = new Random();
 		<jsp:param name="cor" value="azul" />
 	</jsp:include>
 	
-	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt()%>"
+	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt(range) + minimum%>"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Prosseguir >>
 	</div>
 	
-	<div class="btn btn-default border-radius custom-button finish" id="<%=randomGenerator.nextInt()%>"
+	<div class="btn btn-default border-radius custom-button finish" id="<%=randomGenerator.nextInt(range) + minimum%>"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Concluir
 	</div>
@@ -660,7 +663,7 @@ Random randomGenerator = new Random();
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1001"></script>
-	<script src="ui/assets/js/order.js?1011"></script>
+	<script src="ui/assets/js/order.js?1012"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

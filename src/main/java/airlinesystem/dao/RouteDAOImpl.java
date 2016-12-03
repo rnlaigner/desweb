@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
 import airlinesystem.exception.InfraestruturaException;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.utils.JPAUtil;
 
 public class RouteDAOImpl implements RouteDAO
@@ -56,5 +57,23 @@ public class RouteDAOImpl implements RouteDAO
 		}
 	}
 	
-	
+	@Override
+	public Route find(long id) throws ObjetoNaoEncontradoException  {
+		try
+		{	
+			EntityManager em = JPAUtil.getEntityManager();
+
+			Route route = (Route)em
+					.find(Route.class, new Long(id));
+
+			if (route == null)
+			{	throw new ObjetoNaoEncontradoException("Rota não existe");
+			}
+			
+			return route;
+		} 
+		catch(RuntimeException e)
+		{	throw new InfraestruturaException(e);
+		}
+	}
 }

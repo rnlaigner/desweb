@@ -5,6 +5,7 @@ import java.util.List;
 
 import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
+import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.utils.JPAUtil;
 
 public class RouteAppService
@@ -45,4 +46,20 @@ public class RouteAppService
 		{   JPAUtil.closeEntityManager();
 		}
 	}
+	
+	public Route find(long numero) 
+			throws ObjetoNaoEncontradoException
+		{	
+			try
+			{	Route route = routeDAO.find(numero);
+				
+				return route;
+			} 
+			catch(ObjetoNaoEncontradoException e)
+			{	throw new ObjetoNaoEncontradoException("Rota não encontrada");
+			}
+			finally
+			{   JPAUtil.closeEntityManager();
+			}
+		}
 }

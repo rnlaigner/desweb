@@ -12,7 +12,7 @@ import airlinesystem.utils.JPAUtil;
 
 public class UserDAOImpl implements UserDAO
 {	
-	public long inclui(User umUser) 
+	public long add(User umUser) 
 	{	try
 		{	EntityManager em = JPAUtil.getEntityManager();
 
@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO
 		}
 	}
 
-	public void altera(User umUser) 
+	public void edit(User umUser) 
 		throws ObjetoNaoEncontradoException 
 	{	try
 		{	EntityManager em = JPAUtil.getEntityManager();
@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO
 		}
 	}
 
-	public void exclui(long id) throws ObjetoNaoEncontradoException 
+	public void remove(long id) throws ObjetoNaoEncontradoException 
 	{	try
 		{	EntityManager em = JPAUtil.getEntityManager();
 		
@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO
 		}
 	}
 
-	public User recuperaUmUser(long id) 
+	public User retrieveUser(long id) 
 		throws ObjetoNaoEncontradoException 
 	{	try
 		{	EntityManager em = JPAUtil.getEntityManager();
@@ -98,7 +98,7 @@ public class UserDAOImpl implements UserDAO
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<User> recuperaUsers()
+	public List<User> retrieveUsers()
 	{	try
 		{	
 			EntityManager em = JPAUtil.getEntityManager();
@@ -116,7 +116,7 @@ public class UserDAOImpl implements UserDAO
 	}
 
 	@Override
-	public User recuperaUmUser(String email, String password) throws ObjetoNaoEncontradoException {
+	public User retrieveUser(String email, String password) throws ObjetoNaoEncontradoException {
 		try
 		{	
 			EntityManager em = JPAUtil.getEntityManager();
