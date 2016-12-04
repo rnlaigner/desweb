@@ -80,6 +80,7 @@ String email = (String) session.getAttribute("email");
 					<!-- mudar o que eh exibido no link -->
 					<li><a href="/web/SearchRouteServlet">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
+					<%if (email == null){ %>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
@@ -92,7 +93,7 @@ String email = (String) session.getAttribute("email");
 							<li id="messageDiv" style="display:none;"></li>
 						</ul>
 					</li>
-					<li class="dropdown signed-in" style="display:none;">
+					<li class="dropdown signed-in" style="display:none;" logged_in="false">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
 				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
@@ -101,6 +102,29 @@ String email = (String) session.getAttribute("email");
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>
+					<%} else { %>
+					<li class="signed-out" style="display:none;"><a href="contact.jsp">Cadastre-se</a></li>
+					<li class="dropdown signed-out" style="display:none;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
+						<ul class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<li><input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email"><li>
+							<li><input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password"><li>
+							<li><input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1"><li>
+							<li><label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label><li>
+							<li><input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar"></li>
+							<li id="messageDiv" style="display:none;"></li>
+						</ul>
+					</li>
+					<li class="dropdown signed-in" logged_in="true">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
+				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
+				        </ul>
+					</li>
+					<%} %>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
@@ -217,7 +241,7 @@ String email = (String) session.getAttribute("email");
 				
 					<div class="form-group">
 						<select class="form-control border-radius" id="adult" name="adult">
-							<option value="" disabled selected>Adultos</option>
+							<option value="0" selected>Adultos</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -229,7 +253,7 @@ String email = (String) session.getAttribute("email");
 			<div class="col-md-3 col-sm-6">
 					<div class="form-group">
 						<select class="form-control border-radius" id="children" name="children">
-							<option value="" disabled selected>Crianças</option>
+							<option value="0" selected>Crianças</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -241,7 +265,7 @@ String email = (String) session.getAttribute("email");
 			<div class="col-md-3 col-sm-6">
 					<div class="form-group">
 						<select class="form-control border-radius" id="baby" name="baby">
-							<option value="" disabled selected>Bebês</option>
+							<option value="0" selected>Bebês</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -252,10 +276,10 @@ String email = (String) session.getAttribute("email");
 			
 			<div class="col-md-3 col-sm-6">
 					<div class="form-group">
-						<select class="form-control border-radius" id="seat" name="seat">
+						<select class="form-control border-radius" id="scale" name="scale">
 							<option value="" disabled selected>Escala</option>
-							<option value="Turística">Sim</option>
-							<option value="Executiva">Não</option>
+							<option value="yes">Sim</option>
+							<option value="no">Não</option>
 						</select>
 					</div>
 			</div>
@@ -640,7 +664,7 @@ String email = (String) session.getAttribute("email");
 	<script src="ui/assets/js/script.js"></script>
 	
 	<!--  -->
-	<script type="text/javascript" src="ui/assets/js/menu.js?1500"></script>
+	<script type="text/javascript" src="ui/assets/js/menu.js?1502"></script>
 	<script src="ui/assets/js/login.js?1001"></script>
 	
 	<!-- Date Picker -->

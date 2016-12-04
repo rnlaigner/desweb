@@ -278,12 +278,10 @@
 				$('.checkout-button').on('click', function () {
 
 					if(maxSeats != 0 && numberSelectedSeats < maxSeats){
-						alert("Ainda há assentos a serem escolhidos")
+						alert("Ainda há assentos a serem escolhidos");
+						return;
 					}
-					debugger;
 					var value = $('#total').html();
-					
-					//opener.document.getElementById(this.totalId).value = value;
 					
 					opener.document.getElementsByName(elementName).value = value;
 

@@ -33,8 +33,8 @@ public class Order
     
 	@Column(nullable = true)
     private double totalPrice;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
     private User user;
     
@@ -94,6 +94,10 @@ public class Order
     {
         return payment;
     }
+    
+    public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
     public void setPayment(Payment payment) 
     {

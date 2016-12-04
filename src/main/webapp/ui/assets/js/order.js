@@ -32,17 +32,11 @@ $(document).ready(function () {
     	
     	var outboundRoute =  $("#outboundRoutes").find( id );
     	
-    	//<a href='#' onclick='openSeatsPopUp()' title='Pop Up'>Pop Up</a>
-    	
     	$( "#selectedRoutes .routes" ).append( outboundRoute );
-    	
-    	//$( "#selectedRoutes .routes" ).find(id).append("<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Pop Up</a>");
-    	
-    	//this strategy does not work. insert this element at jsp. maintain hidden until resume
-    	//$("<a href='#' id='outSeatsPopUp' title='Pop Up'>Pop Up</a>").insertAfter( "#selectedRoutes .routes .outbound" );
     });
     
     $(".return").on('click', function(){
+    	
         //pegar os voos selecionados
     	var returnRouteId = $(this).attr('route_id');
     	
@@ -65,24 +59,18 @@ $(document).ready(function () {
     	$('.outbound').css("display","none");
     	$('.return').css("display","none");
     	
-    	$('.proceed').css("display","block");
+    	$('#loadPassengerForm').css("display","block");
     	
     	$('#originCity').css("display","none");
-    	$('#resume').css("display","block");
+    	$('#seat').css("display","block");
     	
     	$('.returnSeats').css("display","block");
     	$('.outboundSeats').css("display","block");
     	
-    	//$('.food').css("display","none");
-    	//$('.scale').css("display","none");
-    	
-    	//$('.flightNumber').css("display","none");
-    	//$('.airplaneModel').css("display","none");
-    	
     	$('.seatsPopUp').css("display","block");
     });
     
-    $(".proceed").on('click', function(){
+    $("#loadPassengerForm").on('click', function(){
     	
     	//se nao ha seats selecionados, retorna
     	if ( $( "#outboundTotal" ).length != 1 ) {
@@ -93,6 +81,9 @@ $(document).ready(function () {
     	    alert("Escolha os assentos do voo de volta");
     	    return;    	 
     	}
+
+    	$('#seat').css("display","none");
+    	$('#passagerData').css("display","block");
     	
     	$('#selectedRoutes').css("display","none");
     	
@@ -103,12 +94,39 @@ $(document).ready(function () {
     	
     	$(this).css("display","none");
     	
-    	$(".finish").css("display","block");
+    	$("#loadPaymentForm").css("display","block");
     });
     
-    $(".finish").on('click', function(e){
+    $("#loadPaymentForm").on('click', function(){
     	debugger;
+    	//verifica se usuario esta logado neste ponto
+    	var logged_in = $(".signed-in").attr("logged_in");
     	
+    	if(logged_in != "true"){
+    		alert("Você precisa se logar antes de prosseguir com a compra");
+    		return;
+    	}
+    	
+    	//TODO fazer validacao dos campos
+    	
+    	$('#passagerData').css("display","none");
+    	$('#paymentData').css("display","block");
+    	
+    	$('#passengerForm').css("display","none");
+    	
+    	$('#paymentForm').css("display","block");
+    	
+    	$('#breadcrumbPassenger').css("display","");
+    	$('#breadcrumbPassenger').removeClass("active");
+    	
+    	$('#breadcrumbPayment').css("display","inline");
+    	$('#breadcrumbPayment').addClass("active");
+    	
+    	$(this).css("display","none");
+    	$("#finishOrder").css("display","block");
+    });
+    
+    $("#finishOrder").on('click', function(e){
     	e.preventDefault();
     	
     	//TODO Fazer validacao dos campos
@@ -125,7 +143,7 @@ $(document).ready(function () {
     	var outboundDate = $('#selectedRoutes .outboundDate').html();
     	var returnDate = $('#selectedRoutes .returnDate').html();
     	
-//    	assentos escolhidos TODO FIXME
+//    	assentos escolhidos
     	var outboundSeats = $('#selectedRoutes #outboundTotal').attr('seats');
     	var returnSeats = $('#selectedRoutes #returnTotal').attr('seats')
     	
@@ -149,7 +167,7 @@ $(document).ready(function () {
     		arrayIdentity.push($(this).val()); 
     	});
     	
-//    	dados do cartao
+//    	TODO dados do cartao
     	
     	$.ajax({
         	type: "POST",

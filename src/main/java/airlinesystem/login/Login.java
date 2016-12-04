@@ -30,7 +30,7 @@ public class Login
     {
     	User user;
         try {
-			user = userAppService.recuperaUmUser(email,password);
+			user = userAppService.retrieveUser(email,password);
 		} catch (ObjetoNaoEncontradoException e) {
 			throw new ObjetoNaoEncontradoException(e.getMessage());
 		}

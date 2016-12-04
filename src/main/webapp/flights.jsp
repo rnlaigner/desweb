@@ -2,7 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "java.util.List"%>
 <%@ page import = "airlinesystem.utils.Util"%>
-<%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page import = "airlinesystem.entity.Seat" %>
@@ -25,19 +24,10 @@ String adults = (String) session.getAttribute("adult");
 String children = (String) session.getAttribute("children");
 String babies = (String) session.getAttribute("baby");
 
-Integer totalPassengers = (Integer) session.getAttribute("totalPassengers");
-
 Random randomGenerator = new Random();
 int minimum  = 1;
 int maximum = 100;
 int range = maximum - minimum + 1;
-
-//Invalida no caso de um clique na aba Voos nao trazer os voos da ultima pesquisa (DA ERRO!!!)
-//session.invalidate();
-
-// session.setAttribute("adult", 0);
-// session.setAttribute("children", 0);
-// session.setAttribute("baby", 0);
 %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
@@ -49,58 +39,12 @@ int range = maximum - minimum + 1;
 	<head>
 	
 	<style>
-		.panel-info, .panel-rating, .panel-more1 {
-		    float: left;
-		    margin: 0 10px;
-		}
-		button.custom-btn
-		{
-			border-color:#337ab7;
-			padding: 9px;
-		}
-		
-		.col-form-label
-		{
-			color:black;
-		}
-		
-		a.selected {
-		  background-color:#1F75CC;
-		  color:white;
-		  z-index:100;
-		}
-		
-		.messagepop {
-		  background-color:#FFFFFF;
-		  border:1px solid #999999;
-		  cursor:default;
-		  display:none;
-		  margin-top: 15px;
-		  position:absolute;
-		  text-align:left;
-		  width:394px;
-		  z-index:50;
-		  padding: 25px 25px 20px;
-		}
-		
-		label.lblpop {
-		  display: block;
-		  margin-bottom: 3px;
-		  padding-left: 15px;
-		  text-indent: -15px;
-		}
-		
-		.messagepop p, .messagepop.div {
-		  border-bottom: 1px solid #EFEFEF;
-		  margin: 8px 0;
-		  padding-bottom: 8px;
-		}
 	</style>
 	
-		<!-- meta -->
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!-- meta -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>Euro Travel</title>
 
 	<link rel="stylesheet" href="ui/assets/css/bootstrap.min.css">
@@ -110,6 +54,7 @@ int range = maximum - minimum + 1;
     <link rel="stylesheet" href="ui/assets/css/main.css">
     <link rel="stylesheet" href="ui/assets/css/section.css">
     <link rel="stylesheet" href="ui/assets/css/about.css">
+    <link rel="stylesheet" href="ui/assets/css/flights.css">
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
@@ -122,28 +67,6 @@ int range = maximum - minimum + 1;
 	<!--[if IE 8]>
     	<script src="ui/assets/js/selectivizr.js"></script>
     <![endif]-->
-    
-     <script>
-	 	function updateTotal(elementName,array,numberSelectedSeats){
-	 		var value = document.getElementsByName(elementName).value;
-
-			var elementId = '#' +  elementName;
-	 		
-	 		$(elementId).html(value);
-
-	 		//only if not exists. if exists, update total value
-	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
-            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
-
-
-			//TODO caso totalPassengers != numberSelectedSeats, adicionar mais forms
-            
-			if(elementName == 'returnTotal')
-			{
-				//change button... do something
-			}
-		}
-     </script>
 </head>
 <body>
 <!-- Home -->
@@ -169,6 +92,7 @@ int range = maximum - minimum + 1;
 					<!-- mudar o que eh exibido no link -->
 					<li class="active"><a href="/web/SearchRouteServlet">Vôos</a></li>
 					<li><a href="contact.jsp">Contato</a></li>
+					<%if (email == null){ %>
 					<li class="signed-out"><a href="contact.jsp">Cadastre-se</a></li>
 					<li class="dropdown signed-out">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
@@ -181,7 +105,7 @@ int range = maximum - minimum + 1;
 							<li id="messageDiv" style="display:none;"></li>
 						</ul>
 					</li>
-					<li class="dropdown signed-in" style="display:none;">
+					<li class="dropdown signed-in" style="display:none;" logged_in="false">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
 				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
@@ -190,6 +114,29 @@ int range = maximum - minimum + 1;
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>
+					<%} else { %>
+					<li class="signed-out" style="display:none;"><a href="contact.jsp">Cadastre-se</a></li>
+					<li class="dropdown signed-out" style="display:none;">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login<strong class="caret"></strong></a>
+						<ul class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+							<li><input style="margin-bottom: 15px; color:black;" type="text" placeholder="Email" id="email" name="email"><li>
+							<li><input style="margin-bottom: 15px; color:black;" type="password" placeholder="Senha" id="password" name="password"><li>
+							<li><input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1"><li>
+							<li><label style="color:#60c9eb; text-transform: none;" class="string optional" for="user_remember_me"> Lembre-se de mim</label><li>
+							<li><input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Entrar"></li>
+							<li id="messageDiv" style="display:none;"></li>
+						</ul>
+					</li>
+					<li class="dropdown signed-in" logged_in="true">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
+				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
+				        </ul>
+					</li>
+					<%} %>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 		  	</div><!-- /.container -->
@@ -213,14 +160,20 @@ int range = maximum - minimum + 1;
 				Escolha seu vôo de volta 
 				<%} %>
 			</h2>
-			<h2 class="page-header" id="resume" style="display:none;">
+			<h2 class="page-header" id="seat" style="display:none;">
 				Selecione seu(s) assento(s)
+			</h2>
+			<h2 class="page-header" id="passagerData" style="display:none;">
+				Informe os dados do(s) passageiro(s)
+			</h2>
+			<h2 class="page-header" id="paymentData" style="display:none;">
+				Informe os dados do(s) passageiro(s)
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li><a href="flights.jsp">Vôos</a></li>
-				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Vôos de Ida</li>
-				<li style="display:none;" id="breadcrumbReturn">&nbsp;Vôos de Volta</li>
+				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Ida</li>
+				<li style="display:none;" id="breadcrumbReturn">&nbsp;Volta</li>
 				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
 				<li style="display:none;" id="breadcrumbPassenger">&nbsp;Dados do Passageiro</li>
 				<li style="display:none;" id="breadcrumbPayment">&nbsp;Pagamento</li>
@@ -460,14 +413,6 @@ int range = maximum - minimum + 1;
 		</ul>
 	</div>
 	
-	<!--
-	<div class="container" id="orderResume" style="display:none;">
-		<ul class="list-group routes">
-		</ul>
-	</div>
-	-->
-	
-	
 	<div class="info" style="display:none; visibility: hidden;">
 		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
 		<div id="executiveClassFactor"><%=SeatCategory.EXECUTIVE.getFactor()%></div>
@@ -490,16 +435,25 @@ int range = maximum - minimum + 1;
 				<%} %></div>
 	</div>
 	
-	<jsp:include page="form.jsp">
+	<jsp:include page="passengerForm.jsp">
 		<jsp:param name="cor" value="azul" />
 	</jsp:include>
 	
-	<div class="btn btn-default border-radius custom-button proceed" id="<%=randomGenerator.nextInt(range) + minimum%>"
+	<jsp:include page="paymentForm.jsp">
+		<jsp:param name="cor" value="azul" />
+	</jsp:include>
+	
+	<div class="btn btn-default border-radius custom-button" id="loadPassengerForm"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Prosseguir >>
 	</div>
 	
-	<div class="btn btn-default border-radius custom-button finish" id="<%=randomGenerator.nextInt(range) + minimum%>"
+	<div class="btn btn-default border-radius custom-button" id="loadPaymentForm"
+	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
+		Prosseguir >>
+	</div>
+	
+	<div class="btn btn-default border-radius custom-button" id="finishOrder"
 	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px; display:none;">
 		Concluir
 	</div>
@@ -622,8 +576,6 @@ int range = maximum - minimum + 1;
 				</div>
 			</div>
 		</div>
-					
-	
 	
 		<ul class="social-icon">
 			<li><a href="#"><i class="ion-social-twitter"></i></a></li>
@@ -632,7 +584,6 @@ int range = maximum - minimum + 1;
 			<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
 		</ul>
 	</div> <!-- /.subscribe -->
-
 
 	<footer>
 		<div class="container">
@@ -662,11 +613,34 @@ int range = maximum - minimum + 1;
 	<script src="ui/assets/js/script.js"></script>
 	
 	<!--  -->
-	<script src="ui/assets/js/login.js?1001"></script>
-	<script src="ui/assets/js/order.js?1012"></script>
+	<script src="ui/assets/js/login.js?1002"></script>
+	<script src="ui/assets/js/order.js?1020"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+	 	function updateTotal(elementName,array,numberSelectedSeats){
+	 		var value = document.getElementsByName(elementName).value;
+
+			var elementId = '#' +  elementName;
+	 		
+	 		$(elementId).html(value);
+
+	 		//TODO FIXME only if not exists. if exists, update total value
+	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
+            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
+
+
+			//TODO caso totalPassengers != numberSelectedSeats, adicionar mais forms
+			//Clonar div de form 
+            
+			if(elementName == 'returnTotal')
+			{
+				//TODO FIXME change button... do something
+			}
+		}
+    </script>
 	
 </body>
 </html>

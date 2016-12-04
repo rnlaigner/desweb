@@ -132,4 +132,22 @@ public class UserDAOImpl implements UserDAO
 		{	throw new InfraestruturaException(e);
 		}
 	}
+	
+	@Override
+	public User retrieveUser(String email) throws ObjetoNaoEncontradoException {
+		try
+		{	
+			EntityManager em = JPAUtil.getEntityManager();
+
+			User user = (User) em
+				.createQuery("select u from User u " +
+						     "where email = :email")
+				.setParameter("email", email).getSingleResult();
+
+			return user;
+		} 
+		catch(RuntimeException e)
+		{	throw new InfraestruturaException(e);
+		}
+	}
 }

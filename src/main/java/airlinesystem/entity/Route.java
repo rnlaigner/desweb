@@ -42,7 +42,7 @@ public class Route
     private Date departure;
     
     @Column(nullable = false)
-    private Float price;//Base-price. Should be multiplied by the weight of the Seat
+    private Float price;
     
     @Transient
     private Period duration;

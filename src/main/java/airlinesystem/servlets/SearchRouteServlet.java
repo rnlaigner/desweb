@@ -1,6 +1,7 @@
 package airlinesystem.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import airlinesystem.business.RouteBusiness;
 import airlinesystem.entity.Route;
+import airlinesystem.utils.Pair;
 import airlinesystem.utils.Util;
 
 /**
@@ -55,33 +57,54 @@ public class SearchRouteServlet extends HttpServlet {
 	    String adult = request.getParameter("adult");
 	    String children = request.getParameter("children");
 	    String baby = request.getParameter("baby");
-	    //change Formatting in home.jsp UTF para ISO
-	    //String seatCategory = request.getParameter("seat");
 	    
 	    routeBusiness = RouteBusiness.getInstance();
 	    
 	    //Se origem é nulo é porque todos os outros parâmetros são nulos
 	    if (origin != null){
+	    	
+	    	//TODO Se um deles tiver vazio, redirecionar para uma pagina alternativa
 		    List<Route> outboundRoutes = routeBusiness.find(origin, destiny, Util.strToDateUS(departureDate));
-		    
 		    List<Route> returnRoutes = routeBusiness.find(destiny, origin, Util.strToDateUS(returnDate));
 		    
 		    //TODO devo colocar na session ou no request?
-		    //session.setAttribute("seatCategory", seatCategory);
 		    session.setAttribute("destiny", outboundRoutes.get(0).getDestiny().getCity());
 		    session.setAttribute("origin", returnRoutes.get(0).getDestiny().getCity());
 		    
-		    session.setAttribute("adult", adult);
-		    session.setAttribute("children", children);
-		    session.setAttribute("baby", baby);
+//		    session.setAttribute("adult", adult);
+//		    session.setAttribute("children", children);
+//		    session.setAttribute("baby", baby);
 		    
-		    Integer totalPassengers = Integer.valueOf(0);
+		    List<Pair<Integer,String>> passengers = new ArrayList<Pair<Integer,String>>();
+		    Integer totalAdultPassengers = new Integer(0);
+		    Integer totalChildPassengers = new Integer(0);
+		    Integer totalBabyPassengers = new Integer(0);
+		    
+		    if (adult != "0"){
+		    	totalAdultPassengers = Integer.parseInt(adult);
+		    	for(int i = 1; i <= totalAdultPassengers;i++){
+		    		Pair<Integer,String> pair = new Pair<Integer,String>(i, "Adulto");
+		    		passengers.add(pair);
+		    	}
+		    }
+		    
+		    if (children != "0"){
+		    	totalChildPassengers = Integer.parseInt(children);
+		    	for(int i = 1; i <= totalChildPassengers;i++){
+		    		Pair<Integer,String> pair = new Pair<Integer,String>(i, "Criança");
+		    		passengers.add(pair);
+		    	}
+		    }
+		    
+		    if (baby != "0"){
+		    	totalBabyPassengers = Integer.parseInt(baby);
+		    	for(int i = 1; i <= totalBabyPassengers;i++){
+		    		Pair<Integer,String> pair = new Pair<Integer,String>(i, "Bebê");
+		    		passengers.add(pair);
+		    	}
+		    }
 
-		    totalPassengers = adult == null ? totalPassengers + Integer.parseInt(adult) : totalPassengers;
-		    totalPassengers = children == null ? totalPassengers + Integer.parseInt(children) : totalPassengers;
-		    totalPassengers = baby == null ? totalPassengers + Integer.parseInt(baby) : totalPassengers;
-
-		    session.setAttribute("totalPassengers",totalPassengers);
+		    session.setAttribute("passengers",passengers);
 		    
 		    session.setAttribute("outboundRoutes", outboundRoutes);
 		    session.setAttribute("returnRoutes", returnRoutes);
@@ -89,7 +112,6 @@ public class SearchRouteServlet extends HttpServlet {
 	    else {
 	    	List<Route> routes = routeBusiness.findAll();
 	    	
-	    	//session.setAttribute("seatCategory", null);
 	    	session.setAttribute("destiny", null);
 		    session.setAttribute("origin", null);
 		    
@@ -101,6 +123,12 @@ public class SearchRouteServlet extends HttpServlet {
 		    
 	    	session.setAttribute("outboundRoutes", routes);
 		    session.setAttribute("returnRoutes", routes);
+		    
+		    List<Pair<Integer,String>> passengers = new ArrayList<Pair<Integer,String>>();
+//		    Pair<Integer,String> pair = new Pair<Integer,String>(1, "Adulto");
+//    		passengers.add(pair);
+    		
+    		session.setAttribute("passengers",passengers);
 	    }
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/flights.jsp");      

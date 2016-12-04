@@ -39,18 +39,19 @@ public class Flight
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="order_id")
-	private Passenger order;
+	private Order order;
     
     public Flight()
     {
     }
     
-    public Flight(Route route, Long number, Seat seat, Passenger passenger)
+    public Flight(Route route, Long number, Seat seat, Passenger passenger, Order order)
     {
         this.route = route;
         this.number = number;
         this.seat = seat;
         this.passenger = passenger;
+        this.order = order;
     }
 
 	public Passenger getPassenger() {

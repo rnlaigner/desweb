@@ -20,6 +20,9 @@ public interface UserDAO
 	
 	public User retrieveUser(String email, String password) 
 			throws ObjetoNaoEncontradoException;
+
+	public User retrieveUser(String email) 
+			throws ObjetoNaoEncontradoException;
 	
 	public List<User> retrieveUsers();
 }

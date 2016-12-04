@@ -6,10 +6,10 @@ airlinesystem\entity\User.class
 airlinesystem\entity\PayPalPayment.class
 airlinesystem\dao\AirportDAOImpl.class
 airlinesystem\dao\FabricaDeDAOs.class
-airlinesystem\entity\Ticket.class
 airlinesystem\abstracts\Payment.class
 airlinesystem\exception\ExistantUsernameException.class
 airlinesystem\login\Login.class
+airlinesystem\dao\SeatDAO.class
 airlinesystem\exception\InvalidSeatOptionException.class
 airlinesystem\exception\BankTransferException.class
 airlinesystem\dao\RouteAppService.class
@@ -29,6 +29,7 @@ airlinesystem\dao\RouteDAO.class
 airlinesystem\exception\WrongUsernameException.class
 airlinesystem\entity\BankTransferPayment.class
 airlinesystem\dao\OrderDAOImpl.class
+airlinesystem\dao\SeatAppService.class
 airlinesystem\entity\Seat.class
 airlinesystem\exception\ObjetoNaoEncontradoException.class
 airlinesystem\entity\CheckIn.class
@@ -41,10 +42,10 @@ airlinesystem\dao\UserAppService.class
 airlinesystem\dao\AirportDAO.class
 airlinesystem\dao\RouteDAOImpl.class
 airlinesystem\business\RouteBusiness.class
-airlinesystem\persistence\SimulateDB.class
 airlinesystem\dao\OrderDAO.class
 airlinesystem\entity\Route.class
 airlinesystem\entity\Passenger.class
+airlinesystem\dao\SeatDAOImpl.class
 airlinesystem\entity\Flight.class
 airlinesystem\utils\Util.class
 airlinesystem\utils\JPAUtil.class

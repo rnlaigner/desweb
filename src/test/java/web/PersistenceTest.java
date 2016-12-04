@@ -36,14 +36,13 @@ public class PersistenceTest{
             user.setPassword("abc123");
             
             Airplane airplane = new Airplane("Airbus A320-100/200");
-            
-            Seat seat1 = new Seat("1",SeatCategory.ECONOMY,airplane);
-            Seat seat2 = new Seat("2",SeatCategory.ECONOMY,airplane);
-            
             List<Seat> seats = new ArrayList<Seat>();
             
-            seats.add(seat1);
-            seats.add(seat2);
+            for(int i = 1; i <= 39; i++){
+	            Seat seat = new Seat(String.valueOf(i),SeatCategory.ECONOMY,airplane);
+	            em.persist(seat);
+	            seats.add(seat);
+            }
             
             airplane.setSeats(seats);
             
@@ -52,7 +51,7 @@ public class PersistenceTest{
             Airport airport2 = new Airport("REC","Recife", Float.valueOf("250"));
             
             Calendar cal = Calendar.getInstance(); 
-            cal.set(2016, 11, 1, 12, 0, 0);
+            cal.set(2016, 12, 15, 12, 00, 00);
             
             Date date1 = cal.getTime(); 
             
@@ -62,14 +61,11 @@ public class PersistenceTest{
             
             Route route1 = new Route(airport1,airport2, date1, date2, airplane, new Float(1000));
             
-            cal.set(2016, 11, 10, 12, 0);
+            cal.set(2016, 12, 20, 12, 00);
             
             Route route2 = new Route(airport2,airport1, cal.getTime(), cal.getTime(), airplane, new Float(1000));
             
             em.persist(user);
-            
-            em.persist(seat1);
-            em.persist(seat2);
             em.persist(airplane);
             em.persist(airport1);
             em.persist(airport2);

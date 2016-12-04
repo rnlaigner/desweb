@@ -1,6 +1,5 @@
 package airlinesystem.business;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +8,6 @@ import airlinesystem.dao.AirportAppService;
 import airlinesystem.dao.RouteAppService;
 import airlinesystem.entity.Airport;
 import airlinesystem.entity.Route;
-import airlinesystem.entity.Seat;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public class RouteBusiness {
@@ -101,33 +99,6 @@ public class RouteBusiness {
 		List<Route> routes = routeAppService.findAll(new Date());
 		
 		return routes;
-	}
-	
-	private List<Route> filterSeatCategory(List<Route> routes, String seatCategory)
-	{
-		List<Route> filteredRoutes = new ArrayList<Route>();
-		
-		for(Route route : routes)
-		{
-			if(existsSeatCategory(route.getAirplane().getSeats(),seatCategory))
-			{
-				filteredRoutes.add(route);
-			}
-		}
-		
-		return filteredRoutes;
-	}
-
-	private boolean existsSeatCategory(List<Seat> seats, String seatCategory)
-	{
-		for(Seat seat : seats)
-		{
-			if(seat.getCategory().getName().equals(seatCategory))
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 	
 }

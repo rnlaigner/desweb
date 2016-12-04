@@ -8,9 +8,11 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\AirportDAO.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\OrderServlet.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\enums\AgeCategory.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\Airplane.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\SeatDAO.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\FabricaDeDAOs.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\LogoutServlet.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\business\OrderBusiness.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\SeatAppService.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\utils\Pair.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\PayPalPaymentException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\UserDAOImpl.java
@@ -19,7 +21,6 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\OrderDAOImpl.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\Order.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\InfraestruturaException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\PayPalPayment.java
-C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\Ticket.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\BankTransferException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\WrongUsernameException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\Passenger.java
@@ -32,9 +33,9 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\PaymentExce
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\BankTransferPayment.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\UserDAO.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\UserAppService.java
-C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\persistence\SimulateDB.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\WrongPasswordException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\RouteDAOImpl.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\SeatDAOImpl.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\CardPayment.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\Airport.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\CardPaymentException.java

@@ -23,7 +23,7 @@ public class UserAppService
 		return userAppService;
 	}
 	
-	public long inclui(User umUser) 
+	public long add(User umUser) 
 	{	try
 		{	
 		
@@ -56,7 +56,7 @@ public class UserAppService
 		}
 	}
 
-	public void altera(User umUser) throws ObjetoNaoEncontradoException
+	public void edit(User umUser) throws ObjetoNaoEncontradoException
 	{	try
 		{	JPAUtil.beginTransaction();
 
@@ -85,7 +85,7 @@ public class UserAppService
 		}
 	}
 	
-	public void exclui(long numero) 
+	public void remove(long numero) 
 		throws ObjetoNaoEncontradoException
 	{	try
 		{	JPAUtil.beginTransaction();
@@ -115,7 +115,7 @@ public class UserAppService
 		}
 	}
 
-	public User recuperaUmUser(long numero) 
+	public User retrieveUser(long numero) 
 		throws ObjetoNaoEncontradoException
 	{	
 		try
@@ -131,7 +131,7 @@ public class UserAppService
 		}
 	}
 
-	public User recuperaUmUser(String email, String password) 
+	public User retrieveUser(String email, String password) 
 			throws ObjetoNaoEncontradoException
 		{	
 			try
@@ -147,7 +147,23 @@ public class UserAppService
 			}
 		}
 	
-	public List<User> recuperaUsers() 
+	public User retrieveUser(String email) 
+			throws ObjetoNaoEncontradoException
+		{	
+			try
+			{	User umUser = userDAO.retrieveUser(email);
+				
+				return umUser;
+			} 
+			catch(ObjetoNaoEncontradoException e)
+			{	throw new ObjetoNaoEncontradoException("User não encontrado");
+			}
+			finally
+			{   JPAUtil.closeEntityManager();
+			}
+		}
+	
+	public List<User> retrieveUsers() 
 	{	try
 		{	List<User> users = userDAO.retrieveUsers();
 

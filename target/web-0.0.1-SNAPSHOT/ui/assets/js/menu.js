@@ -30,7 +30,7 @@ $(document).ready(function () {
         var adult = $("#adult").val();
         var children = $("#children").val();
         var baby = $("#baby").val();
-        var seat = $("#seat").val();
+        var scale = $("#scale").val();
         
         if(origin == "" || origin == null){
             alert("A origem do vôo é necessária");
@@ -48,10 +48,17 @@ $(document).ready(function () {
             alert("A data de retorno do vôo é necessária");
             return false;
         }
-        if(seat == "" || seat == null){
-            alert("A classe do vôo é necessária");
+        if(scale == "" || scale == null){
+            alert("Escolha se a viagem pode ter escalas");
             return false;
         }
+        
+        if (adult=="0" && children=="0" && baby=="0")
+        {
+        	 alert("Selecione ao menos um passageiro");
+             return false;
+        }
+        
         this.submit();
     });
 });

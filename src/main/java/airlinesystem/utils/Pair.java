@@ -5,9 +5,15 @@
  */
 package airlinesystem.utils;
 
-public class Pair<L,R> 
+import java.io.Serializable;
+
+public class Pair<L,R> implements Serializable
 {
 
+  /**
+	 * 
+	 */
+  private static final long serialVersionUID = 15408497224845273L;
   private final L left;
   private final R right;
 

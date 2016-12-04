@@ -49,6 +49,7 @@ $(document).ready(function () {
             //$('#messageDiv').html("<font color='green'>You are successfully logged in. </font>");
         	$('.signed-out').css("display","none");
         	$('.signed-in').css("display","block");
+        	$(".signed-in").attr("logged_in","true");
         	
         	$('#messageDiv').css("display","none");
             $('#messageDiv').html("");
@@ -56,6 +57,7 @@ $(document).ready(function () {
     	if(results == 'FAILURE'){
             $('#messageDiv').html("<font color='red'>Username or password incorrect </font>");
             $('#messageDiv').css("display","block");
+            $(".signed-in").attr("logged_in","false");
         }
     };
 
