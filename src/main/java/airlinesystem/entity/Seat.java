@@ -1,5 +1,7 @@
 package airlinesystem.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,8 +18,13 @@ import airlinesystem.enums.SeatCategory;
 
 @Entity
 @Table(name="seat")
-public class Seat 
+public class Seat implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1187938611375752161L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)

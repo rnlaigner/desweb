@@ -1,6 +1,8 @@
 package airlinesystem.entity;
 
 import java.time.Period;
+
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,8 +18,13 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="route")
-public class Route 
+public class Route implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1559278876144466832L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)

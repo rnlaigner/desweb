@@ -5,6 +5,8 @@
  */
 package airlinesystem.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -19,6 +21,16 @@ import airlinesystem.abstracts.Payment;
 public class CardPayment extends Payment
 {
 	
+	private String cardNumber;
+
+	private Date expiringDate;
+	
+	private String securityCode;
+	
+	private String cardHolder;
+	
+	private String cardHolderCPF;
+	
 	public CardPayment() 
 	{
     }
@@ -26,17 +38,51 @@ public class CardPayment extends Payment
     public CardPayment(int paymentNumber) {
         super(paymentNumber);
     }
+    
+    public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public Date getExpiringDate() {
+		return expiringDate;
+	}
+
+	public void setExpiringDate(Date expiringDate) {
+		this.expiringDate = expiringDate;
+	}
+
+	public String getSecurityCode() {
+		return securityCode;
+	}
+
+	public void setSecurityCode(String securityCode) {
+		this.securityCode = securityCode;
+	}
+
+	public String getCardHolder() {
+		return cardHolder;
+	}
+
+	public void setCardHolder(String cardHolder) {
+		this.cardHolder = cardHolder;
+	}
+
+	public String getCardHolderCPF() {
+		return cardHolderCPF;
+	}
+
+	public void setCardHolderCPF(String cardHolderCPF) {
+		this.cardHolderCPF = cardHolderCPF;
+	}
 
     @Override
-    public void makePayment() 
+    public boolean makePayment() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getPaymentInformation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
     
 }

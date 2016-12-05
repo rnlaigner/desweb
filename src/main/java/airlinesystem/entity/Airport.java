@@ -5,6 +5,8 @@
  */
 package airlinesystem.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +20,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="airport")
-public class Airport 
+public class Airport implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5657194060479595887L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id",unique=true, nullable = false)

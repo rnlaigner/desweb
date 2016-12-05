@@ -3,14 +3,15 @@ package airlinesystem.servlets;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import airlinesystem.business.FlightBusiness;
 import airlinesystem.business.OrderBusiness;
+import airlinesystem.business.PassengerBusiness;
 import airlinesystem.business.RouteBusiness;
 import airlinesystem.dao.SeatAppService;
 import airlinesystem.dao.UserAppService;
@@ -32,6 +33,8 @@ public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private RouteBusiness routeBusiness;
+	private FlightBusiness flightBusiness;
+	private PassengerBusiness passengerBusiness;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -78,6 +81,8 @@ public class OrderServlet extends HttpServlet {
 		 List<Pair<Integer,String>> passengers = (List<Pair<Integer,String>>) session.getAttribute("passengers");
 	     
 	     routeBusiness = RouteBusiness.getInstance();
+	     flightBusiness = FlightBusiness.getInstance();
+	     passengerBusiness = PassengerBusiness.getInstance();
 	     
 	     int numberPassengers = outboundSeatsArray.size();
 	     
@@ -125,6 +130,7 @@ public class OrderServlet extends HttpServlet {
 		     passenger.setNationality(arrayNationality[i]);
 		     passenger.setIdentificationNumber(arrayIdentity[i]);
 		     
+		     //TODO gambiarra no caso da compra nao ser feita por uma busca
 		     if(passengers.isEmpty()){
 		    	 Pair<Integer,String> pair = new Pair<Integer,String>(i+1, "Adulto");
 		    	 passengers.add(pair);
@@ -140,19 +146,24 @@ public class OrderServlet extends HttpServlet {
 		    	 passenger.setAgeCategory(AgeCategory.BABY);
 		     }
 		     
-		     //TODO persistir passageiro
+		     //persiste passageiro
+		     passengerBusiness.save(passenger);
 		     
 		     //Cria seus vôos
 		     Flight outboundFlight = new Flight(outboundRoute,outboundRoute.getId(),outboundSeat,passenger,order);
 		     Flight returnFlight = new Flight(returnRoute,returnRoute.getId(),returnSeat,passenger,order);
 		     
-		     //TODO persistir flight
+		     //persiste flight
+		     flightBusiness.save(outboundFlight);
+		     flightBusiness.save(returnFlight);
 		     
 		     //Adiciona os vôos à compra
 		     order.addFlight(outboundFlight);
 		     order.addFlight(returnFlight);
 		     
 	     }
+	     
+	     //TODO setPayment
 	    
 	     Integer outboundTotal = Integer.valueOf(outboundTotalStr); 
 	     Integer returnTotal = Integer.valueOf(returnTotalStr);
@@ -160,18 +171,16 @@ public class OrderServlet extends HttpServlet {
 	     order.setTotalPrice(outboundTotal + returnTotal);
 	    
 	     //update em order
-	    
-	     RequestDispatcher rd = request.getRequestDispatcher("/orders.jsp");      
-		
-         try 
-         {
-			rd.forward(request, response);
-		 } 
-         catch (ServletException e) 
-         {
-			//Pagina de erro
-			e.printStackTrace();
+	     try {
+			orderBusiness.update(order);
+		 } catch (ObjetoNaoEncontradoException e1) {
+			e1.printStackTrace();
 		 }
+	    
+	     String message;
+	     message = "SUCCESS";
+	     response.getWriter().write(message);
+        
 	}
 
 	

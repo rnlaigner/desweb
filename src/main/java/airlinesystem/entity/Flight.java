@@ -1,5 +1,8 @@
 package airlinesystem.entity;
 
+
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +18,13 @@ Classe flight é o vôo que o passageiro compra e está em seu ticket
 */
 @Entity
 @Table(name="flight")
-public class Flight 
+public class Flight implements Serializable
 {  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8199962339110796448L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)

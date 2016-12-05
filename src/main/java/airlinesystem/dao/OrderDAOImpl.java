@@ -32,10 +32,10 @@ public class OrderDAOImpl implements OrderDAO
 		try
 		{	EntityManager em = JPAUtil.getEntityManager();
 
-			User order = em.find(User.class, anOrder.getId(), LockModeType.PESSIMISTIC_WRITE);
+			Order order = em.find(Order.class, anOrder.getId(), LockModeType.PESSIMISTIC_WRITE);
 			
 			if(order == null)
-			{	throw new ObjetoNaoEncontradoException("Usuário não existe");
+			{	throw new ObjetoNaoEncontradoException("Compra não existe");
 			}
 		
 			em.merge(anOrder);

@@ -71,9 +71,9 @@ public class SearchRouteServlet extends HttpServlet {
 		    session.setAttribute("destiny", outboundRoutes.get(0).getDestiny().getCity());
 		    session.setAttribute("origin", returnRoutes.get(0).getDestiny().getCity());
 		    
-//		    session.setAttribute("adult", adult);
-//		    session.setAttribute("children", children);
-//		    session.setAttribute("baby", baby);
+		    session.setAttribute("adult", adult);
+		    session.setAttribute("children", children);
+		    session.setAttribute("baby", baby);
 		    
 		    List<Pair<Integer,String>> passengers = new ArrayList<Pair<Integer,String>>();
 		    Integer totalAdultPassengers = new Integer(0);
@@ -103,6 +103,8 @@ public class SearchRouteServlet extends HttpServlet {
 		    		passengers.add(pair);
 		    	}
 		    }
+		    
+		    session.setAttribute("totalPassengers",passengers.size());
 
 		    session.setAttribute("passengers",passengers);
 		    

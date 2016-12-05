@@ -3,7 +3,7 @@
  ------------------------------------------*/
 
 $(document).ready(function () {
-
+	
 	var firstClassFactor = $('#firstClassFactor').text();
 	var executiveClassFactor = $('#executiveClassFactor').text();
 	var economyClassFactor = $('#economyClassFactor').text();
@@ -98,7 +98,6 @@ $(document).ready(function () {
     });
     
     $("#loadPaymentForm").on('click', function(){
-    	debugger;
     	//verifica se usuario esta logado neste ponto
     	var logged_in = $(".signed-in").attr("logged_in");
     	
@@ -186,9 +185,9 @@ $(document).ready(function () {
             },
             success : function(results){
                 if(results != null && results != ""){
-                    
+                	window.location.href = "http://localhost:8080/web/orders.jsp";
                 }else{
-                    
+                    alert("Erro na compra");
                 }
             }
         });

@@ -191,7 +191,7 @@ int range = maximum - minimum + 1;
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	                <div class="panel-info">
 	                    <p><strong>Ida</strong></p>
-	                    <p class="outboundDate"><%= Util.dateToStr(route.getDepartureTime())	%></p>
+	                    <p class="outboundDate"><%=Util.dateToStr(route.getDepartureTime())%></p>
 	                </div>		
     		
     				<div class="panel-info">
@@ -259,12 +259,16 @@ int range = maximum - minimum + 1;
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
+	                <!--
 	                 <div class="panel-info food">
 	                    <p><strong>Refeição</strong></p>
 	                    <p>Não</p>
 	                </div>
-					
-					<!-- TODO taxa de embarque -->
+					-->
+					<div class="panel-info tax">
+	                    <p><strong>Taxa de Embarque</strong></p>
+	                    <p><%= route.getOrigin().getFee() %></p>
+	                </div>  
 	                
 	                
 	                <div class="panel-info scale">
@@ -274,20 +278,15 @@ int range = maximum - minimum + 1;
 	                
 	                <div class="btn btn-default border-radius custom-button outbound" 
 	                 id="<%= randomGenerator.nextInt(range) + minimum %>" route_id="<%= route.getId() %>"
-	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+	                 style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
-				   </div>
+				    </div>
 				   
-				   <div class="panel-info seatsPopUp" style="display:none;">
-				   	<a href='#' id='outboundSeatsPopUp' title='Pop Up'>Assentos</a>
-				   </div>
+				    <div class="panel-info seatsPopUp" style="display:none;">
+				   	 <a href='#' id='outboundSeatsPopUp' title='Pop Up'>Assentos</a>
+				    </div>
 				   
-				   <div class="panel-info outboundTotal">
-				   		<!-- 
-				   		<p><strong>Total</strong></p>
-	                    <p id="outboundTotal" name="outboundTotal"></p>
-	                     -->
-	               </div>
+				    <div class="panel-info outboundTotal"></div>
 				   
 	            </div>
 	         </div>
@@ -373,9 +372,15 @@ int range = maximum - minimum + 1;
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
+	                 <!--
 	                 <div class="panel-info food">
 	                    <p><strong>Refeição</strong></p>
 	                    <p>Não</p>
+	                </div>
+					-->
+					<div class="panel-info tax">
+	                    <p><strong>Taxa de Embarque</strong></p>
+	                    <p><%= route.getOrigin().getFee() %></p>
 	                </div>
 	                
 	                <div class="panel-info scale">
@@ -387,18 +392,13 @@ int range = maximum - minimum + 1;
 	                id="<%= randomGenerator.nextInt(range) + minimum %>" route_id="<%= route.getId() %>"
 	                style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Comprar
-				   </div>
+				    </div>
 				  
-				   <div class="panel-info seatsPopUp" style="display:none;">
-				   	<a href='#' id='returnSeatsPopUp' title='Pop Up'>Assentos</a>
-				   </div>
+				    <div class="panel-info seatsPopUp" style="display:none;">
+				   	 <a href='#' id='returnSeatsPopUp' title='Pop Up'>Assentos</a>
+				    </div>
 	               
-	                <div class="panel-info returnTotal">
-				   		<!-- 
-				   		<p><strong>Total</strong></p>
-	                    <p id="outboundTotal" name="outboundTotal"></p>
-	                     -->
-	               </div>
+	                <div class="panel-info returnTotal"></div>
 				   
 	            </div>
 	         </div>
@@ -614,7 +614,7 @@ int range = maximum - minimum + 1;
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
-	<script src="ui/assets/js/order.js?1020"></script>
+	<script src="ui/assets/js/order.js?1024"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -623,22 +623,21 @@ int range = maximum - minimum + 1;
 	 	function updateTotal(elementName,array,numberSelectedSeats){
 	 		var value = document.getElementsByName(elementName).value;
 
-			var elementId = '#' +  elementName;
-	 		
-	 		$(elementId).html(value);
+			var elementId = '#' + elementName;
 
-	 		//TODO FIXME only if not exists. if exists, update total value
-	 		$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
-            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
-
+	 		//if exists, update total value
+	 		if ( $( elementId ).length ) {
+	 			$( elementId ).remove();
+	 			$("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
+			}
+	 		else{
+	 			$("<p><strong>Total</strong></p>").appendTo( "."+elementName );
+	            $("<p id='"+elementName+"' name='"+elementName+"' total="+value+" seats="+array+">R$ "+value+"</p>").appendTo( "."+elementName );
+		 	}
 
 			//TODO caso totalPassengers != numberSelectedSeats, adicionar mais forms
 			//Clonar div de form 
             
-			if(elementName == 'returnTotal')
-			{
-				//TODO FIXME change button... do something
-			}
 		}
     </script>
 	

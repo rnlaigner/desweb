@@ -51,7 +51,7 @@ public class PersistenceTest{
             Airport airport2 = new Airport("REC","Recife", Float.valueOf("250"));
             
             Calendar cal = Calendar.getInstance(); 
-            cal.set(2016, 12, 15, 12, 00, 00);
+            cal.set(2016, 12, 15, 12, 0, 0);
             
             Date date1 = cal.getTime(); 
             
@@ -61,9 +61,15 @@ public class PersistenceTest{
             
             Route route1 = new Route(airport1,airport2, date1, date2, airplane, new Float(1000));
             
-            cal.set(2016, 12, 20, 12, 00);
+            cal.set(2016, 12, 20, 12, 0);
             
-            Route route2 = new Route(airport2,airport1, cal.getTime(), cal.getTime(), airplane, new Float(1000));
+            Date date3 = cal.getTime();
+            
+            cal.add(Calendar.HOUR_OF_DAY, 5); 
+            
+            Date date4 = cal.getTime();
+            
+            Route route2 = new Route(airport2,airport1, date3, date4, airplane, new Float(1000));
             
             em.persist(user);
             em.persist(airplane);

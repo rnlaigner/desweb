@@ -42,9 +42,7 @@ public abstract class Payment
         return this.paymentNumber;
     }
     
-    public abstract void makePayment() throws PaymentException;
-    
-    public abstract String getPaymentInformation();
+    public abstract boolean makePayment() throws PaymentException;
 
 	public Date getDate() {
 		return date;

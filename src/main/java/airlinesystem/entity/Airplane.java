@@ -1,5 +1,6 @@
 package airlinesystem.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,8 +15,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="airplane")
-public class Airplane 
+public class Airplane implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1578610561940876504L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)

@@ -218,7 +218,7 @@
 					    ]					
 					},
 					click: function () {
-						
+						debugger;
 						if (this.status() == 'available') {
 
 							if(maxSeats != 0 && numberSelectedSeats == maxSeats)

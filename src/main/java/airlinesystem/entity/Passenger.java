@@ -1,5 +1,6 @@
 package airlinesystem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,13 @@ import airlinesystem.enums.AgeCategory;
 
 @Entity
 @Table(name="passenger")
-public class Passenger
+public class Passenger implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4370850618932450072L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)
@@ -27,28 +33,28 @@ public class Passenger
 	@Column(nullable = false)
     private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
     private Date birth;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
     private String address;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
     private String cpf;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
     private String identificationNumber;
 
 	@Column(nullable = false)
     private String nationality;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
     private String passport;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
     private String telephone;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
     private Boolean disabled;
 	
 	@Enumerated(EnumType.STRING)
@@ -158,6 +164,11 @@ public class Passenger
 
 	public void setAgeCategory(AgeCategory ageCategory) {
 		this.ageCategory = ageCategory;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
 	}
     
 }
