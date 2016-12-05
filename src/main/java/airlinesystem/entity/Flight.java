@@ -30,22 +30,22 @@ public class Flight implements Serializable
     @Column(name = "id",unique=true, nullable = false)
     private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="route_id")
     private Route route;
 	
 	@Column(nullable = true)
     private Long number;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="seat_id")
     private Seat seat;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="passenger_id")
 	private Passenger passenger;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="order_id")
 	private Order order;
     
@@ -70,13 +70,13 @@ public class Flight implements Serializable
 		this.passenger = passenger;
 	}
     
-    public Route getRoutes() 
+    public Route getRoute() 
     {
         return this.route;
     }
     
 
-    public void setRoutes(Route route) 
+    public void setRoute(Route route) 
     {
         this.route = route;
     }

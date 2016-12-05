@@ -108,9 +108,8 @@ int range = maximum - minimum + 1;
 					<li class="dropdown signed-in" style="display:none;" logged_in="false">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><a href="/web/UserReservationsServlet" style="margin-bottom: 1px; color:#60c9eb;">Reservas</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Configurações</a></li>
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>
@@ -130,9 +129,8 @@ int range = maximum - minimum + 1;
 					<li class="dropdown signed-in" logged_in="true">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><a href="/web/UserReservationsServlet" style="margin-bottom: 1px; color:#60c9eb;">Reservas</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Configurações</a></li>
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>
@@ -614,7 +612,7 @@ int range = maximum - minimum + 1;
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
-	<script src="ui/assets/js/order.js?1024"></script>
+	<script src="ui/assets/js/order.js?1025"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -1,5 +1,6 @@
 package airlinesystem.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,24 +22,29 @@ import airlinesystem.abstracts.Payment;
 
 @Entity
 @Table(name="orders")
-public class Order 
+public class Order implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8516859513367943547L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)
 	private Long id;
 	
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", fetch=FetchType.EAGER)
     private List<Flight> flights;
     
 	@Column(nullable = true)
     private double totalPrice;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
     private User user;
     
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="payment_id")
     private Payment payment;
     

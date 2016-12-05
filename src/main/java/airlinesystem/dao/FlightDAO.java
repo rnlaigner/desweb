@@ -1,6 +1,9 @@
 package airlinesystem.dao;
 
+import java.util.List;
+
 import airlinesystem.entity.Flight;
+import airlinesystem.entity.User;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public interface FlightDAO
@@ -15,4 +18,6 @@ public interface FlightDAO
 	
 	public Flight retrieveFlight(long numero) 
 		throws ObjetoNaoEncontradoException;
+
+	public List<Flight> retrieveFlights(User user);
 }

@@ -44,4 +44,14 @@
     <servlet-name>OrderServlet</servlet-name>
     <url-pattern>/OrderServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserReservationsServlet</display-name>
+    <servlet-name>UserReservationsServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.UserReservationsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserReservationsServlet</servlet-name>
+    <url-pattern>/UserReservationsServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

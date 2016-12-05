@@ -96,9 +96,8 @@ String email = (String) session.getAttribute("email");
 					<li class="dropdown signed-in" style="display:none;" logged_in="false">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <li><a href="/web/UserReservationsServlet" style="margin-bottom: 1px; color:#60c9eb;">Reservas</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Configurações</a></li>
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>
@@ -118,9 +117,9 @@ String email = (String) session.getAttribute("email");
 					<li class="dropdown signed-in" logged_in="true">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<strong class="caret"></strong></a>
 				        <ul class="dropdown-menu" style="padding: 10px; padding-bottom: 10px;">
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Realizar Check-In</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Compras</a></li>
-				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Alterar Dados</a></li>
+				          <!-- TODO propagar essa mudanca -->
+				          <li><a href="/web/UserReservationsServlet" style="margin-bottom: 1px; color:#60c9eb;">Reservas</a></li>
+				          <li><a href="#" style="margin-bottom: 1px; color:#60c9eb;">Configurações</a></li>
 				          <li><input style="margin-top: 5px;" class="btn btn-primary btn-block" type="submit" id="sign-out" value="Sair"></li>
 				        </ul>
 					</li>

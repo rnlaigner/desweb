@@ -1,9 +1,12 @@
 package airlinesystem.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
 import airlinesystem.entity.Flight;
+import airlinesystem.entity.User;
 import airlinesystem.exception.InfraestruturaException;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.utils.JPAUtil;
@@ -82,4 +85,24 @@ public class FlightDAOImpl implements FlightDAO
 	
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Flight> retrieveFlights(User user) {
+		try
+		{	
+			EntityManager em = JPAUtil.getEntityManager();
+
+			List<Flight> flights = em
+				.createQuery("select f from Flight f " +
+						"where order.user = :user")
+				.setParameter("user", user)
+				.getResultList();
+
+			return flights;
+		} 
+		catch(RuntimeException e)
+		{	throw new InfraestruturaException(e);
+		}
+	}
+	
 }

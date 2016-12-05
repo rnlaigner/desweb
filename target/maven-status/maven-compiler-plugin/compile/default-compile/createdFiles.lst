@@ -40,6 +40,7 @@ airlinesystem\entity\CheckIn.class
 airlinesystem\dao\UserDAO.class
 airlinesystem\exception\InvalidFlightOptionException.class
 airlinesystem\enums\AgeCategory.class
+airlinesystem\servlets\UserReservationsServlet.class
 airlinesystem\dao\OrderAppService.class
 airlinesystem\dao\PassengerDAO.class
 airlinesystem\entity\Order.class

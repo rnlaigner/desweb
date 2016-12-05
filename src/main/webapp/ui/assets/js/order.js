@@ -185,7 +185,7 @@ $(document).ready(function () {
             },
             success : function(results){
                 if(results != null && results != ""){
-                	window.location.href = "http://localhost:8080/web/orders.jsp";
+                	window.location.href = "http://localhost:8080/web/reservations.jsp";
                 }else{
                     alert("Erro na compra");
                 }

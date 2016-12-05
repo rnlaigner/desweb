@@ -1,8 +1,11 @@
 package airlinesystem.business;
 
 
+import java.util.List;
+
 import airlinesystem.dao.OrderAppService;
 import airlinesystem.entity.Order;
+import airlinesystem.entity.User;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public class OrderBusiness {
@@ -33,6 +36,12 @@ public class OrderBusiness {
 		orderAppService = OrderAppService.getInstance();
 	    
 	    orderAppService.edit(order);
+	}
+	
+	public List<Order> retrieveOrders(User user){
+		orderAppService = OrderAppService.getInstance();
+	    
+	    return orderAppService.retrieveOrders(user);
 	}
 	
 }

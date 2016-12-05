@@ -1,7 +1,10 @@
 package airlinesystem.business;
 
+import java.util.List;
+
 import airlinesystem.dao.FlightAppService;
 import airlinesystem.entity.Flight;
+import airlinesystem.entity.User;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 public class FlightBusiness {
@@ -32,6 +35,13 @@ public class FlightBusiness {
 		flightAppService = FlightAppService.getInstance();
 	    
 	    flightAppService.edit(flight);
+	}
+
+	public List<Flight> retrieveFlights(User user) throws ObjetoNaoEncontradoException {
+		
+	    flightAppService = FlightAppService.getInstance();
+	    
+	    return flightAppService.retrieveFlights(user);
 	}
 	
 }

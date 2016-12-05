@@ -1,6 +1,9 @@
 package airlinesystem.dao;
 
+import java.util.List;
+
 import airlinesystem.entity.Flight;
+import airlinesystem.entity.User;
 import airlinesystem.exception.InfraestruturaException;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 import airlinesystem.utils.JPAUtil;
@@ -128,4 +131,17 @@ public class FlightAppService
 		{   JPAUtil.closeEntityManager();
 		}
 	}
+	
+	public List<Flight> retrieveFlights(User user) 
+			throws ObjetoNaoEncontradoException
+		{	
+			try
+			{	List<Flight> flights = flightDAO.retrieveFlights(user);
+				
+				return flights;
+			}
+			finally
+			{   JPAUtil.closeEntityManager();
+			}
+		}
 }

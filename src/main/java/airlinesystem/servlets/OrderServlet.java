@@ -167,8 +167,10 @@ public class OrderServlet extends HttpServlet {
 	    
 	     Integer outboundTotal = Integer.valueOf(outboundTotalStr); 
 	     Integer returnTotal = Integer.valueOf(returnTotalStr);
+	     
+	     Float fee = outboundRoute.getOrigin().getFee() * numberPassengers;
 	    
-	     order.setTotalPrice(outboundTotal + returnTotal);
+	     order.setTotalPrice(outboundTotal + returnTotal + fee);
 	    
 	     //update em order
 	     try {
@@ -176,6 +178,22 @@ public class OrderServlet extends HttpServlet {
 		 } catch (ObjetoNaoEncontradoException e1) {
 			e1.printStackTrace();
 		 }
+	     
+	     //Pega as orders do usuario e coloca na sessao para acesso na proxima tela
+	     List<Order> orders = orderBusiness.retrieveOrders(user);
+	     orders.add(order);
+	     
+	     session.setAttribute("orders",orders);
+	     
+	     
+	     List<Flight> flights = null;
+		 try {
+			flights = flightBusiness.retrieveFlights(user);
+		 } catch (ObjetoNaoEncontradoException e) {
+			e.printStackTrace();
+		 }
+	     
+	     session.setAttribute("flights",flights);
 	    
 	     String message;
 	     message = "SUCCESS";
