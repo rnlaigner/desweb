@@ -8,6 +8,8 @@ airlinesystem\business\PassengerBusiness.class
 airlinesystem\dao\AirportDAOImpl.class
 airlinesystem\dao\FabricaDeDAOs.class
 airlinesystem\abstracts\Payment.class
+airlinesystem\dao\CheckInAppService.class
+airlinesystem\business\CheckInBusiness.class
 airlinesystem\exception\ExistantUsernameException.class
 airlinesystem\login\Login.class
 airlinesystem\dao\FlightDAOImpl.class
@@ -19,6 +21,7 @@ airlinesystem\exception\CardPaymentException.class
 airlinesystem\exception\WrongPasswordException.class
 airlinesystem\servlets\LogoutServlet.class
 airlinesystem\business\OrderBusiness.class
+airlinesystem\servlets\CheckinServlet.class
 airlinesystem\servlets\LoginServlet.class
 airlinesystem\exception\InfraestruturaException.class
 airlinesystem\utils\Pair.class
@@ -28,6 +31,7 @@ airlinesystem\servlets\OrderServlet.class
 airlinesystem\dao\PassengerAppService.class
 airlinesystem\servlets\SearchRouteServlet.class
 airlinesystem\constants\Constants.class
+airlinesystem\dao\CheckInDAOImpl.class
 airlinesystem\dao\RouteDAO.class
 airlinesystem\exception\WrongUsernameException.class
 airlinesystem\dao\OrderDAOImpl.class
@@ -47,6 +51,7 @@ airlinesystem\entity\Order.class
 airlinesystem\dao\UserAppService.class
 airlinesystem\dao\PassengerDAOImpl.class
 airlinesystem\dao\AirportDAO.class
+airlinesystem\dao\CheckInDAO.class
 airlinesystem\dao\RouteDAOImpl.class
 airlinesystem\business\RouteBusiness.class
 airlinesystem\dao\OrderDAO.class

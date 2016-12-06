@@ -1,6 +1,5 @@
 package airlinesystem.entity;
 
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -11,10 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*
-Classe flight é o vôo que o passageiro compra e está em seu ticket
+Classe flight é a instancia de um passageiro em uma rota
 */
 @Entity
 @Table(name="flight")
@@ -48,8 +48,12 @@ public class Flight implements Serializable
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="order_id")
 	private Order order;
-    
-    public Flight()
+	
+	@OneToOne
+	@JoinColumn(name="checkin_id")
+	private CheckIn checkin;
+
+	public Flight()
     {
     }
     
@@ -105,5 +109,13 @@ public class Flight implements Serializable
 
 	public void setSeat(Seat seat) {
 		this.seat = seat;
+	}
+	
+	public CheckIn getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(CheckIn checkin) {
+		this.checkin = checkin;
 	}
 }

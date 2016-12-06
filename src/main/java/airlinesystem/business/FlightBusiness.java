@@ -44,4 +44,10 @@ public class FlightBusiness {
 	    return flightAppService.retrieveFlights(user);
 	}
 	
+	public Flight retrieveFlight(long id) throws ObjetoNaoEncontradoException {
+		
+	    flightAppService = FlightAppService.getInstance();
+	    
+	    return flightAppService.retrieveFlight(id);
+	}
 }

@@ -54,4 +54,14 @@
     <servlet-name>UserReservationsServlet</servlet-name>
     <url-pattern>/UserReservationsServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckinServlet</display-name>
+    <servlet-name>CheckinServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.CheckinServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckinServlet</servlet-name>
+    <url-pattern>/CheckinServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

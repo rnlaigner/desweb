@@ -3,7 +3,6 @@ package airlinesystem.servlets;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,35 +54,24 @@ public class UserReservationsServlet extends HttpServlet {
 		flightBusiness = FlightBusiness.getInstance();
 		
 		UserAppService userService = UserAppService.getInstance();
-	     User user = null;	 
-	     try {
+	    User user = null;	 
+	    try {
 			user = userService.retrieveUser(userEmail);
-		 } catch (ObjetoNaoEncontradoException e) {
+		} catch (ObjetoNaoEncontradoException e) {
 			e.printStackTrace();
-		 }
+		}
 		
-		 List<Flight> flights = null;
+		List<Flight> flights = null;
 		try {
 			flights = flightBusiness.retrieveFlights(user);
 		} catch (ObjetoNaoEncontradoException e) {
 			e.printStackTrace();
 		}
 	     
-	     session.setAttribute("flights",flights);
+	    session.setAttribute("flights",flights);
 	     
-	     response.sendRedirect("http://localhost:8080/web/reservations.jsp");
+	    response.sendRedirect("http://localhost:8080/web/reservations.jsp");
 	     
-//	     RequestDispatcher rd = request.getRequestDispatcher("/reservations.jsp");      
-//			
-//	        try 
-//	        {
-//				rd.forward(request, response);
-//			} 
-//	        catch (ServletException e) 
-//	        {
-//				//Pagina de erro
-//				e.printStackTrace();
-//			}
 	}
 
 }

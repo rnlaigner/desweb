@@ -257,12 +257,6 @@ int range = maximum - minimum + 1;
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
-	                <!--
-	                 <div class="panel-info food">
-	                    <p><strong>Refeição</strong></p>
-	                    <p>Não</p>
-	                </div>
-					-->
 					<div class="panel-info tax">
 	                    <p><strong>Taxa de Embarque</strong></p>
 	                    <p><%= route.getOrigin().getFee() %></p>
@@ -370,12 +364,6 @@ int range = maximum - minimum + 1;
 	                	<p><%= route.getAirplane().getModel() %></p>
 	                </div>
 	                
-	                 <!--
-	                 <div class="panel-info food">
-	                    <p><strong>Refeição</strong></p>
-	                    <p>Não</p>
-	                </div>
-					-->
 					<div class="panel-info tax">
 	                    <p><strong>Taxa de Embarque</strong></p>
 	                    <p><%= route.getOrigin().getFee() %></p>
@@ -612,7 +600,7 @@ int range = maximum - minimum + 1;
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
-	<script src="ui/assets/js/order.js?1025"></script>
+	<script src="ui/assets/js/order.js?1026"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

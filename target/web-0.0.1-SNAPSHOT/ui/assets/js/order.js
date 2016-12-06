@@ -1,5 +1,5 @@
 /*------------------------------------------
- Search Route - Not used
+ Order
  ------------------------------------------*/
 
 $(document).ready(function () {
@@ -233,6 +233,8 @@ $(document).ready(function () {
     	
     	var name = 'returnTotal';
     	w.elementName = name;
+    	
+    	w.changeSeat = false;
     });
     
     $(document).on('click', '#outboundSeatsPopUp', function(event){
@@ -251,6 +253,8 @@ $(document).ready(function () {
     	
     	var name = 'outboundTotal';
     	w.elementName = name;
+    	
+    	w.changeSeat = false;
     });
     
     function setClassAndRoutePrice(firstClassFactor,executiveClassFactor,economyClassFactor,price,window)

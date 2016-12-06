@@ -5,15 +5,14 @@
  */
 package airlinesystem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,15 +22,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="checkin")
-public class CheckIn 
+public class CheckIn implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6130423024450563065L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique=true, nullable = false)
 	private Long id;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="flight_id")
+	@OneToOne(mappedBy="checkin")  
     private Flight flight;
     
 	@Column(nullable = false)
@@ -41,10 +44,10 @@ public class CheckIn
     {
     }
     
-    public CheckIn(Flight flight)
+    public CheckIn(Flight flight, Date date)
     {
         this.flight = flight;
-        this.date = new Date();
+        this.date = date;
     }
 
     public Flight getFlight() {
@@ -62,5 +65,10 @@ public class CheckIn
     public void setDate(Date date) {
         this.date = date;
     }
+
+	public long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
     
 }

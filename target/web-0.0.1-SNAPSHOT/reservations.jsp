@@ -3,7 +3,9 @@
 <%@ page import = "java.util.List"%>
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.Order" %>
+<%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.entity.Flight" %>
+<%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
@@ -12,14 +14,8 @@ String email = (String) session.getAttribute("email");
 @SuppressWarnings("unchecked")
 List<Order> orders = (List<Order>) session.getAttribute("orders");
 
-//se nao estiver na sessao, deve ser buscado no banco
-List<Flight> flights = new ArrayList<Flight>();
-if(orders!=null){
-	for(Order order : orders){
-		flights.addAll(order.getFlights());
-	}
-}
-
+@SuppressWarnings("unchecked")
+List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 %>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
@@ -133,12 +129,33 @@ if(orders!=null){
 		</nav>
 	</section> <!-- /#header -->
 	
+	<!-- Section Background -->
+	<section class="section-background">
+		<div class="container">
+			<h2 class="page-header" id="reservationsHeader" style="display:block;">
+				Suas reservas
+			</h2>
+			<h2 class="page-header" id="originCity" style="display:none;">
+				Something else
+			</h2>
+			<ol class="breadcrumb">
+				<li><a href="home.jsp">Início</a></li>
+				<li class="active" style="display:inline;"><a href="reservations.jsp">Reservas</a></li>
+				
+			</ol>
+		</div> <!-- /.container -->
+	</section> <!-- /.section-background -->
+	
+	<br>
+	
 	<!-- TODO exibir compras do usuario 
-	     exibir no mesmo estilo da exibicao de rotas, porem com opao de mudar assento e fazer checkin
+	     exibir no mesmo estilo da exibicao de rotas, porem com opcao de mudar assento e fazer checkin
 	-->
 	<div class="container" id="user_flights" style="display:block;">
     <ul class="list-group">
-    <%  for(Flight flight : flights){%>
+    <%  for(Flight flight : flights){
+    	Route route = flight.getRoute();
+    %>
     	<li flight_id="<%=flight.getId()%>" id="<%=flight.getId()%>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
@@ -175,69 +192,45 @@ if(orders!=null){
 	                    <p><%=flight.getRoute().getLandingTime() %></p>
 	                </div>
 	                
-	                <div class="panel-info seatsPopUp" style="display:none;">
-				   	 <a href='#' id='outboundSeatsPopUp' title='Pop Up'>Mudar assento</a>
+	                 <div class="panel-info">
+	                    <p><strong>Assento</strong></p>
+	                    <p class="category"><%=flight.getSeat().getCategory().getName() %></p>
+	                    <p class="seat"><%=flight.getSeat().getAirplaneSeat() %></p>
+	                </div>
+	                
+	                <div class="panel-info seatsPopUp">
+				   	 <a href='#' flight_id='<%=flight.getId()%>' title='Pop Up'>Mudar assento</a>
 				    </div>
 	                
 	                <!-- check para verificar se ja foi feito o checkin -->
-	                <div class="btn btn-default border-radius custom-button outbound" 
-	                  flight_id="<%= flight.getId() %>"
-	                 style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+	                <%if (flight.getCheckin() == null) {%>
+	                
+	                <div class="btn btn-default border-radius custom-button checkin" 
+	                  flight_id="<%=flight.getId()%>"
+	                  style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 						Checkin
 				    </div>
-				   
-				    
-				   
+				    <%} else {	%>
+				    <div class="btn btn-default border-radius custom-button boardingPass" 
+	                  flight_id="<%=flight.getId()%>"
+	                  style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+						Cartão de Embarque
+				    </div>
+				    <%} %>
 	            </div>
 	         </div>
+	         
+	         <div class="panel-info price" price=<%= route.getPrice()%> style="display:none; visibility: hidden;"></div>
 	     </li>
 <%		 }	%>
 	</ul>
 	</div>
 	
-	
-	<!-- Section Background -->
-	<section class="section-background">
-		<div class="container">
-			<h2 class="page-header" id="destinyCity" style="display:block;">
-				Something
-			</h2>
-			<h2 class="page-header" id="originCity" style="display:none;">
-				Something else
-			</h2>
-			<h2 class="page-header" id="seat" style="display:none;">
-				Selecione seu(s) assento(s)
-			</h2>
-			<h2 class="page-header" id="passagerData" style="display:none;">
-				Informe os dados do(s) passageiro(s)
-			</h2>
-			<h2 class="page-header" id="paymentData" style="display:none;">
-				Informe os dados do(s) passageiro(s)
-			</h2>
-			<ol class="breadcrumb">
-				<li><a href="home.jsp">Início</a></li>
-				<li><a href="flights.jsp">Vôos</a></li>
-				<li class="active" style="display:inline;" id="breadcrumbOutbound">&nbsp;Ida</li>
-				<li style="display:none;" id="breadcrumbReturn">&nbsp;Volta</li>
-				<li style="display:none;" id="breadcrumbResume">&nbsp;Selecão de Assento</li>
-				<li style="display:none;" id="breadcrumbPassenger">&nbsp;Dados do Passageiro</li>
-				<li style="display:none;" id="breadcrumbPayment">&nbsp;Pagamento</li>
-			</ol>
-		</div> <!-- /.container -->
-	</section> <!-- /.section-background -->
-	
-	<br>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
+	<div class="info" style="display:none; visibility: hidden;">
+		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
+		<div id="executiveClassFactor"><%=SeatCategory.EXECUTIVE.getFactor()%></div>
+		<div id="economyClassFactor"><%=SeatCategory.ECONOMY.getFactor()%></div>
+	</div>
 
 	<div class="section-wrapper sponsor">
 		<div class="container">
@@ -388,6 +381,7 @@ if(orders!=null){
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
+	<script src="ui/assets/js/reservation.js?1001"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>

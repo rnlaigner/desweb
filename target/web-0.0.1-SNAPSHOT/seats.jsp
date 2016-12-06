@@ -158,14 +158,25 @@
 	<script src="ui/assets/js/jquery.seat-charts.js"></script> 
 	<script>
 			var firstSeatLabel = 1;
-
+			
+			var maxSeats;
 			var firstClassPrice = this.firstClassFactor * this.price;
 			var executiveClassPrice = this.price * this.executiveClassFactor;
 			var economyClassPrice = this.price * this.economyClassFactor;
-			
-			var maxSeats = +this.adults + +this.children + +this.babies;
-			
 			var numberSelectedSeats = 0;
+			//for change of seat
+			var category;
+			var seat;
+			
+			if(this.changeSeat == false){
+				maxSeats = +this.adults + +this.children + +this.babies;
+			}
+			else
+			{
+				category = this.category;
+				seat = this.seat;
+				maxSeats = 1;
+			}
 		
 			$(document).ready(function() {
 				var $cart = $('#selected-seats'),
@@ -276,25 +287,33 @@
 				});
 
 				$('.checkout-button').on('click', function () {
-
+					
 					if(maxSeats != 0 && numberSelectedSeats < maxSeats){
 						alert("Ainda há assentos a serem escolhidos");
 						return;
 					}
-					var value = $('#total').html();
-					
-					opener.document.getElementsByName(elementName).value = value;
+					if(this.changeSeat == false){
+						
+						var value = $('#total').html();
+						
+						opener.document.getElementsByName(elementName).value = value;
+	
+						//var size = $('.selectedSeat').length;
+	
+						var array = new Array();
+	
+						$('.selectedSeat').each(function() {
+						    array.push($(this).attr('seatNumber'));
+						});
+	
+						opener.updateTotal(elementName,array,numberSelectedSeats);
+					}
+					else
+					{
+						var value = $('#total').html();
 
-					var size = $('.selectedSeat').length;
-
-					var array = new Array();
-
-					$('.selectedSeat').each(function() {
-					    array.push($(this).attr('seatNumber'));
-					});
-
-					opener.updateTotal(elementName,array,numberSelectedSeats);
-					
+						var selectedSeat = $('.selectedSeat').attr('seatNumber');
+					}
 					self.close();
 				});
 
