@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,10 +33,10 @@ public class CheckIn implements Serializable
     @Column(name = "id",unique=true, nullable = false)
 	private Long id;
 	
-	@OneToOne(mappedBy="checkin")  
+	//@OneToOne(mappedBy="checkin")
     private Flight flight;
     
-	@Column(nullable = false)
+	@Column(nullable = true)
     private Date date;
     
     public CheckIn()
@@ -48,6 +47,11 @@ public class CheckIn implements Serializable
     {
         this.flight = flight;
         this.date = date;
+    }
+    
+    public CheckIn(Flight flight)
+    {
+        this.flight = flight;
     }
 
     public Flight getFlight() {

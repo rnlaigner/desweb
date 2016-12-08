@@ -1,6 +1,7 @@
 package airlinesystem.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 import airlinesystem.entity.CheckIn;
 import airlinesystem.exception.InfraestruturaException;
@@ -40,5 +41,24 @@ public class CheckInDAOImpl implements CheckInDAO
 		catch(RuntimeException e)
 		{	throw new InfraestruturaException(e);
 		}
+	}
+
+	@Override
+	public void edit(CheckIn checkin) throws ObjetoNaoEncontradoException {
+		try
+		{	EntityManager em = JPAUtil.getEntityManager();
+
+			CheckIn aCheckIn = em.find(CheckIn.class, checkin.getId(), LockModeType.PESSIMISTIC_WRITE);
+			
+			if(aCheckIn == null)
+			{	throw new ObjetoNaoEncontradoException("Flight não existe");
+			}
+		
+			em.merge(checkin);
+		}
+		catch(RuntimeException e)
+		{	throw new InfraestruturaException(e);
+		}
+	
 	}
 }

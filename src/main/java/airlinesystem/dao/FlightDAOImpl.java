@@ -38,7 +38,7 @@ public class FlightDAOImpl implements FlightDAO
 			{	throw new ObjetoNaoEncontradoException("Flight não existe");
 			}
 		
-			em.merge(aFlight);
+			em.merge(flight);
 		}
 		catch(RuntimeException e)
 		{	throw new InfraestruturaException(e);

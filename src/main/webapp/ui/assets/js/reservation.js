@@ -55,6 +55,26 @@ $(document).ready(function () {
             }
         });
 	});
+	
+	$(".boardingPass").on('click', function(e){
+    	e.preventDefault();
+    	debugger;
+    	var flight_id = $(this).attr('flight_id');  
+    	$.ajax({
+        	type: "POST",
+            url : "BoardingPassServlet",
+            data : {
+            	flight_id : flight_id
+            },
+            success : function(results){
+                if(results != null && results != ""){
+                	window.location.href = "http://localhost:8080/web/boardingPass.jsp";
+                }else{
+                    alert("Erro no checkin");
+                }
+            }
+        });
+	});
     
     function deselect(e) {
     	 $('.pop').slideFadeToggle(function() {

@@ -8,4 +8,6 @@ public interface CheckInDAO
 	public CheckIn find(long id) throws ObjetoNaoEncontradoException;
 	
 	public long add(CheckIn checkin);
+	
+	public void edit(CheckIn checkin) throws ObjetoNaoEncontradoException;
 }

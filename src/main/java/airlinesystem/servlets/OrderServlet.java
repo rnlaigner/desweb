@@ -15,6 +15,7 @@ import airlinesystem.business.PassengerBusiness;
 import airlinesystem.business.RouteBusiness;
 import airlinesystem.dao.SeatAppService;
 import airlinesystem.dao.UserAppService;
+//import airlinesystem.entity.CheckIn;
 import airlinesystem.entity.Flight;
 import airlinesystem.entity.Order;
 import airlinesystem.entity.Passenger;
@@ -152,6 +153,11 @@ public class OrderServlet extends HttpServlet {
 		     //Cria seus vôos
 		     Flight outboundFlight = new Flight(outboundRoute,outboundRoute.getId(),outboundSeat,passenger,order);
 		     Flight returnFlight = new Flight(returnRoute,returnRoute.getId(),returnSeat,passenger,order);
+		     
+//		     CheckIn checkinOutbound = new CheckIn(outboundFlight);
+//		     outboundFlight.setCheckin(checkinOutbound);
+//		     CheckIn checkinReturn = new CheckIn(returnFlight);
+//		     returnFlight.setCheckin(checkinReturn);
 		     
 		     //persiste flight
 		     flightBusiness.save(outboundFlight);

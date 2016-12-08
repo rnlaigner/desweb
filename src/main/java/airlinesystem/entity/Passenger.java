@@ -54,6 +54,7 @@ public class Passenger implements Serializable
 	@Column(nullable = true)
     private String telephone;
 	
+	//Fisicamente
 	@Column(nullable = true)
     private Boolean disabled;
 	

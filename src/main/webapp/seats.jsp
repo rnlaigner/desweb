@@ -167,8 +167,10 @@
 			//for change of seat
 			var category;
 			var seat;
+			debugger;
+			var isSeatChange = this.changeSeat;
 			
-			if(this.changeSeat == false){
+			if(isSeatChange == false){
 				maxSeats = +this.adults + +this.children + +this.babies;
 			}
 			else
@@ -229,7 +231,6 @@
 					    ]					
 					},
 					click: function () {
-						debugger;
 						if (this.status() == 'available') {
 
 							if(maxSeats != 0 && numberSelectedSeats == maxSeats)
@@ -287,12 +288,12 @@
 				});
 
 				$('.checkout-button').on('click', function () {
-					
+					debugger;
 					if(maxSeats != 0 && numberSelectedSeats < maxSeats){
 						alert("Ainda há assentos a serem escolhidos");
 						return;
 					}
-					if(this.changeSeat == false){
+					if(isSeatChange == false){
 						
 						var value = $('#total').html();
 						

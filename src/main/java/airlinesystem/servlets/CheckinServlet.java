@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import airlinesystem.business.CheckInBusiness;
 import airlinesystem.business.FlightBusiness;
-import airlinesystem.entity.CheckIn;
 import airlinesystem.entity.Flight;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
@@ -22,7 +20,7 @@ public class CheckinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private FlightBusiness flightBusiness;
-	private CheckInBusiness checkInBusiness;
+	//private CheckInBusiness checkInBusiness;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,25 +53,28 @@ public class CheckinServlet extends HttpServlet {
 		String message;
 		
 		flightBusiness = FlightBusiness.getInstance();
+		//checkInBusiness = CheckInBusiness.getInstance();
 		
 		long flightId = Long.valueOf(flight_id);
 		
 		Flight flight = null;
-		CheckIn checkin = null;
+		//CheckIn checkin = null;
 		try {
 			flight = flightBusiness.retrieveFlight(flightId);
 		
-			//session.setAttribute("flights",flight);
-			checkin = new CheckIn(flight,new Date());
+			//checkin = checkInBusiness.find(flightId);
 			
-			flight.setCheckin(checkin);
+			//checkin.setDate(new Date());
 			
-			//TODO not working
+			//flight.getCheckin().setDate(new Date());
+			
+			flight.setCheckinDate(new Date());
+			
 			flightBusiness.update(flight);
 			
-			checkInBusiness.save(checkin);
+			//checkInBusiness.edit(checkin);
 			
-			session.setAttribute("checkin",checkin);
+			//session.setAttribute("checkin",checkin);
 			session.setAttribute("flight",flight);
 			
 			message = "SUCCESS";

@@ -140,7 +140,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
-				<li class="active" style="display:inline;"><a href="reservations.jsp">Reservas</a></li>
+				<li class="active" style="display:inline;">&nbsp;Reservas</li>
 				
 			</ol>
 		</div> <!-- /.container -->
@@ -194,7 +194,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	                
 	                 <div class="panel-info">
 	                    <p><strong>Assento</strong></p>
-	                    <p class="category"><%=flight.getSeat().getCategory().getName() %></p>
+	                    <p class="category"><%=flight.getSeat().getCategory().getValue() %></p>
 	                    <p class="seat"><%=flight.getSeat().getAirplaneSeat() %></p>
 	                </div>
 	                
@@ -203,7 +203,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 				    </div>
 	                
 	                <!-- check para verificar se ja foi feito o checkin -->
-	                <%if (flight.getCheckin() == null) {%>
+	                <%if (flight.getCheckinDate() == null) {%>
 	                
 	                <div class="btn btn-default border-radius custom-button checkin" 
 	                  flight_id="<%=flight.getId()%>"
@@ -214,7 +214,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 				    <div class="btn btn-default border-radius custom-button boardingPass" 
 	                  flight_id="<%=flight.getId()%>"
 	                  style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
-						Cartão de Embarque
+						Cartão
 				    </div>
 				    <%} %>
 	            </div>
@@ -381,7 +381,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1001"></script>
+	<script src="ui/assets/js/reservation.js?1002"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>

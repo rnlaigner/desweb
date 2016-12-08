@@ -33,4 +33,11 @@ public class CheckInBusiness {
 	    
 	    return checkInAppService.find(id);
 	}
+	
+	public void edit(CheckIn checkin) throws ObjetoNaoEncontradoException {
+		
+	    checkInAppService = CheckInAppService.getInstance();
+	    
+	    checkInAppService.edit(checkin);
+	}
 }

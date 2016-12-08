@@ -70,4 +70,32 @@ public class CheckInAppService
 		}
 	}
 	
+	public void edit(CheckIn checkin) throws ObjetoNaoEncontradoException
+	{	try
+		{	JPAUtil.beginTransaction();
+
+			checkInDAO.edit(checkin);
+
+			JPAUtil.commitTransaction();
+		} 
+		catch(ObjetoNaoEncontradoException e)
+		{	
+			JPAUtil.rollbackTransaction();
+
+			throw new ObjetoNaoEncontradoException("Checkin não encontrado");
+		}
+		catch(InfraestruturaException e)
+		{	try
+			{	JPAUtil.rollbackTransaction();
+			}
+			catch(InfraestruturaException ie)
+			{				
+			}
+
+		    throw e;
+		}
+		finally
+		{   JPAUtil.closeEntityManager();
+		}
+	}
 }

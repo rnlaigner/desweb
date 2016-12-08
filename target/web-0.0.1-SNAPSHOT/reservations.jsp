@@ -203,7 +203,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 				    </div>
 	                
 	                <!-- check para verificar se ja foi feito o checkin -->
-	                <%if (flight.getCheckin() == null) {%>
+	                <%if (flight.getCheckinDate() == null) {%>
 	                
 	                <div class="btn btn-default border-radius custom-button checkin" 
 	                  flight_id="<%=flight.getId()%>"

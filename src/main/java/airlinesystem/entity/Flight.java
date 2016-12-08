@@ -1,6 +1,7 @@
 package airlinesystem.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*
@@ -49,9 +49,13 @@ public class Flight implements Serializable
 	@JoinColumn(name="order_id")
 	private Order order;
 	
-	@OneToOne
-	@JoinColumn(name="checkin_id")
-	private CheckIn checkin;
+	//@OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
+    // @JoinColumn(name="checkin_id", nullable=false)
+    //@PrimaryKeyJoinColumn
+	//private CheckIn checkin;
+	
+	@Column(nullable = true)
+	private Date checkinDate;
 
 	public Flight()
     {
@@ -111,11 +115,19 @@ public class Flight implements Serializable
 		this.seat = seat;
 	}
 	
-	public CheckIn getCheckin() {
-		return checkin;
+//	public CheckIn getCheckin() {
+//		return checkin;
+//	}
+//
+//	public void setCheckin(CheckIn checkin) {
+//		this.checkin = checkin;
+//	}
+	
+	public Date getCheckinDate() {
+		return checkinDate;
 	}
 
-	public void setCheckin(CheckIn checkin) {
-		this.checkin = checkin;
+	public void setCheckinDate(Date checkin_date) {
+		this.checkinDate = checkin_date;
 	}
 }
