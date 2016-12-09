@@ -6,24 +6,18 @@ $(document).ready(function () {
 	
 	//TODO debugar
 	$(document).on('click', '.seatsPopUp', function(event){
+		debugger;
+		var flight_id = $('.seatsPopUp a').attr('flight_id');
 		
-		var flight_id = $(this).attr('flight_id');
-		
-		var elementPrice = '#' + flight_id + ' ' + '.price';
-		
-		var price = $(elementPrice).attr('price');
+		var price = $('.seatsPopUp p').attr('price');
 		
 		var firstClassFactor = $('#firstClassFactor').text();
 		var executiveClassFactor = $('#executiveClassFactor').text();
 		var economyClassFactor = $('#economyClassFactor').text();
 		
-		var elementCategory = flight_id + '.category';
+		var category = $('.category').attr("flight_id",flight_id).text();
 		
-		var category = $(elementCategory).text();
-		
-		var elementSeat = flight_id + '.seat';
-		
-		var seat = $(elementSeat).text();
+		var seat = $('.seat').attr("flight_id",flight_id).text();
 		
     	var w = window.open("http://localhost:8080/web/seats.jsp", "_blank", "scrollbars=1,resizable=1,height=520,width=600");
     	
@@ -78,7 +72,8 @@ $(document).ready(function () {
 	$(".updatePassenger").on('click', function(e){
     	e.preventDefault();
     	var passenger_id = $(this).attr('passenger_id'); 
-    	var telephone = $('.updatePassengerForm #telephone').val();
+    	var flight_id = $(this).attr('flight_id'); 
+    	var telephone = $('#telephone').attr('flight_id',flight_id).val();
     	$.ajax({
         	type: "POST",
             url : "UpdatePassengerServlet",
@@ -95,7 +90,7 @@ $(document).ready(function () {
             }
         });
 	});
-    
+	
     function deselect(e) {
     	 $('.pop').slideFadeToggle(function() {
     	   e.removeClass('selected');

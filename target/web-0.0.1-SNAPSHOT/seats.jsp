@@ -314,6 +314,8 @@
 						var value = $('#total').html();
 
 						var selectedSeat = $('.selectedSeat').attr('seatNumber');
+
+						opener.updateSeat(selectedSeat,value);
 					}
 					self.close();
 				});

@@ -11,8 +11,8 @@
 <% 
 String email = (String) session.getAttribute("email");
 
-@SuppressWarnings("unchecked")
-List<Order> orders = (List<Order>) session.getAttribute("orders");
+// @SuppressWarnings("unchecked")
+// List<Order> orders = (List<Order>) session.getAttribute("orders");
 
 @SuppressWarnings("unchecked")
 List<Flight> flights = (List<Flight>) session.getAttribute("flights");
@@ -194,17 +194,17 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	                
 	                 <div class="panel-info">
 	                    <p><strong>Assento</strong></p>
-	                    <p class="category"><%=flight.getSeat().getCategory().getValue() %></p>
-	                    <p class="seat"><%=flight.getSeat().getAirplaneSeat() %></p>
+	                    <p class="category" flight_id='<%=flight.getId()%>'><%=flight.getSeat().getCategory().getValue() %></p>
+	                    <p class="seat" flight_id='<%=flight.getId()%>'><%=flight.getSeat().getAirplaneSeat() %></p>
 	                </div>
 	                
 	                <div class="panel-info seatsPopUp">
 				   	 <a href='#' flight_id='<%=flight.getId()%>' title='Pop Up'>Mudar assento</a>
+				   	 <p style="display:none; visibility: hidden;" flight_id='<%=flight.getId()%>' price=<%= route.getPrice()%>> </p>
 				    </div>
 	                
 	                <!-- check para verificar se ja foi feito o checkin -->
 	                <%if (flight.getCheckinDate() == null) {%>
-	                
 	                <div class="btn btn-default border-radius custom-button checkin" 
 	                  flight_id="<%=flight.getId()%>"
 	                  style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
@@ -219,34 +219,29 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 				    <%} %>
 	            </div>
 	         </div>
-	         
-	         <div class="panel-info price" price=<%= route.getPrice()%> style="display:none; visibility: hidden;"></div>
 	     </li>
-
-	</ul>
-	
-	<%if (flight.getPassenger().getTelephone() == null){ %>
-		 <h2>Atualize o telefone do passageiro por favor</h2>
-	     <ul class="list-group updatePassengerForm">
-			<li>
-				<p class="col-form-label"></p>
-				<div class="form-group row">
-				  <label for="example-text-input" class="col-xs-2 col-form-label">Telefone</label>
-				  <div class="col-xs-8">
-				    <input class="form-control name" type="text" value="" id="telephone">
-				  </div>
-				</div>
-			</li>
-		</ul>
-		
-		<div class="btn btn-default border-radius custom-button updatePassenger" passenger_id="<%=flight.getPassenger().getId()%>"
-	         style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
-			 Atualizar
-		</div>
+	     
+	     <%if (flight.getPassenger().getTelephone() == null){ %>
+		 <li>
+			<p class="col-form-label"></p>
+			<div class="form-group row">
+			  <label for="example-text-input" class="col-xs-2 col-form-label">Telefone</label>
+			  <div class="col-xs-8">
+			    <input class="form-control name" type="text" value="" flight_id="<%=flight.getId()%>" id="telephone">
+			  </div>
+			</div>
+			
+			<div class="btn btn-default border-radius custom-button updatePassenger" 
+				passenger_id="<%=flight.getPassenger().getId()%>"
+				flight_id="<%=flight.getId()%>"
+	         	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+			 	Atualizar
+			</div>
+		 </li>
+		<%}%>
+	     
 	<%}%>
-	
-	
-<%}%>	
+	</ul>
 	</div>
 	
 	<div class="info" style="display:none; visibility: hidden;">
@@ -404,10 +399,33 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1004"></script>
+	<script src="ui/assets/js/reservation.js?1010"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
+	
+	<script type="text/javascript">
+	function updateSeat(selectedSeat,value){
+		debugger;
+		if(selectedSeat != null && value != null){
+			$.ajax({
+	        	type: "POST",
+	            url : "UpdateSeatServlet",
+	            data : {
+	            	selectedSeat : selectedSeat,
+	            	value : value
+	            },
+	            success : function(results){
+	                if(results != null && results != ""){
+	                	window.location.href = "http://localhost:8080/web/reservations.jsp";
+	                }else{
+	                    alert("Erro no checkin");
+	                }
+	            }
+	        });
+		}
+	}
+	</script>
 	
 </body>
 </html>
