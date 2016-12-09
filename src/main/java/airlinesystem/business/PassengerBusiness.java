@@ -34,4 +34,10 @@ public class PassengerBusiness {
 	    passengerAppService.edit(passenger);
 	}
 	
+	public Passenger find(long id) throws ObjetoNaoEncontradoException{
+		
+		passengerAppService = PassengerAppService.getInstance();
+	    
+	    return passengerAppService.find(id);
+	}
 }

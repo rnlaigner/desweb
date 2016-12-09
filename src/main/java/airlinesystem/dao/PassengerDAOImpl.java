@@ -35,7 +35,7 @@ public class PassengerDAOImpl implements PassengerDAO
 			{	throw new ObjetoNaoEncontradoException("Flight não existe");
 			}
 		
-			em.merge(aPassenger);
+			em.merge(passenger);
 		}
 		catch(RuntimeException e)
 		{	throw new InfraestruturaException(e);
@@ -44,7 +44,7 @@ public class PassengerDAOImpl implements PassengerDAO
 	}
 
 	@Override
-	public Passenger retrievePassenger(long id) throws ObjetoNaoEncontradoException {
+	public Passenger find(long id) throws ObjetoNaoEncontradoException {
 		try
 		{	EntityManager em = JPAUtil.getEntityManager();
 

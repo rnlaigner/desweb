@@ -64,4 +64,28 @@
     <servlet-name>CheckinServlet</servlet-name>
     <url-pattern>/CheckinServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>BoardingPassServlet</display-name>
+    <servlet-name>BoardingPassServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.BoardingPassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardingPassServlet</servlet-name>
+    <url-pattern>/BoardingPassServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>UpdatePassengerServlet</display-name>
+    <servlet-name>UpdatePassengerServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.UpdatePassengerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePassengerServlet</servlet-name>
+    <url-pattern>/UpdatePassengerServlet</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>

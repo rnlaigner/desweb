@@ -13,6 +13,6 @@ public interface PassengerDAO
 	public void remove(long id) 
 		throws ObjetoNaoEncontradoException; 
 	
-	public Passenger retrievePassenger(long numero) 
+	public Passenger find(long numero) 
 		throws ObjetoNaoEncontradoException;
 }

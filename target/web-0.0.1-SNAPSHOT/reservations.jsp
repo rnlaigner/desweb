@@ -140,7 +140,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
-				<li class="active" style="display:inline;"><a href="reservations.jsp">Reservas</a></li>
+				<li class="active" style="display:inline;">&nbsp;Reservas</li>
 				
 			</ol>
 		</div> <!-- /.container -->
@@ -156,7 +156,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <%  for(Flight flight : flights){
     	Route route = flight.getRoute();
     %>
-    	<li flight_id="<%=flight.getId()%>" id="<%=flight.getId()%>">
+    	<li flight_id="<%=flight.getId()%>">
 	        <div class="panel panel-default">
 	            <div class="panel-body" style="padding-bottom: 1px;">
 	            
@@ -194,7 +194,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	                
 	                 <div class="panel-info">
 	                    <p><strong>Assento</strong></p>
-	                    <p class="category"><%=flight.getSeat().getCategory().getName() %></p>
+	                    <p class="category"><%=flight.getSeat().getCategory().getValue() %></p>
 	                    <p class="seat"><%=flight.getSeat().getAirplaneSeat() %></p>
 	                </div>
 	                
@@ -214,7 +214,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 				    <div class="btn btn-default border-radius custom-button boardingPass" 
 	                  flight_id="<%=flight.getId()%>"
 	                  style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
-						Cartão de Embarque
+						Cartão
 				    </div>
 				    <%} %>
 	            </div>
@@ -222,8 +222,31 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	         
 	         <div class="panel-info price" price=<%= route.getPrice()%> style="display:none; visibility: hidden;"></div>
 	     </li>
-<%		 }	%>
+
 	</ul>
+	
+	<%if (flight.getPassenger().getTelephone() == null){ %>
+		 <h2>Atualize o telefone do passageiro por favor</h2>
+	     <ul class="list-group updatePassengerForm">
+			<li>
+				<p class="col-form-label"></p>
+				<div class="form-group row">
+				  <label for="example-text-input" class="col-xs-2 col-form-label">Telefone</label>
+				  <div class="col-xs-8">
+				    <input class="form-control name" type="text" value="" id="telephone">
+				  </div>
+				</div>
+			</li>
+		</ul>
+		
+		<div class="btn btn-default border-radius custom-button updatePassenger" passenger_id="<%=flight.getPassenger().getId()%>"
+	         style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+			 Atualizar
+		</div>
+	<%}%>
+	
+	
+<%}%>	
 	</div>
 	
 	<div class="info" style="display:none; visibility: hidden;">
@@ -381,7 +404,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1001"></script>
+	<script src="ui/assets/js/reservation.js?1004"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>

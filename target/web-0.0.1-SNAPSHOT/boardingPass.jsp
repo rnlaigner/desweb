@@ -4,12 +4,14 @@
 <%@ page import = "java.util.ArrayList"%>
 <%@ page import = "airlinesystem.entity.CheckIn" %>
 <%@ page import = "airlinesystem.entity.Flight" %>
+<%@ page import = "airlinesystem.enums.AgeCategory" %>
+<%@ page import = "airlinesystem.enums.SeatCategory" %>
 <%@ page language="java" %>
 <%@ page session="true" %>
 <% 
 String email = (String) session.getAttribute("email");
 
-CheckIn orders = (CheckIn) session.getAttribute("checkIn");
+//CheckIn orders = (CheckIn) session.getAttribute("checkIn");
 Flight flight = (Flight) session.getAttribute("flight");
 %>
 <!DOCTYPE html>
@@ -128,12 +130,12 @@ Flight flight = (Flight) session.getAttribute("flight");
 	<section class="section-background">
 		<div class="container">
 			<h2 class="page-header" id="reservationsHeader" style="display:block;">
-				Seu cartão de embarque
+				Seu cartão de embarque para <%=flight.getRoute().getDestiny().getCity()%>
 			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li style="display:inline;"><a href="reservations.jsp">Reservas</a></li>
-				<li class="active" style="display:inline;"><a href="boardingPass.jsp">&nbsp;Cartão de Embarque</a></li>
+				<li class="active" style="display:inline;">&nbsp;Cartão de Embarque</li>
 			</ol>
 		</div> <!-- /.container -->
 	</section> <!-- /.section-background -->
@@ -182,11 +184,68 @@ Flight flight = (Flight) session.getAttribute("flight");
 	                    <p><%=flight.getRoute().getLandingTime() %></p>
 	                </div>
 	                
+	                <% 
+	                String ageCategory = null;
+	                AgeCategory age = flight.getPassenger().getAgeCategory(); 
+	                if (age.equals(AgeCategory.ADULT)){
+	                	ageCategory = AgeCategory.ADULT.getValue();
+	                }
+	                else if (age.equals(AgeCategory.BABY)){
+	                	ageCategory = AgeCategory.BABY.getValue();
+	                }
+	                else if (age.equals(AgeCategory.CHILD)){
+	                	ageCategory = AgeCategory.CHILD.getValue();
+	                }
+	                %>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Categoria</strong></p>
+	                    <p><%=ageCategory%></p>
+	                </div>
+	                
+	                <% 
+	                String seatCategory = null;
+	                SeatCategory seat = flight.getSeat().getCategory(); 
+	                if (seat.equals(SeatCategory.DEAL)){
+	                	seatCategory = SeatCategory.DEAL.getValue();
+	                }
+	                else if (seat.equals(SeatCategory.ECONOMY)){
+	                	seatCategory = SeatCategory.ECONOMY.getValue();
+	                }
+	                else if (seat.equals(SeatCategory.EXECUTIVE)){
+	                	seatCategory = SeatCategory.EXECUTIVE.getValue();
+	                }
+	                else if (seat.equals(SeatCategory.FIRST_CLASS)){
+	                	seatCategory = SeatCategory.FIRST_CLASS.getValue();
+	                }
+	                %>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Classe do avião</strong></p>
+	                    <p><%=seatCategory%></p>
+	                </div>
+	                
+	                <div class="panel-info">
+	                    <p><strong>Assento</strong></p>
+	                    <p><%=flight.getSeat().getAirplaneSeat()%></p>
+	                </div>
+	                
 	            </div>
 	         </div>
 	     </li>
 	</ul>
+	
 	</div>
+	
+	<div class="btn btn-default border-radius custom-button" id="print"
+			style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+			Imprimir
+    </div>
+	
+	<div class="btn btn-default border-radius custom-button" id="back"
+			style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
+			Retornar
+    </div>
 
 	<div class="section-wrapper sponsor">
 		<div class="container">

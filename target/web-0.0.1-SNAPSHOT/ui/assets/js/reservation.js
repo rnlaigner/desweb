@@ -55,6 +55,46 @@ $(document).ready(function () {
             }
         });
 	});
+	
+	$(".boardingPass").on('click', function(e){
+    	e.preventDefault();
+    	var flight_id = $(this).attr('flight_id');  
+    	$.ajax({
+        	type: "POST",
+            url : "BoardingPassServlet",
+            data : {
+            	flight_id : flight_id
+            },
+            success : function(results){
+                if(results != null && results != ""){
+                	window.location.href = "http://localhost:8080/web/boardingPass.jsp";
+                }else{
+                    alert("Erro no checkin");
+                }
+            }
+        });
+	});
+	
+	$(".updatePassenger").on('click', function(e){
+    	e.preventDefault();
+    	var passenger_id = $(this).attr('passenger_id'); 
+    	var telephone = $('.updatePassengerForm #telephone').val();
+    	$.ajax({
+        	type: "POST",
+            url : "UpdatePassengerServlet",
+            data : {
+            	passenger_id : passenger_id,
+            	telephone : telephone
+            },
+            success : function(results){
+                if(results != null && results != ""){
+                	window.location.href = "http://localhost:8080/web/reservations.jsp";
+                }else{
+                    alert("Erro no checkin");
+                }
+            }
+        });
+	});
     
     function deselect(e) {
     	 $('.pop').slideFadeToggle(function() {

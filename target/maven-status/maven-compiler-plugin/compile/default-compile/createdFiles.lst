@@ -32,6 +32,7 @@ airlinesystem\dao\PassengerAppService.class
 airlinesystem\servlets\SearchRouteServlet.class
 airlinesystem\constants\Constants.class
 airlinesystem\dao\CheckInDAOImpl.class
+airlinesystem\servlets\UpdatePassengerServlet.class
 airlinesystem\dao\RouteDAO.class
 airlinesystem\exception\WrongUsernameException.class
 airlinesystem\dao\OrderDAOImpl.class
@@ -57,6 +58,7 @@ airlinesystem\business\RouteBusiness.class
 airlinesystem\dao\OrderDAO.class
 airlinesystem\entity\Route.class
 airlinesystem\entity\Passenger.class
+airlinesystem\servlets\BoardingPassServlet.class
 airlinesystem\dao\SeatDAOImpl.class
 airlinesystem\entity\Flight.class
 airlinesystem\utils\Util.class

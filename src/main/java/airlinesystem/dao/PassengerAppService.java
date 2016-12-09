@@ -113,11 +113,11 @@ public class PassengerAppService
 		}
 	}
 
-	public Passenger retrieveFlight(long numero) 
+	public Passenger find(long numero) 
 		throws ObjetoNaoEncontradoException
 	{	
 		try
-		{	Passenger passenger = passengerDAO.retrievePassenger(numero);
+		{	Passenger passenger = passengerDAO.find(numero);
 			
 			return passenger;
 		} 
