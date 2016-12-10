@@ -664,7 +664,7 @@ String email = (String) session.getAttribute("email");
 	
 	<!--  -->
 	<script type="text/javascript" src="ui/assets/js/menu.js?1502"></script>
-	<script src="ui/assets/js/login.js?1001"></script>
+	<script src="ui/assets/js/login.js?1002"></script>
 	
 	<!-- Date Picker -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -4,20 +4,25 @@
 
 $(document).ready(function () {
 	
-	//TODO debugar
 	$(document).on('click', '.seatsPopUp', function(event){
-		debugger;
-		var flight_id = $('.seatsPopUp a').attr('flight_id');
+		var flight_id = $(this).find('p').attr('flight_id');
 		
-		var price = $('.seatsPopUp p').attr('price');
+		//ou $(this).find('p').attr('price')
+		//ou $('.seatsPopUp p').attr("flight_id",flight_id).attr("price");
+		var price = $(this).find('p').attr('price');
 		
 		var firstClassFactor = $('#firstClassFactor').text();
 		var executiveClassFactor = $('#executiveClassFactor').text();
 		var economyClassFactor = $('#economyClassFactor').text();
 		
+		//BUG do jsp ou jquery - apesar de estar certo
+		/*
 		var category = $('.category').attr("flight_id",flight_id).text();
-		
 		var seat = $('.seat').attr("flight_id",flight_id).text();
+		*/
+		
+		var category = $(this).prev().find('p.category').text().trim();
+		var seat = $(this).prev().find('p.seat').text();
 		
     	var w = window.open("http://localhost:8080/web/seats.jsp", "_blank", "scrollbars=1,resizable=1,height=520,width=600");
     	

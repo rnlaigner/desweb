@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import airlinesystem.business.FlightBusiness;
+import airlinesystem.business.OrderBusiness;
 import airlinesystem.business.SeatBusiness;
 import airlinesystem.dao.UserAppService;
 import airlinesystem.entity.Flight;
+import airlinesystem.entity.Order;
 import airlinesystem.entity.Seat;
 import airlinesystem.entity.User;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
@@ -25,6 +27,7 @@ public class UpdateSeatServlet extends HttpServlet {
 	
 	private SeatBusiness seatBusiness;
 	private FlightBusiness flightBusiness;
+	private OrderBusiness orderBusiness;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,9 +55,13 @@ public class UpdateSeatServlet extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		HttpSession session = request.getSession();
-		String flightId = request.getParameter("flightId");
+		String flightId = request.getParameter("flight_id");
 		String selectedSeat = request.getParameter("selectedSeat");
-		String value = request.getParameter("value");
+		String oldValue = request.getParameter("oldValue");
+		String newValue = request.getParameter("newValue");
+		
+		double oldValueDouble = Double.valueOf(oldValue);
+		double newValueDouble = Double.valueOf(newValue);
 		
 		@SuppressWarnings("unchecked")
 		List<Flight> flights = (List<Flight>) session.getAttribute("flights");
@@ -63,7 +70,7 @@ public class UpdateSeatServlet extends HttpServlet {
 		String message;
 		
 		seatBusiness = SeatBusiness.getInstance();
-		
+		orderBusiness = OrderBusiness.getInstance();
 		flightBusiness = FlightBusiness.getInstance();
 		
 		//UserAppService userService = UserAppService.getInstance();
@@ -82,7 +89,14 @@ public class UpdateSeatServlet extends HttpServlet {
 			
 			flight.setSeat(seat);
 			
-			//TODO ALTERAR VALOR DO ASSENTO TAMBEM
+			//ALTERAR VALOR DO ASSENTO TAMBEM CASO NECESSARIO
+			//TODO testar
+			if(!oldValue.equals(newValue)){
+				Order order = flight.getOrder();
+				double totalPrice = order.getTotalPrice();
+				order.setTotalPrice(totalPrice + oldValueDouble - newValueDouble );
+				orderBusiness.update(order);
+			}
 				
 			flightBusiness.update(flight);
 			

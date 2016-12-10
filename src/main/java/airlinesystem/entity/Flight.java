@@ -53,7 +53,7 @@ public class Flight implements Serializable
     // @JoinColumn(name="checkin_id", nullable=false)
     //@PrimaryKeyJoinColumn
 	//private CheckIn checkin;
-	
+
 	@Column(nullable = true)
 	private Date checkinDate;
 
@@ -129,5 +129,13 @@ public class Flight implements Serializable
 
 	public void setCheckinDate(Date checkin_date) {
 		this.checkinDate = checkin_date;
+	}
+	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 }

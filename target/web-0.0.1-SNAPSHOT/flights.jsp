@@ -599,7 +599,7 @@ int range = maximum - minimum + 1;
 	<script src="ui/assets/js/script.js"></script>
 	
 	<!--  -->
-	<script src="ui/assets/js/login.js?1002"></script>
+	<script src="ui/assets/js/login.js?1003"></script>
 	<script src="ui/assets/js/order.js?1026"></script>
 	
 	<!-- Date Picker -->

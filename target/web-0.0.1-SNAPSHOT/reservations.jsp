@@ -188,13 +188,15 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	                
 	                 <div class="panel-info">
 	                    <p><strong>Assento</strong></p>
-	                    <p class="category" flight_id='<%=flight.getId()%>'><%=flight.getSeat().getCategory().getValue() %></p>
+	                    <p class="category" flight_id='<%=flight.getId()%>' aFlight_id='<%=flight.getId()%>'>
+	                    	<%=flight.getSeat().getCategory().getValue() %></p>
 	                    <p class="seat" flight_id='<%=flight.getId()%>'><%=flight.getSeat().getAirplaneSeat() %></p>
 	                </div>
 	                
 	                <div class="panel-info seatsPopUp">
 				   	 <a href='#' flight_id='<%=flight.getId()%>' title='Pop Up'>Mudar assento</a>
-				   	 <p style="display:none; visibility: hidden;" flight_id='<%=flight.getId()%>' price=<%= route.getPrice()%>> </p>
+				   	 <p style="display:none; visibility: hidden;" flight_id='<%=flight.getId()%>'
+				   	 	price=<%= route.getPrice()%>> </p>
 				    </div>
 	                
 	                <!-- check para verificar se ja foi feito o checkin -->
@@ -393,22 +395,23 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1010"></script>
+	<script src="ui/assets/js/reservation.js?1011"></script>
 	
 	<!--  -->
-	<script src="ui/assets/js/login.js?1002"></script>
+	<script src="ui/assets/js/login.js?1003"></script>
 	
 	<script type="text/javascript">
-	function updateSeat(selectedSeat,value,flightId){
+	function updateSeat(selectedSeat, oldValue, newValue, flight_id){
 		debugger;
-		if(selectedSeat != null && value != null && flightId != null){
+		if(selectedSeat != null && oldValue != null && newValue != null && flight_id != null){
 			$.ajax({
 	        	type: "POST",
 	            url : "UpdateSeatServlet",
 	            data : {
 	            	selectedSeat : selectedSeat,
-	            	value : value,
-	            	flightId : flightId
+	            	oldValue : oldValue,
+	            	newValue : newValue,
+	            	flight_id : flight_id
 	            },
 	            success : function(results){
 	                if(results != null && results != ""){

@@ -67,7 +67,8 @@ $(document).ready(function () {
             url : "LogoutServlet",
             success : function(results){
                 if(results != null && results != ""){
-                    processLogoutResult(results);
+                    //processLogoutResult(results);
+                	window.location.href = "http://localhost:8080/web/home.jsp";
                 }else{
                     $('#messageDiv').css("display","none");
                     $('#messageDiv').html("");

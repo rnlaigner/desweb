@@ -160,7 +160,7 @@
 			var firstSeatLabel = 1;
 			
 			var maxSeats;
-			var firstClassPrice = this.firstClassFactor * this.price;
+			var firstClassPrice = this.price * this.firstClassFactor;
 			var executiveClassPrice = this.price * this.executiveClassFactor;
 			var economyClassPrice = this.price * this.economyClassFactor;
 			var numberSelectedSeats = 0;
@@ -290,7 +290,6 @@
 				});
 
 				$('.checkout-button').on('click', function () {
-					debugger;
 					if(maxSeats != 0 && numberSelectedSeats < maxSeats){
 						alert("Ainda há assentos a serem escolhidos");
 						return;
@@ -313,11 +312,23 @@
 					}
 					else
 					{
-						var value = $('#total').html();
+						var newValue = $('#total').html();
 
 						var selectedSeat = $('.selectedSeat').attr('seatNumber');
 
-						opener.updateSeat(selectedSeat,value,flight_id);
+						var oldValue;
+						if (category == 'Primeira Classe')
+						{	
+							oldValue = firstClassPrice;
+						}
+						else if (category == 'Executiva'){
+							oldValue = executiveClassPrice;
+						}
+						else if(category == 'Classe Econômica'){
+							oldValue = economyClassPrice;
+						}
+
+						opener.updateSeat(selectedSeat, oldValue, newValue, flight_id);
 					}
 					self.close();
 				});
