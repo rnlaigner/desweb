@@ -87,5 +87,14 @@
     <url-pattern>/UpdatePassengerServlet</url-pattern>
   </servlet-mapping>
   
-  
+   <servlet>
+    <description></description>
+    <display-name>UpdateSeatServlet</display-name>
+    <servlet-name>UpdateSeatServlet</servlet-name>
+    <servlet-class>airlinesystem.servlets.UpdateSeatServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateSeatServlet</servlet-name>
+    <url-pattern>/UpdateSeatServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

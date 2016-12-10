@@ -29,6 +29,7 @@ $(document).ready(function () {
     	w.changeSeat = true;
     	w.seat = seat;
     	w.category = category;
+    	w.flight_id = flight_id;
     });
 	
 	$(".checkin").on('click', function(e){

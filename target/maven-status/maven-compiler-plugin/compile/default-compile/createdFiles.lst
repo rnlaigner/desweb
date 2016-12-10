@@ -23,6 +23,7 @@ airlinesystem\servlets\LogoutServlet.class
 airlinesystem\business\OrderBusiness.class
 airlinesystem\servlets\CheckinServlet.class
 airlinesystem\servlets\LoginServlet.class
+airlinesystem\business\SeatBusiness.class
 airlinesystem\exception\InfraestruturaException.class
 airlinesystem\utils\Pair.class
 airlinesystem\entity\Airplane.class
@@ -36,6 +37,7 @@ airlinesystem\servlets\UpdatePassengerServlet.class
 airlinesystem\dao\RouteDAO.class
 airlinesystem\exception\WrongUsernameException.class
 airlinesystem\dao\OrderDAOImpl.class
+airlinesystem\servlets\UpdateSeatServlet.class
 airlinesystem\business\FlightBusiness.class
 airlinesystem\dao\SeatAppService.class
 airlinesystem\entity\Seat.class

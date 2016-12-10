@@ -29,6 +29,7 @@ $(document).ready(function () {
     	w.changeSeat = true;
     	w.seat = seat;
     	w.category = category;
+    	w.flight_id = flight_id;
     });
 	
 	$(".checkin").on('click', function(e){
@@ -90,27 +91,6 @@ $(document).ready(function () {
             }
         });
 	});
-    
-	function updateSeat(selectedSeat,value){
-		debugger;
-		if(selectedSeat != null && value != null){
-			$.ajax({
-	        	type: "POST",
-	            url : "UpdateSeatServlet",
-	            data : {
-	            	selectedSeat : selectedSeat,
-	            	value : value
-	            },
-	            success : function(results){
-	                if(results != null && results != ""){
-	                	window.location.href = "http://localhost:8080/web/reservations.jsp";
-	                }else{
-	                    alert("Erro no checkin");
-	                }
-	            }
-	        });
-		}
-	}
 	
     function deselect(e) {
     	 $('.pop').slideFadeToggle(function() {

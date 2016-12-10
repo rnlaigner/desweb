@@ -38,6 +38,7 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\constants\Constants.j
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\LoginException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\FlightAppService.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\ProdutoNaoEncontradoException.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\business\SeatBusiness.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\exception\PaymentException.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\PassengerDAOImpl.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\UserDAO.java
@@ -58,6 +59,7 @@ C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\AirportDAOImpl.ja
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\PassengerDAO.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\BoardingPassServlet.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\LoginServlet.java
+C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\servlets\UpdateSeatServlet.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\dao\OrderDAO.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\entity\User.java
 C:\Users\Rodrigo\workspace\web\src\main\java\airlinesystem\utils\JPAUtil.java

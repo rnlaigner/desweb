@@ -10,4 +10,6 @@ public interface SeatDAO
 	public Seat find(long id);
 	
 	public List<Seat> findByAirplane(Airplane airplane);
+	
+	public Seat findBySeatNumber(String seatNumber);
 }

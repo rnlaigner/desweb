@@ -165,9 +165,10 @@
 			var economyClassPrice = this.price * this.economyClassFactor;
 			var numberSelectedSeats = 0;
 			//for change of seat
+			debugger;
 			var category;
 			var seat;
-			debugger;
+			var flight_id;
 			var isSeatChange = this.changeSeat;
 			
 			if(isSeatChange == false){
@@ -177,6 +178,7 @@
 			{
 				category = this.category;
 				seat = this.seat;
+				flight_id = this.flight_id;
 				maxSeats = 1;
 			}
 		
@@ -315,7 +317,7 @@
 
 						var selectedSeat = $('.selectedSeat').attr('seatNumber');
 
-						opener.updateSeat(selectedSeat,value);
+						opener.updateSeat(selectedSeat,value,flight_id);
 					}
 					self.close();
 				});

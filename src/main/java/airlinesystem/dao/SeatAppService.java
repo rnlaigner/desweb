@@ -47,4 +47,15 @@ public class SeatAppService
 		{   JPAUtil.closeEntityManager();
 		}
 	}
+	
+	public Seat findBySeatNumber(String seatNumber) 
+	{	try
+		{	Seat seat = seatDAO.findBySeatNumber(seatNumber);
+
+			return seat;
+		} 
+		finally
+		{   JPAUtil.closeEntityManager();
+		}
+	}
 }

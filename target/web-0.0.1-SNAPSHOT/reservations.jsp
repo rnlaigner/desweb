@@ -135,9 +135,6 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 			<h2 class="page-header" id="reservationsHeader" style="display:block;">
 				Suas reservas
 			</h2>
-			<h2 class="page-header" id="originCity" style="display:none;">
-				Something else
-			</h2>
 			<ol class="breadcrumb">
 				<li><a href="home.jsp">Início</a></li>
 				<li class="active" style="display:inline;">&nbsp;Reservas</li>
@@ -148,9 +145,6 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	
 	<br>
 	
-	<!-- TODO exibir compras do usuario 
-	     exibir no mesmo estilo da exibicao de rotas, porem com opcao de mudar assento e fazer checkin
-	-->
 	<div class="container" id="user_flights" style="display:block;">
     <ul class="list-group">
     <%  for(Flight flight : flights){
@@ -403,6 +397,30 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
+	
+	<script type="text/javascript">
+	function updateSeat(selectedSeat,value,flightId){
+		debugger;
+		if(selectedSeat != null && value != null && flightId != null){
+			$.ajax({
+	        	type: "POST",
+	            url : "UpdateSeatServlet",
+	            data : {
+	            	selectedSeat : selectedSeat,
+	            	value : value,
+	            	flightId : flightId
+	            },
+	            success : function(results){
+	                if(results != null && results != ""){
+	                	window.location.href = "http://localhost:8080/web/reservations.jsp";
+	                }else{
+	                    alert("Erro no checkin");
+	                }
+	            }
+	        });
+		}
+	}
+	</script>
 	
 </body>
 </html>

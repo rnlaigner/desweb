@@ -46,4 +46,22 @@ public class SeatDAOImpl implements SeatDAO
 		{	throw new InfraestruturaException(e);
 		}
 	}
+	
+	@Override
+	public Seat findBySeatNumber(String seatNumber) {
+		try
+		{	
+			EntityManager em = JPAUtil.getEntityManager();
+
+			Seat seat = (Seat) em
+				.createQuery("select s from Seat s " +
+						"where number = :number")
+				.setParameter("number", seatNumber).getSingleResult();
+
+			return seat;
+		} 
+		catch(RuntimeException e)
+		{	throw new InfraestruturaException(e);
+		}
+	}
 }
