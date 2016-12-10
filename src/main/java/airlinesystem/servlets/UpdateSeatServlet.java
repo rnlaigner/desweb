@@ -12,11 +12,9 @@ import javax.servlet.http.HttpSession;
 import airlinesystem.business.FlightBusiness;
 import airlinesystem.business.OrderBusiness;
 import airlinesystem.business.SeatBusiness;
-import airlinesystem.dao.UserAppService;
 import airlinesystem.entity.Flight;
 import airlinesystem.entity.Order;
 import airlinesystem.entity.Seat;
-import airlinesystem.entity.User;
 import airlinesystem.exception.ObjetoNaoEncontradoException;
 
 /**
@@ -90,11 +88,10 @@ public class UpdateSeatServlet extends HttpServlet {
 			flight.setSeat(seat);
 			
 			//ALTERAR VALOR DO ASSENTO TAMBEM CASO NECESSARIO
-			//TODO testar
 			if(!oldValue.equals(newValue)){
 				Order order = flight.getOrder();
 				double totalPrice = order.getTotalPrice();
-				order.setTotalPrice(totalPrice + oldValueDouble - newValueDouble );
+				order.setTotalPrice(totalPrice - oldValueDouble + newValueDouble);
 				orderBusiness.update(order);
 			}
 				

@@ -2,7 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "java.util.List"%>
 <%@ page import = "java.util.ArrayList"%>
+<%@ page import = "java.util.Set"%>
+<%@ page import = "java.util.HashSet"%>
 <%@ page import = "airlinesystem.entity.Order" %>
+<%@ page import = "airlinesystem.entity.Passenger" %>
 <%@ page import = "airlinesystem.entity.Route" %>
 <%@ page import = "airlinesystem.entity.Flight" %>
 <%@ page import = "airlinesystem.enums.SeatCategory" %>
@@ -216,29 +219,49 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	            </div>
 	         </div>
 	     </li>
-	     
-	     <%if (flight.getPassenger().getTelephone() == null){ %>
+	<%}%>
+	</ul>
+	</div>
+	
+	<%  
+	Set<Passenger> passengers = new HashSet<Passenger>();
+	for(Flight flight : flights){
+    	Passenger passenger = flight.getPassenger();
+    	passengers.add(passenger);
+	}%>
+	
+	<%  for(Passenger passenger : passengers){
+    %>
+    <div class="container" id="passengers" style="display:block;">
+    	<ul class="list-group">
+    	<%if (passenger.getTelephone() == null){ %>
 		 <li>
-			<p class="col-form-label"></p>
+		 	<h2 style="color:black;">Atualize os dados do passageiro <%=passenger.getName() %></h2>
+		 	
+		 	<div class="form-group row">
+			  <label for="example-text-input" class="col-xs-2 col-form-label">Nome completo</label>
+			  <div class="col-xs-8">
+			    <input class="form-control name" type="text" value="<%=passenger.getName() %>" id="name">
+			  </div>
+			</div>
+		 	
 			<div class="form-group row">
 			  <label for="example-text-input" class="col-xs-2 col-form-label">Telefone</label>
 			  <div class="col-xs-8">
-			    <input class="form-control name" type="text" value="" flight_id="<%=flight.getId()%>" id="telephone">
+			    <input class="form-control name" type="text" value="" id="telephone">
 			  </div>
 			</div>
 			
 			<div class="btn btn-default border-radius custom-button updatePassenger" 
-				passenger_id="<%=flight.getPassenger().getId()%>"
-				flight_id="<%=flight.getId()%>"
+				passenger_id="<%=passenger.getId()%>"
 	         	style="width: 7em; height: 2.7em; float: right; margin-right: 10px; margin-top: 27px;">
 			 	Atualizar
 			</div>
 		 </li>
 		<%}%>
-	     
-	<%}%>
-	</ul>
-	</div>
+    	</ul>
+    <%}%>
+    </div>
 	
 	<div class="info" style="display:none; visibility: hidden;">
 		<div id="firstClassFactor"><%=SeatCategory.FIRST_CLASS.getFactor()%></div>
@@ -395,14 +418,13 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1011"></script>
+	<script src="ui/assets/js/reservation.js?1012"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1003"></script>
 	
 	<script type="text/javascript">
 	function updateSeat(selectedSeat, oldValue, newValue, flight_id){
-		debugger;
 		if(selectedSeat != null && oldValue != null && newValue != null && flight_id != null){
 			$.ajax({
 	        	type: "POST",

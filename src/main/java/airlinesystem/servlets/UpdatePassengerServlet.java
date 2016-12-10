@@ -50,6 +50,7 @@ public class UpdatePassengerServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String passenger_id = request.getParameter("passenger_id");
 		String telephone = request.getParameter("telephone");
+		String name = request.getParameter("name");
 		@SuppressWarnings("unchecked")
 		List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 		String message;
@@ -62,19 +63,19 @@ public class UpdatePassengerServlet extends HttpServlet {
 		try {
 			passenger = passengerBusiness.find(passengerId);
 			
-			if( telephone != null && !telephone.equals("")){
-				passenger.setTelephone(telephone);
-				passengerBusiness.update(passenger);
+			passenger.setTelephone(telephone);
+			passenger.setName(name);
+			
+			passengerBusiness.update(passenger);
 				
-				for(Flight flight : flights){
-					if(flight.getPassenger().getId().equals(passenger.getId()))
-					{
-						flight.setPassenger(passenger);
-					}
+			for(Flight flight : flights){
+				if(flight.getPassenger().getId().equals(passenger.getId()))
+				{
+					flight.setPassenger(passenger);
 				}
-				
-				session.setAttribute("flights", flights);
 			}
+				
+			session.setAttribute("flights", flights);
 			
 			message = "SUCCESS";
 			

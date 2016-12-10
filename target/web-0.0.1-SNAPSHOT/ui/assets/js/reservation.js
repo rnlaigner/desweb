@@ -77,15 +77,24 @@ $(document).ready(function () {
 	
 	$(".updatePassenger").on('click', function(e){
     	e.preventDefault();
+    	debugger;
     	var passenger_id = $(this).attr('passenger_id'); 
-    	var flight_id = $(this).attr('flight_id'); 
-    	var telephone = $('#telephone').attr('flight_id',flight_id).val();
+    	//var flight_id = $(this).attr('flight_id'); 
+    	//var telephone = $('#telephone').attr('flight_id',flight_id).val();
+    	var name = $(this).prev().prev().find('#name').val();
+    	var telephone = $(this).prev().find('#telephone').val();
+    	
+    	if(name == "" || name == null || telephone == "" || telephone == null){
+    		alert('Favor preencher todos os campos para atualização!');
+    	}
+    	
     	$.ajax({
         	type: "POST",
             url : "UpdatePassengerServlet",
             data : {
             	passenger_id : passenger_id,
-            	telephone : telephone
+            	telephone : telephone,
+            	name : name
             },
             success : function(results){
                 if(results != null && results != ""){
