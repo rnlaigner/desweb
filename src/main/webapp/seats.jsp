@@ -171,7 +171,9 @@
 			var isSeatChange = this.changeSeat;
 			
 			if(isSeatChange == false){
-				maxSeats = +this.adults + +this.children + +this.babies;
+				//Bebes nao ocupam assento
+				//maxSeats = +this.adults + +this.children + +this.babies;
+				maxSeats = +this.adults + +this.children;
 			}
 			else
 			{

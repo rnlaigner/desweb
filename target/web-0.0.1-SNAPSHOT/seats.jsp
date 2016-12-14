@@ -165,7 +165,6 @@
 			var economyClassPrice = this.price * this.economyClassFactor;
 			var numberSelectedSeats = 0;
 			//for change of seat
-			debugger;
 			var category;
 			var seat;
 			var flight_id;

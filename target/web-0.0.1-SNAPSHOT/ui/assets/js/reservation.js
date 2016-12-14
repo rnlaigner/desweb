@@ -77,7 +77,6 @@ $(document).ready(function () {
 	
 	$(".updatePassenger").on('click', function(e){
     	e.preventDefault();
-    	debugger;
     	var passenger_id = $(this).attr('passenger_id'); 
     	//var flight_id = $(this).attr('flight_id'); 
     	//var telephone = $('#telephone').attr('flight_id',flight_id).val();

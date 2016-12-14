@@ -418,7 +418,7 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
     <script src="ui/assets/js/bootstrap.min.js"></script>
     <script src="ui/assets/js/owl.carousel.min.js"></script>
 	<script src="ui/assets/js/script.js"></script>
-	<script src="ui/assets/js/reservation.js?1012"></script>
+	<script src="ui/assets/js/reservation.js?1013"></script>
 	
 	<!--  -->
 	<script src="ui/assets/js/login.js?1003"></script>

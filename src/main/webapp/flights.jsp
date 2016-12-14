@@ -317,6 +317,7 @@ int range = maximum - minimum + 1;
 	                    <p><%= route.getDestiny().getCity()	%></p>
 	                    <p><%   @SuppressWarnings( "deprecation" )
 		                		String landingHour = String.valueOf(route.getLandingTime().getHours());
+	                    		//TODO format
 		                		@SuppressWarnings( "deprecation" )
 		                		String landingMinute = String.valueOf(route.getLandingTime().getMinutes());
 		                		sb = new StringBuilder(landingHour);

@@ -400,5 +400,12 @@ Flight flight = (Flight) session.getAttribute("flight");
 	<!--  -->
 	<script src="ui/assets/js/login.js?1002"></script>
 	
+	<script>
+	$('#back').on('click', function() {
+		window.location.href = "http://localhost:8080/web/reservations.jsp";
+	  });
+	
+	</script>
+	
 </body>
 </html>

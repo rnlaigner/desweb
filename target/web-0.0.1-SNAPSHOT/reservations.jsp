@@ -425,7 +425,6 @@ List<Flight> flights = (List<Flight>) session.getAttribute("flights");
 	
 	<script type="text/javascript">
 	function updateSeat(selectedSeat, oldValue, newValue, flight_id){
-		debugger;
 		if(selectedSeat != null && oldValue != null && newValue != null && flight_id != null){
 			$.ajax({
 	        	type: "POST",
